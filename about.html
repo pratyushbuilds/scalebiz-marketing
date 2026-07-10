@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NNRH63P5');
+  </script>
+  <!-- End GTM -->
+
+  <!-- Fonts -->
+  <!-- 🔥 Optimized font loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+
+  <!-- Preload to fonts -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap">
+
+  <!-- Preload nav image -->
+  <link rel="preload" as="image" href="assets/images/ES_logo-removebg.webp">
+
+  <!-- CRITICAL INLINE CSS (nav/header/hero only) -->
+  <style>
+    .nav-header{position:sticky;top:0;z-index:999;backdrop-filter:blur(8px);background:rgba(250,249,246,.85);border-bottom:1px solid rgba(0,0,0,.05);height:70px}.navbar{max-width:1200px;margin:0 auto;padding:.8rem clamp(16px,5vw,48px);display:flex;align-items:center;justify-content:space-between}.nav-logo img{width:20rem;display:block;transition:transform .2s;height:60px;transform:translateY(2px)}.nav-logo:hover img{transform:scale(1.04)}.nav-menu{list-style:none;display:flex;align-items:center;gap:2.2rem;margin:0;padding:0}.nav-menu a{font-size:1.07rem;color:var(--text-primary);text-decoration:none;font-weight:500;transition:color .25s}.nav-menu a:hover{color:var(--primary-blue)}.nav-cta{background:linear-gradient(135deg,#0b4dff,#35a4ff);color:#fff!important;padding:.6rem 1.2rem;border-radius:8px;font-weight:600;transition:.3s}.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(11,77,255,.25)}.nav-toggle{display:none;flex-direction:column;justify-content:space-between;width:28px;height:18px;background:0 0;border:none;cursor:pointer}.nav-toggle .bar{height:3px;width:100%;background:var(--text-primary);border-radius:2px;transition:.3s}@media (max-width:900px){.nav-toggle{display:flex}.nav-menu{position:fixed;top:0;right:0;height:100vh;width:72%;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,.08);flex-direction:column;align-items:flex-start;padding:6rem 2rem;gap:1.25rem;transform:translateX(100%);transition:transform .4s}.nav-menu.open{transform:translateX(0)}.nav-link{font-size:1.1rem;width:100%}.cta-link{display:inline-block;width:100%;text-align:center;margin-top:1.5rem}.nav-toggle.active .bar:first-child{transform:rotate(45deg) translateY(7px)}.nav-toggle.active .bar:nth-child(2){opacity:0}.nav-toggle.active .bar:nth-child(3){transform:rotate(-45deg) translateY(-7px)}}.nav-menu{transition:transform .3s,opacity .3s;will-change:transform}
+    .about-hero-section{background:var(--bg-main);padding:120px 0 100px;position:relative;overflow:hidden;min-height:60vh;display:flex;align-items:center}.hero-pattern-overlay{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(11,77,255,.03) 1px,transparent 1px),linear-gradient(rgba(11,77,255,.03) 1px,transparent 1px),radial-gradient(circle at 20% 30%,rgba(11,77,255,.08) 0,transparent 50%),radial-gradient(circle at 80% 70%,rgba(79,70,229,.08) 0,transparent 50%);background-size:60px 60px,60px 60px,100% 100%,100% 100%;pointer-events:none;opacity:.4}.about-hero-wrapper{width:100%;margin:0 auto;padding:0 var(--gutter);position:relative;z-index:1}.about-hero-content{text-align:center;margin:0 auto;opacity:0;transform:translateY(30px);animation:1s .2s forwards fadeInUp}@keyframes fadeInUp{to{opacity:1;transform:translateY(0)}}.about-hero-headline{font-family:"Playfair Display",Georgia,serif;font-weight:400;font-size:clamp(55px, 7.8vw, 80px);line-height:1.2;letter-spacing:.2px}.about-hero-subheadline{max-width:100%;margin:0 auto 40px;color:#313131;line-height:29px}.about-hero-subheadline em{color:#313131;font-style:normal;font-weight:600;position:relative}.about-hero-subheadline em::after{content:"";position:absolute;bottom:-2px;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--brand-2),var(--brand-1));opacity:.6}.about-hero-cta{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;background:linear-gradient(135deg,var(--brand-2),var(--brand-1));color:#fff;font-weight:600;font-size:1.05rem;text-decoration:none;border-radius:10px;transition:.3s;box-shadow:0 8px 24px rgba(11,77,255,.3)}.about-hero-cta:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(11,77,255,.4)}@media (max-width:768px){.about-hero-section{padding:80px 0 60px;min-height:50vh}.about-hero-wrapper{padding:0 16px}.about-hero-headline{font-size:2rem;margin-bottom:20px;line-height:1.25}.about-hero-subheadline{font-size:1.05rem;line-height:1.6;margin-bottom:32px}.about-hero-cta{padding:14px 28px;font-size:.95rem;width:100%;max-width:100%;justify-content:center}}@media (max-width:400px){.about-hero-headline{font-size:1.75rem}.about-hero-subheadline{font-size:1rem}}.about-hero-content,.about-hero-section,.about-hero-wrapper{max-width:100%;overflow-x:visible}
+  </style>
+
+  <!-- Primary Meta -->
+  <title>About Us | Edge Storefronts – Performance Marketing Agency</title>
+  <meta name="description"
+    content="Learn about Edge Storefronts, a performance marketing agency helping ambitious brands grow through data-driven Meta ad funnels, creative strategy, and optimization." />
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://edgrstorefronts.in/about" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:locale" content="en_IN" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="About Us | Edge Storefronts – Performance Marketing Agency" />
+  <meta property="og:description"
+    content="Learn about Edge Storefronts, a performance marketing agency helping ambitious brands grow through data-driven Meta ad funnels, creative strategy, and optimization." />
+  <meta property="og:url" content="https://edgrstorefronts.in/about" />
+  <meta property="og:image" content="https://edgrstorefronts.in/assets/images/opengraph-es-logo.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="Edge Storefronts – Performance Marketing Agency" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Edge Storefronts" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="About Us | Edge Storefronts – Performance Marketing Agency" />
+  <meta name="twitter:description"
+    content="Learn about Edge Storefronts, a performance marketing agency helping ambitious brands grow through data-driven Meta ad funnels, creative strategy, and optimization." />
+  <meta name="twitter:image" content="https://edgrstorefronts.in/assets/images/opengraph-es-logo.png" />
+  <meta name="twitter:image:alt" content="Edge Storefronts – Performance Marketing Agency" />
+
+  <!-- Async to fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap"></noscript>
+
+  <!-- Async Font Awesome to avoid render-blocking -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  </noscript>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/common (css)/root.css" />
+  <link rel="stylesheet" href="assets/css/common (css)/performanceOptimization.css" />
+  <link rel="stylesheet" href="assets/css/pages (css)/about.css" />
+  <!-- Async footer -->
+  <link rel="stylesheet" href="assets/css/common (css)/footer.css" media="print" onload="this.media='all'"/>
+  <!--Fallback for footer -->
+  <noscript><link rel="stylesheet" href="assets/css/common (css)/footer.css"></noscript>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" href="/assets/images/branding_image_transparent_back.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/assets/images/branding_image_transparent_back.png" />
+
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Edge Storefronts",
+    "url": "https://edgrstorefronts.in/about",
+    "description": "Learn about Edge Storefronts — a performance marketing agency helping ambitious brands grow through data-driven Meta ad funnels, creative strategy, and optimization.",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Edge Storefronts",
+      "url": "https://edgrstorefronts.in/",
+      "logo": "https://edgrstorefronts.in/assets/images/branding_image_transparent_back.png",
+      "sameAs": [
+        "https://www.linkedin.com/company/edge-storefronts/",
+        "https://www.instagram.com/edge_storefronts/"
+      ]
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNRH63P5" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <div id="page">
+
+    <header class="nav-header">
+      <nav class="navbar">
+        <!-- Brand -->
+        <a href="index.html" class="nav-logo">
+          <img src="assets/images/ES_logo-removebg.webp" alt="Edge Storefronts" fetchpriority="high" />
+        </a>
+
+        <!-- Menu Toggle (Mobile) -->
+        <button class="nav-toggle" aria-label="Toggle Menu" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+
+        <!-- Nav Links -->
+        <ul class="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="service.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="blogs.html">Blog</a></li>
+          <li><a href="contact.html" class="nav-cta">Get Audit →</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- About Page Section 1: Hero / Mission -->
+    <section class="about-hero-section">
+      <div class="about-hero-wrapper">
+
+        <!-- Hero Content -->
+        <div class="about-hero-content">
+          <h1 class="about-hero-headline">
+            We don't run ads.<br>
+            We build systems that make ads work.
+          </h1>
+
+          <p class="about-hero-subheadline">
+            Most agencies optimize campaigns. We optimize everything that happens
+            <em>before</em> and <em>after</em> the click—because ads can only
+            accelerate what's already converting.
+          </p>
+
+          <a href="/service.html" class="about-hero-cta">
+            See how we drive results →
+          </a>
+        </div>
+
+        <!-- Background Pattern (Optional Visual Element) -->
+        <div class="hero-pattern-overlay"></div>
+
+      </div>
+    </section>
+
+    <!-- About Page Section 2: Philosophy -->
+    <section class="about-philosophy-section">
+      <div class="about-philosophy-wrapper">
+
+        <!-- Header -->
+        <div class="philosophy-header">
+          <h2>Our Philosophy</h2>
+          <p class="philosophy-intro">
+            These aren't taglines—they're the rules we engineer every campaign around.
+          </p>
+        </div>
+
+        <!-- Philosophy Grid -->
+        <div class="philosophy-grid">
+
+          <!-- Belief 1 -->
+          <div class="philosophy-card">
+            <div class="philosophy-number">01</div>
+            <h3>Data before Decisions</h3>
+            <p>Every recommendation is validated before spend. No assumptions, no best practices—just what your funnel
+              data proves.</p>
+          </div>
+
+          <!-- Belief 2 -->
+          <div class="philosophy-card">
+            <div class="philosophy-number">02</div>
+            <h3>Systems over Spikes</h3>
+            <p>We build scalable funnels, not viral bursts. Sustainable growth compounds—hype doesn't.</p>
+          </div>
+
+          <!-- Belief 3 -->
+          <div class="philosophy-card">
+            <div class="philosophy-number">03</div>
+            <h3>Precision over Guesswork</h3>
+            <p>Every click, event, and conversion is measurable. If we can't track it, we don't scale it.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- About Page Section 3: Founder Story -->
+    <section class="about-founder-section">
+      <div class="about-founder-wrapper">
+
+        <!-- Split Layout -->
+        <div class="founder-grid">
+
+          <!-- Left: Image -->
+          <div class="founder-image-container">
+            <img src="assets/images/cofounder_image(2).webp" alt="Yashica Sharma, Co-Founder" class="founder-image" />
+            <div class="image-glow"></div>
+          </div>
+
+          <!-- Right: Story -->
+          <div class="founder-story">
+            <span class="founder-label">The Story</span>
+            <h2>Why Edge Storefronts Exists</h2>
+
+            <div class="story-content">
+              <p>
+                Edge Storefronts started from one frustration—watching brands burn money
+                on ads without fixing what happens after the click.
+              </p>
+
+              <p>
+                Too many agencies focus on creative and targeting, but ignore the funnel.
+                The result? Traffic that doesn't convert. Campaigns that look good on paper
+                but bleed money in reality.
+              </p>
+
+              <p>
+                We built Edge to close that gap—combining data precision with creative
+                execution. Every funnel is audited. Every campaign is validated. Every
+                decision is backed by tracking, not trends.
+              </p>
+
+              <p class="story-mission">
+                Our mission isn't to scale campaigns—it's to build systems that compound returns.
+              </p>
+            </div>
+
+            <div class="founder-signature">
+              <p class="signature-line">— Yashica Sharma</p>
+              <p class="signature-title">Co-Founder, Edge Storefronts</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- About Page Section 4: Methodology / Mental Model -->
+    <section class="about-methodology-section">
+      <div class="about-methodology-wrapper">
+
+        <!-- Header -->
+        <div class="methodology-header">
+          <h2>Our Framework for Predictable Growth</h2>
+          <p class="methodology-intro">
+            This isn't our services—it's our mental model. Every project follows this logic.
+          </p>
+        </div>
+
+        <!-- Framework Steps -->
+        <div class="methodology-flow">
+
+          <!-- Step 1 -->
+          <div class="methodology-step">
+            <div class="method-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 11l3 3L22 4"></path>
+                <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+              </svg>
+            </div>
+            <h3>Audit</h3>
+            <p>Every project starts with funnel diagnostics. We find leaks before spending a rupee.</p>
+          </div>
+
+          <!-- Arrow -->
+          <div class="flow-arrow">
+            <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
+              <path d="M0 12H38M38 12L28 2M38 12L28 22" stroke="currentColor" stroke-width="2" />
+            </svg>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="methodology-step">
+            <div class="method-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <h3>Validate</h3>
+            <p>We test funnels with real users and validate tracking before any ad spend.</p>
+          </div>
+
+          <!-- Arrow -->
+          <div class="flow-arrow">
+            <svg width="40" height="24" viewBox="0 0 40 24" fill="none">
+              <path d="M0 12H38M38 12L28 2M38 12L28 22" stroke="currentColor" stroke-width="2" />
+            </svg>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="methodology-step">
+            <div class="method-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 20V10"></path>
+                <path d="M12 20V4"></path>
+                <path d="M6 20v-6"></path>
+              </svg>
+            </div>
+            <h3>Scale</h3>
+            <p>Only validated systems scale. We compound winners and kill losers ruthlessly.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- About Page Section 5: Team / Capabilities -->
+    <section class="about-team-section">
+      <div class="about-team-wrapper">
+
+        <!-- Header -->
+        <div class="team-header">
+          <h2>Small Team. Big Precision.</h2>
+          <p class="team-intro">
+            Every project is directly handled by the founders—no account managers, no handoffs.
+          </p>
+        </div>
+
+        <!-- Team Grid -->
+        <div class="team-grid">
+
+          <!-- Member 1 -->
+          <div class="team-card">
+            <div class="team-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+            </div>
+            <h3>Performance & Systems</h3>
+            <p class="team-name">Pratyush Kumar</p>
+            <p class="team-desc">
+              Funnel architecture, tracking setup, campaign execution, and data analysis.
+              Every system is built to scale—not just to launch.
+            </p>
+          </div>
+
+          <!-- Member 2 -->
+          <div class="team-card">
+            <div class="team-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                <path d="M2 2l7.586 7.586"></path>
+                <circle cx="11" cy="11" r="2"></circle>
+              </svg>
+            </div>
+            <h3>Copy & Creatives</h3>
+            <p class="team-name">Edge Copy Lab</p>
+            <p class="team-desc">
+              Ad angles, landing page copy, and creative strategy. Every message is tested,
+              refined, and optimized for conversion.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Note -->
+        <div class="team-note">
+          <p>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            We keep the team lean intentionally. Every client gets direct access to the people
+            building their systems—not junior managers reading from playbooks.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- About Page Section 6: Client Trust / Proof (Without Logos) -->
+    <section class="about-trust-section">
+      <div class="about-trust-wrapper">
+
+        <!-- Header -->
+        <div class="trust-header">
+          <h2>Built on Real Results, Not Case Studies</h2>
+          <p class="trust-intro">
+            We're building Edge Storefronts one validated funnel at a time. Here's what drives our work.
+          </p>
+        </div>
+
+        <!-- Trust Indicators -->
+        <div class="trust-grid">
+
+          <!-- Indicator 1 -->
+          <div class="trust-card">
+            <div class="trust-stat">100%</div>
+            <h3>Data-First Setup</h3>
+            <p>Every client gets full tracking validation before any ad spend. No exceptions.</p>
+          </div>
+
+          <!-- Indicator 2 -->
+          <div class="trust-card">
+            <div class="trust-stat">48h</div>
+            <h3>Audit Turnaround</h3>
+            <p>Free funnel audits delivered within 48 hours. Fast diagnostics, clear insights.</p>
+          </div>
+
+          <!-- Indicator 3 -->
+          <div class="trust-card">
+            <div class="trust-stat">15-30%</div>
+            <h3>CPA Reduction</h3>
+            <p>Most clients see cost-per-acquisition drop by 15–30% in the first 30 days.</p>
+          </div>
+
+        </div>
+
+        <!-- Trust Statement -->
+        <div class="trust-statement">
+          <p>
+            We don't have a wall of logos—yet. What we have is a proven process, transparent pricing,
+            and a commitment to building systems that compound returns. If you're ready to stop
+            burning budget on broken funnels, we're ready to work.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- About Page Section 7: Final CTA -->
+    <section class="about-cta-section">
+      <div class="about-cta-wrapper">
+
+        <div class="about-cta-content">
+          <h2>Let's fix the leaks before you scale.</h2>
+          <p class="cta-subline">
+            Get your free audit and see where your ad budget is bleeding.
+          </p>
+
+          <a href="/contact.html" class="about-cta-button">
+            Get My Free Audit →
+          </a>
+
+          <div class="cta-trust-notes">
+            <div class="trust-note-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>48-hour delivery</span>
+            </div>
+            <div class="trust-note-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>No obligations</span>
+            </div>
+            <div class="trust-note-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Actionable insights from day one</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer class="ef-footer" role="contentinfo" aria-label="Site footer">
+      <div class="ef-footer__top">
+        <a href="/" class="ef-footer__brand" aria-label="Edge Storefronts home">
+          <span class="ef-logo">Edge Storefronts</span>
+        </a>
+
+        <nav class="ef-footer__nav" aria-label="Footer">
+          <div class="ef-col">
+            <h3 class="ef-col__title">Company</h3>
+            <ul class="ef-links">
+              <li><a href="about.html">About</a></li>
+              <li><a href="about.html">Team</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="ef-col">
+            <h3 class="ef-col__title">Services</h3>
+            <ul class="ef-links">
+              <li><a href="service.html">Paid Social</a></li>
+              <li><a href="service.html">Creative Production</a></li>
+              <li><a href="service.html">Analytics & CRO</a></li>
+            </ul>
+          </div>
+
+          <div class="ef-col">
+            <h3 class="ef-col__title">Resources</h3>
+            <ul class="ef-links">
+              <li><a href="blogs.html">Case Studies</a></li>
+              <li><a href="blogs.html">Blog</a></li>
+            </ul>
+          </div>
+
+          <div class="ef-col">
+            <h3 class="ef-col__title">Legal</h3>
+            <ul class="ef-links">
+              <li><a href="/privacy.html">Privacy Policy</a></li>
+              <li><a href="/terms.html">Terms of Use</a></li>
+              <li><a href="/cookies.html">Cookie Policy</a></li>
+            </ul>
+          </div>
+
+          <div class="ef-col ef-col--social">
+            <h3 class="ef-col__title">Follow us</h3>
+            <ul class="ef-social">
+              <li><a href="https://www.instagram.com/edge_storefronts?igsh=MTk4ejg0cXp6N21lMg==" aria-label="Instagram">
+                  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                    <path fill="currentColor"
+                      d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5m5 5a5 5 0 1 0 .001 10.001A5 5 0 0 0 12 7m0 2.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5M18 6.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2" />
+                  </svg>
+                  Instagram</a></li>
+              <li><a href="https://www.linkedin.com/company/edge-storefronts/" aria-label="LinkedIn">
+                  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                    <path fill="currentColor"
+                      d="M6.94 6.5A1.94 1.94 0 1 1 5 4.56 1.94 1.94 0 0 1 6.94 6.5ZM7 8.75H4V20h3ZM20 20h-3v-5.5c0-1.31-.47-2.2-1.65-2.2-.9 0-1.43.61-1.67 1.2-.09.22-.11.53-.11.83V20h-3s.04-9.77 0-10.75h3v1.52a2.97 2.97 0 0 1 2.68-1.48c1.96 0 3.45 1.28 3.45 4.04Z" />
+                  </svg>
+                  LinkedIn</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <div class="ef-footer__cta">
+        <div class="ef-cta__inner">
+          <p class="ef-cta__text">Ready to grow faster with <a href="service.html">performance marketing</a>?</p>
+          <a class="ef-cta__btn" href="contact.html">Start a project</a>
+        </div>
+      </div>
+
+      <div class="ef-footer__bottom">
+        <p>© <span id="ef-year"></span> Edge Storefronts. All rights reserved.</p>
+        <ul class="ef-inline">
+          <li><a href="/privacy.html">Privacy</a></li>
+          <li><a href="/terms.html">Terms</a></li>
+          <li><a href="/cookies.html">Cookies</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+
+  </div>
+  <script defer src="assets/js/common/navbar.js"></script>
+  <script defer src="assets/js/pages/about.js"></script>
+  <script defer src="assets/js/common/footer.js"></script>
+  <script defer src="assets/js/common/observer.js"></script>
+
+</body>
+
+
+</html>

@@ -1,0 +1,261 @@
+/* ====================================================================
+   CSS Performance Optimizations - FIXED & OPTIMIZED
+   ==================================================================== */
+
+/* 1. Font loading optimization */
+html {
+  font-display: swap;
+}
+
+/* ==================== Containment (Isolate rendering) ==================== */
+/* FIXED: Added all animated elements from your JS */
+/* CRITICAL: Removed 'paint' to allow box-shadow overflow */
+.process-step,
+.homepage-edge-card,
+.philosophy-card,
+.methodology-step,
+.team-card,
+.trust-card,
+.diff-card,
+.deliv-phase-card,
+.blog-card {
+  contain: layout style;
+  /* paint removed - allows shadows to extend beyond bounds */
+}
+
+/* Special case: homepage-growth-step has different layout needs */
+.homepage-growth-step {
+  contain: none;
+  /* No containment - this element needs full rendering freedom */
+  isolation: isolate;
+  /* Use isolation instead for stacking context */
+}
+
+/* ==================== GPU Acceleration (Conservative) ==================== */
+/* CRITICAL: Only use will-change on hover, NOT by default */
+/* REMOVED from your original: will-change should NOT be on base elements */
+
+.process-step:hover,
+.homepage-edge-card:hover,
+.homepage-growth-step:hover,
+.philosophy-card:hover,
+.methodology-step:hover,
+.team-card:hover,
+.trust-card:hover,
+.diff-card:hover,
+.deliv-phase-card:hover {
+  will-change: transform;
+}
+
+/* Remove will-change after animation completes */
+.process-step,
+.homepage-edge-card,
+.homepage-growth-step,
+.philosophy-card,
+.methodology-step,
+.team-card,
+.trust-card,
+.diff-card,
+.deliv-phase-card {
+  will-change: auto; /* Reset after hover */
+}
+
+/* ==================== Transform & Opacity Animations ==================== */
+/* FIXED: Use transform and opacity ONLY (GPU-accelerated) */
+.process-step,
+.homepage-edge-card,
+.homepage-growth-step,
+.philosophy-card,
+.methodology-step,
+.team-card,
+.trust-card,
+.diff-card,
+.deliv-phase-card {
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+              opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* REMOVED: box-shadow from transitions (expensive!) */
+/* Shadows should change instantly on hover, not animate */
+
+/* ==================== Efficient Shadows ==================== */
+/* FIXED: Single-layer shadows, no animation */
+.homepage-edge-card,
+.philosophy-card,
+.methodology-step,
+.team-card,
+.trust-card,
+.diff-card,
+.deliv-phase-card,
+.blog-card {
+  box-shadow: 0 4px 16px rgba(11, 77, 255, 0.06);
+}
+
+/* Hover shadows - instant change, no transition */
+.homepage-edge-card:hover,
+.philosophy-card:hover,
+.methodology-step:hover,
+.team-card:hover,
+.trust-card:hover,
+.diff-card:hover,
+.deliv-phase-card:hover {
+  box-shadow: 0 12px 32px rgba(11, 77, 255, 0.12);
+  /* Shadow changes instantly - no transition! */
+}
+
+/* ==================== Grid Layouts ==================== */
+/* Keep this as-is - already good */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* ==================== Light Gradients ==================== */
+/* Keep this as-is - already good */
+.section-bg {
+  background: linear-gradient(135deg, rgba(11, 77, 255, 0.05) 0%, rgba(79, 70, 229, 0.05) 100%);
+}
+
+/* ==================== Content Visibility (Lazy Rendering) ==================== */
+/* ENHANCED: Added specific sections from your pages */
+.about-philosophy-section,
+.about-methodology-section,
+.about-team-section,
+.about-trust-section,
+.results-process-section,
+.diff-section,
+.deliv-section,
+.visual-proof-section,
+.audit-bridge-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 800px; /* Better estimate */
+}
+
+/* ==================== Scroll-Triggered Animations ==================== */
+/* FIXED: Initial state for all animated elements */
+.process-step,
+.homepage-edge-card,
+.homepage-growth-step,
+.philosophy-card,
+.methodology-step,
+.team-card,
+.trust-card,
+.diff-card,
+.deliv-phase-card {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* Visible state (triggered by IntersectionObserver) */
+.process-step.visible,
+.homepage-edge-card.visible,
+.homepage-growth-step.visible,
+.philosophy-card.visible,
+.methodology-step.visible,
+.team-card.visible,
+.trust-card.visible,
+.diff-card.visible,
+.deliv-phase-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==================== 3D Transform Optimization ==================== */
+/* FIXED: Apply to all cards for smoother transforms */
+.process-step,
+.homepage-edge-card,
+.homepage-growth-step,
+.philosophy-card,
+.methodology-step,
+.team-card,
+.trust-card,
+.diff-card,
+.deliv-phase-card,
+.blog-card {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* ==================== Touch Device Optimization ==================== */
+/* ENHANCED: Disable ALL hover effects on touch devices */
+@media (hover: none) {
+  .process-step:hover,
+  .homepage-edge-card:hover,
+  .homepage-growth-step:hover,
+  .philosophy-card:hover,
+  .methodology-step:hover,
+  .team-card:hover,
+  .trust-card:hover,
+  .diff-card:hover,
+  .deliv-phase-card:hover,
+  .blog-card:hover {
+    transform: translateY(0) !important;
+    box-shadow: 0 4px 16px rgba(11, 77, 255, 0.06) !important;
+    will-change: auto !important;
+  }
+}
+
+/* ==================== Scroll Performance ==================== */
+/* ADDED: Smooth scrolling with fallback */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ADDED: Optimize repaint areas */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==================== Navigation Menu Optimization ==================== */
+/* ADDED: Optimize menu transitions */
+.nav-menu {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.nav-menu:not(.open) {
+  will-change: auto; /* Reset when closed */
+}
+
+/* ==================== Stagger Delays (Already in your JS, but backup) ==================== */
+/* These ensure smooth sequential animations */
+.philosophy-card:nth-child(1),
+.homepage-growth-step:nth-child(1),
+.homepage-edge-card:nth-child(1),
+.methodology-step:nth-child(1),
+.team-card:nth-child(1),
+.trust-card:nth-child(1),
+.diff-card:nth-child(1) {
+  transition-delay: 0.1s;
+}
+
+.philosophy-card:nth-child(2),
+.homepage-growth-step:nth-child(2),
+.homepage-edge-card:nth-child(2),
+.methodology-step:nth-child(2),
+.team-card:nth-child(2),
+.trust-card:nth-child(2),
+.diff-card:nth-child(2) {
+  transition-delay: 0.2s;
+}
+
+.philosophy-card:nth-child(3),
+.homepage-growth-step:nth-child(3),
+.homepage-edge-card:nth-child(3),
+.methodology-step:nth-child(3),
+.team-card:nth-child(3),
+.trust-card:nth-child(3),
+.diff-card:nth-child(3) {
+  transition-delay: 0.3s;
+}
+
+.philosophy-card:nth-child(4),
+.diff-card:nth-child(4) {
+  transition-delay: 0.4s;
+}
+
+/* Reset delay after animation completes */
+.visible {
+  transition-delay: 0s !important;
+}
