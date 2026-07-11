@@ -11,6 +11,14 @@
    pinning depends on. Neutralised for this page only. */
 body{transform:none}
 
+/* root.css sets html{scroll-behavior:smooth}, which reproducibly
+   corrupts GSAP ScrollTrigger measurements (trigger positions come out
+   offset by the scroll distance — worst after reload with restored
+   scroll). This file loads on exactly the pages that run ScrollTrigger
+   (homepage + services), so smooth CSS scrolling is disabled here and
+   in-page anchor clicks are smooth-scrolled via JS instead. */
+html{scroll-behavior:auto}
+
 /* --- Shared section header (same recipe as homepage headers) --- */
 .sv-header{text-align:center;margin-bottom:56px;padding:0 var(--gutter)}
 .sv-header h2{font-family:"Playfair Display",Georgia,serif;font-size:2.4rem;font-weight:600;color:var(--text-heading);margin-bottom:14px;letter-spacing:.02em}
@@ -94,10 +102,20 @@ body{transform:none}
 .sv-panel p{font-size:1rem}
 }
 
+/* Whatever section directly follows the pinned stack must paint OVER
+   the position:fixed panels while they're covered (the role .sv-run
+   used to play). Layered backdrop + the vertical rhythm .sv-run had;
+   the backdrop is the page background so the section looks unchanged. */
+.sv-phases + .deliverables-section{position:relative;z-index:2;padding-top:110px;padding-bottom:96px}
+.sv-phases + .deliverables-section::before{content:"";position:absolute;inset:0;left:50%;transform:translateX(-50%);width:100vw;background:var(--bg-main);z-index:-1}
+@media (max-width:768px){
+.sv-phases + .deliverables-section{padding-top:56px;padding-bottom:48px}
+}
+
 /* ====================================================================
    2. WHAT WE RUN — split layout: editorial copy + bounded pill box.
    The static pill cluster below is the real content; services.js
-   swaps it to physics mode on desktop (motion-safe only).
+   swaps it to physics mode (motion-safe only).
    ==================================================================== */
 .sv-run{background:#fff;position:relative;z-index:2;padding:110px 0 96px}
 .sv-split{max-width:var(--container-max);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:45fr 55fr;gap:clamp(32px,5vw,60px);align-items:center}

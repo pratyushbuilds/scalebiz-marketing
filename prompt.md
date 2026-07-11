@@ -1,57 +1,62 @@
-# Scalebiz Services Page — Revision Brief (fix the broken build)
+# Scalebiz Homepage — Section 2 & 3 Redesign Brief
 
-The current Services page has three problems: the hero has no fixed height (section 2 bleeds into it), the stacking cards aren't rendering as a stack, and the physics drop looks generic. Fix all three as below. All prior HARD CONSTRAINTS still apply: typography immutable, design tokens frozen, respect `prefers-reduced-motion`, nothing blocks first paint.
+Upgrade the two weakest homepage sections. The homepage is the highest drop-off point, so it should carry the strongest interactions on the site. Sections 4 and 5 stay as they are.
 
----
-
-## FIX 1 — Hero must fill the screen
-
-- The hero section gets `min-height: 100svh` (use `svh`, not `vh`, so mobile browser chrome doesn't cause overflow).
-- Lay it out so the CTA ("See how we work") is the last element visible before the fold. The next section ("How we work" / the phases) must start BELOW the fold, not peek into the hero.
-- Do not shrink the hero type to fit; give it room.
+All prior HARD CONSTRAINTS still apply: typography immutable, design tokens frozen, respect `prefers-reduced-motion`, static fallback for every animation, nothing blocks first paint.
 
 ---
 
-## FIX 2 — Stacking cards (the four phases): rebuild with GSAP, as rich panels
+## STEP 0 — Answer this before building
 
-**Switch the build method.** Drop the pure-CSS-sticky approach; it's why the stack isn't working. Use **GSAP + ScrollTrigger with pinning** (the standard for this effect). Load GSAP for this page.
+**Is this site React?**
+- **If YES:** you may use Framer Motion / `motion` for the two components below.
+- **If NO:** do NOT add React just to use these components. Rebuild both effects with **GSAP + ScrollTrigger**, which the site already loads for the service page. Same visual result, no new framework.
 
-**Each card is a full, designed panel, not a plain white card.** Per card:
-- A distinct aesthetic background pulled from the existing site palette (a solid brand colour or a subtle gradient per card; 4 different tones so the stack has variety). No new colours outside the existing tokens.
-- A large phase number (`01`, `02`, `03`, `04`) as a design element.
-- An engaging headline (suggested below), with the explanatory line as supporting text over the background.
-
-**Motion:** as the user scrolls, each card pins to the top and the card(s) behind scale down slightly with a soft shadow, so the stack reads as physical layers. Smooth scrub, not jumpy.
-
-**Card content (headline + supporting line):**
-- **01 — "We find the leak first."** We map your offer, funnel, and competitors and find where you're losing people. Usually it isn't the ads.
-- **02 — "Fix the base before the spend."** We repair the landing page, offer, and follow-up first. Ads on a broken funnel just lose money faster.
-- **03 — "Know what's working before the money's gone."** We set up tracking that tells us early, not after the budget's spent.
-- **04 — "Pour fuel on what converts."** Once the funnel holds, we push spend into what's working and cut what isn't.
-
-**Fallback:** on `prefers-reduced-motion` and narrow mobile, render the four panels as a normal vertical stack (full colour, readable, in order), no pinning or scaling.
+Report which path you took, and the total animation libraries the site now loads. We are trying to keep this lean; the site's speed is part of the client's pitch (they're a performance marketing agency).
 
 ---
 
-## FIX 3 — Services: pills in a bounded box, split layout
+## SECTION 2 — "Why More Ad Spend Won't Fix It"
 
-Rebuild the drop section as a **two-column split**:
+**Problem:** currently four flat static cards in a row. Reads like a template.
 
-- **One side (≈55%): a physics container.** A clearly bounded box (invisible walls on all four sides: ground, roof, left, right) sized to that column. Service-name **pills** drop into it when the section scrolls into view, bounce once, and settle inside the box. They do NOT fall down the whole screen.
-  - Pills are rounded-rectangle Matter.js bodies (high corner radius), each labelled with one service name only: **Paid Media, SEO, Social Media, Web, Funnel, Influencer Marketing**. (If Web and Funnel are one offering, merge to a single "Web & Funnel" pill.)
-  - Pill colours come from the existing palette; keep them consistent and legible.
-  - **Draggable:** add a Matter.js `MouseConstraint` so the user can grab and toss the pills. This interactivity is what makes it feel premium instead of generic.
-- **Other side (≈45%): editorial copy.** The section headline and a short line. Keep paid media framed as the core:
-  > **Everything your growth needs, in one place.**
-  > Paid media is our core. Social, SEO, web, funnel, and influencer work all plug into it, so one team owns the whole result.
+**Change:** rebuild as a **scroll-reveal grid** in the style of Skiper UI `skiper104` (https://skiper-ui.com/v1/skiper104) — cards reveal with smooth staggered transitions as the section enters view.
 
-**Performance guards (unchanged, all required):**
-- Matter.js loads **desktop only** (min-width breakpoint) and **only when not** `prefers-reduced-motion`.
-- **Lazy-load / defer** Matter.js so it never blocks first paint.
-- Stop the engine once the pills settle (until a drag wakes them).
-- **Fallback (mobile + reduced-motion):** render the same service names as a static row/cluster of styled pills (plain CSS, no physics) beside or under the copy. This static version is the real content.
+- Keep the existing four cards' content exactly as-is (Upstream: Your Offer / Inside the Ad Account / Downstream: Your Follow-Up / Our Job: The Diagnosis). Copy does not change.
+- Keep the existing card styling, colours, icons, and type tokens. Only the reveal motion and grid composition change.
+- **Licensing:** skiper104's free version requires Skiper UI attribution. Either add the required attribution, or reimplement the effect independently. Do not ship it uncredited.
+- **Fallback:** on `prefers-reduced-motion`, cards render immediately, no motion.
+
+---
+
+## SECTION 3 — the method / how-we-work teaser
+
+**Problem:** currently flat and forgettable.
+
+**Do NOT reuse the service page's stacking-cards animation here.** That is the service page's signature element; duplicating it makes the two pages look identical again and spends the payoff on the teaser.
+
+**Change:** rebuild as a **sticky scroll text reveal with blur**, in the style of Skiper UI `skiper44` (https://skiper-ui.com/v1/skiper44) — statement copy pinned and revealed line by line on scroll, with scale/backdrop-blur transitions.
+
+- This is a **teaser**, not the full walkthrough. Keep it short. State the method as a few punchy lines, then link out to the Services page for the full four-phase breakdown.
+- Suggested lines to reveal in sequence (adjust to fit the component's rhythm):
+  1. We audit before we spend.
+  2. We fix what's leaking before we scale it.
+  3. We measure early, not after the budget's gone.
+  4. Then we pour fuel on what converts.
+- End the section with a link: "See how we work →" pointing to the Services page.
+- **Note:** skiper44 is a Pro component — copy/adapt the source rather than installing via CLI, and keep the attribution terms in mind.
+- **Fallback:** on `prefers-reduced-motion` and narrow mobile, render the lines as a plain static list, fully readable, no pinning or blur.
+
+---
+
+## DO NOT TOUCH
+- Section 4 (case study teaser) and Section 5 — leave exactly as they are.
+- All copy claims and numbers across the page.
 
 ---
 
 ## REPORT BACK
-Confirm: hero fills the screen with the CTA above the fold; stacking cards use GSAP ScrollTrigger with pinning and render as coloured panels with phase numbers; pills are bounded in a box, draggable, split-layout, with the desktop-only + lazy-load + static-fallback guards in place; typography tokens untouched.
+1. React or not, and which animation path you took.
+2. Total animation libraries the homepage now loads, and confirmation they're deferred/lazy-loaded so they don't block first paint.
+3. Confirmation that the service page's stacking-cards animation was NOT reused on the homepage.
+4. Typography tokens preserved.

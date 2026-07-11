@@ -16,6 +16,21 @@ const svLoadScript = (src) =>
     document.head.appendChild(s);
   });
 
+// CSS smooth-scrolling is disabled on the pages that load this file
+// (it corrupts ScrollTrigger's measurements — see services-v2.css),
+// so reproduce it for in-page anchor links here.
+document.addEventListener('click', (e) => {
+  const a = e.target.closest && e.target.closest('a[href^="#"]');
+  if (!a) return;
+  const href = a.getAttribute('href');
+  if (href === '#') return; // placeholder links
+  const target = document.querySelector(href);
+  if (!target) return;
+  e.preventDefault();
+  target.scrollIntoView({ behavior: svReduced ? 'auto' : 'smooth', block: 'start' });
+  history.pushState(null, '', href);
+});
+
 // ----------------------------------------------------------------
 // 1. Phases: GSAP ScrollTrigger stacking panels.
 // Each panel pins below the nav; the panels behind scale down with
@@ -41,6 +56,16 @@ const svLoadScript = (src) =>
     // Mobile browsers resize the viewport when the URL bar collapses;
     // recalculating pins on that resize makes the stack jump mid-scroll
     ScrollTrigger.config({ ignoreMobileResize: true });
+    // html{scroll-behavior:smooth} animates the instant jumps
+    // ScrollTrigger makes while measuring, corrupting trigger
+    // positions (worst on reload with restored scroll) — force
+    // instant scrolling during every refresh
+    ScrollTrigger.addEventListener('refreshInit', () => {
+      document.documentElement.style.scrollBehavior = 'auto';
+    });
+    ScrollTrigger.addEventListener('refresh', () => {
+      document.documentElement.style.scrollBehavior = '';
+    });
 
     // Tail room so the finished stack holds on screen for a beat
     // before the next section slides over it (pin-mode only, so the
@@ -79,6 +104,26 @@ const svLoadScript = (src) =>
         });
       }
     });
+
+    // Settling refresh: after a reload, the browser keeps re-applying
+    // the restored scroll position for a while, which can land in the
+    // middle of any refresh and corrupt trigger measurements (starts
+    // come out offset by the scroll distance). Timing can't be won —
+    // so refresh, CHECK the measurements, and retry with backoff
+    // until they're sane.
+    let settleTries = 0;
+    const settle = () => {
+      settleTries++;
+      window.ScrollTrigger.refresh();
+      const insane = window.ScrollTrigger.getAll().some((t) => t.start < -window.innerHeight);
+      if (insane && settleTries < 6) setTimeout(settle, 350 * settleTries);
+    };
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => setTimeout(settle, 60));
+    if (document.readyState === 'complete') {
+      setTimeout(settle, 250);
+    } else {
+      window.addEventListener('load', () => setTimeout(settle, 250), { once: true });
+    }
   };
 
   // Deferred + async injected: never blocks first paint

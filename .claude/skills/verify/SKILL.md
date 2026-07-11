@@ -24,6 +24,31 @@ on service.html).
 ## Flows worth driving
 
 - Hero fold: hero fills 100svh, CTA `.ed-link` above fold, next section below.
+- index.html pills: the "What We Run" pill-box section lives on the HOMEPAGE
+  (swapped from services 2026-07-11); index.html loads services-v2.css and
+  services.js for it.
+- index.html section 2 (2026-07-12): skiper104 scroll-reveal grid. home.js
+  lazy-loads GSAP, adds `.edge-104` (520vh `.edge-track` + sticky centred
+  `.edge-sticky`), scrubs per-column reveals + the accent `.edge-line`.
+  Check: `.edge-sticky` top stays constant (~179px @900h) through the
+  track; columns activate sequentially; reduced-motion/no-JS = static
+  grid; ≤1024px = static vertical list w/ left line, no GSAP.
+- index.html section 3 is the original growth timeline (steps reveal via
+  observer.js `.visible`).
+- root.css uses `#page{overflow-x:hidden;overflow-x:clip}` — `clip` keeps
+  position:sticky working (nav header, edge grid). Plain `hidden` breaks
+  all sticky descendants site-wide; never revert it.
+- services-v2.css sets `html{scroll-behavior:auto}` on index+service: CSS
+  smooth-scroll reproducibly corrupts ScrollTrigger measurements (starts
+  offset by scroll distance, worst on reload with restored scroll).
+  In-page anchors are smooth-scrolled by JS in services.js instead.
+  Regression test: reload deep inside the edge track / sv-stack several
+  times → every `ScrollTrigger.getAll()` start must be > 0 (assert no
+  start < -innerHeight).
+- service.html section 3 is the "What We Do" deliverables grid (from the
+  homepage); it must sit adjacent to `.sv-phases` so the
+  `.sv-phases + .deliverables-section` cover rules apply — check the pinned
+  panels are hidden once it scrolls over them.
 - service.html phases: GSAP pins `.sv-panel`s below the 70px sticky nav
   (desktop offsets 86/110/134/158; mobile 80/94/108/122), earlier panels
   scale to 0.94. Scroll stepwise through `.sv-stack` and screenshot.
