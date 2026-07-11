@@ -4,133 +4,216 @@
 // JS off, on mobile, and under prefers-reduced-motion.
 // ================================================================
 
+const svReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const svLoadScript = (src) =>
+  new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = src;
+    s.async = true;
+    s.onload = resolve;
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+
 // ----------------------------------------------------------------
-// 1. Phases: sticky stacking cards — scale the pinned cards behind
+// 1. Phases: GSAP ScrollTrigger stacking panels.
+// Each panel pins below the nav; the panels behind scale down with
+// a deeper shadow as the next one arrives (scrubbed). The pinned
+// stack is then covered by the next section (.sv-run, z-index 2)
+// before anything unpins, so there is no visible jump.
 // ----------------------------------------------------------------
 (() => {
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const narrow = window.matchMedia('(max-width: 768px)').matches;
-  if (reduced || narrow) return; // static list fallback (CSS handles layout)
+  if (svReduced) return; // CSS fallback: plain colour stack
 
-  const phases = Array.from(document.querySelectorAll('.sv-phase'));
-  if (phases.length < 2) return;
+  const stack = document.querySelector('.sv-stack');
+  const panels = stack ? Array.from(stack.querySelectorAll('.sv-panel')) : [];
+  if (panels.length < 2) return;
 
-  const cards = phases.map(p => p.querySelector('.sv-phase-card'));
-  let ticking = false;
+  const GSAP_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
+  const ST_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';
 
-  const update = () => {
-    ticking = false;
-    const vh = window.innerHeight;
-    for (let i = 0; i < phases.length - 1; i++) {
-      const myTop = parseFloat(getComputedStyle(phases[i]).top) || 96;
-      const nextTop = phases[i + 1].getBoundingClientRect().top;
-      // 0 while the next card is below the fold, 1 when it has fully
-      // covered this one — drives the depth scale
-      const progress = Math.min(1, Math.max(0, 1 - (nextTop - myTop) / (vh - myTop)));
-      cards[i].style.transform = progress > 0 ? `scale(${1 - progress * 0.05})` : '';
-    }
+  const init = () => {
+    const gsap = window.gsap;
+    const ScrollTrigger = window.ScrollTrigger;
+    if (!gsap || !ScrollTrigger) return;
+    gsap.registerPlugin(ScrollTrigger);
+    // Mobile browsers resize the viewport when the URL bar collapses;
+    // recalculating pins on that resize makes the stack jump mid-scroll
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
+    // Tail room so the finished stack holds on screen for a beat
+    // before the next section slides over it (pin-mode only, so the
+    // static fallbacks never see this space)
+    stack.classList.add('sv-stack--pinned');
+
+    const NAV_H = 70; // sticky header height
+    const narrow = window.matchMedia('(max-width: 768px)').matches;
+    // staggered pin line per card (tighter stagger on phones)
+    const offset = narrow
+      ? (i) => NAV_H + 10 + i * 14
+      : (i) => NAV_H + 16 + i * 24;
+
+    panels.forEach((panel, i) => {
+      ScrollTrigger.create({
+        trigger: panel,
+        start: () => 'top ' + offset(i),
+        endTrigger: stack,
+        end: 'bottom top', // unpin only once the stack is fully covered
+        pin: true,
+        pinSpacing: false
+      });
+
+      // Depth cue: this card recedes while the next one slides over it
+      if (i < panels.length - 1) {
+        gsap.to(panel, {
+          scale: 0.94,
+          boxShadow: '0 28px 70px rgba(16,17,20,.32)',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: panels[i + 1],
+            start: 'top bottom',
+            end: () => 'top ' + offset(i + 1),
+            scrub: 0.4
+          }
+        });
+      }
+    });
   };
 
-  const onScroll = () => {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(update);
-    }
-  };
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  update();
+  // Deferred + async injected: never blocks first paint
+  svLoadScript(GSAP_SRC)
+    .then(() => svLoadScript(ST_SRC))
+    .then(init)
+    .catch(() => {}); // load failed: the colour stack is still complete content
 })();
 
 // ----------------------------------------------------------------
-// 2. Services: drop-and-settle (Matter.js)
-// Guards: desktop-only, no reduced motion, library lazy-loaded when
-// the section approaches, engine stopped once the bodies settle.
+// 2. What we run: service pills drop into a bounded box (Matter.js)
+// and are draggable via a MouseConstraint (mouse + touch).
+// Guards: no reduced motion, library lazy-loaded when the section
+// approaches, engine parked once the pills settle and woken again
+// by a grab. Touch drag only engages when the finger lands ON a
+// pill, so swiping the box never hijacks page scrolling.
 // ----------------------------------------------------------------
 (() => {
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const desktop = window.matchMedia('(min-width: 1025px)').matches;
-  if (reduced || !desktop) return; // static grid stays as-is
+  if (svReduced) return; // static pill cluster stays as-is
 
-  const stage = document.querySelector('.sv-stage');
-  const grid = document.querySelector('.sv-grid');
-  if (!stage || !grid) return;
-  const cardEls = Array.from(grid.querySelectorAll('.sv-svc'));
-  if (cardEls.length === 0) return;
+  const pit = document.querySelector('.sv-pit');
+  const pillEls = pit ? Array.from(pit.querySelectorAll('.sv-pill')) : [];
+  if (!pit || pillEls.length === 0) return;
 
   const MATTER_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js';
-  let matterState = 'idle'; // idle | loading | ready | failed
+  let matterPromise = null;
   let started = false;
 
   const loadMatter = () => {
-    if (matterState !== 'idle') return;
-    matterState = 'loading';
-    const s = document.createElement('script');
-    s.src = MATTER_SRC;
-    s.async = true;
-    s.onload = () => { matterState = 'ready'; };
-    s.onerror = () => { matterState = 'failed'; }; // static grid remains
-    document.head.appendChild(s);
+    if (!matterPromise) matterPromise = svLoadScript(MATTER_SRC);
+    return matterPromise;
   };
 
   const startSim = () => {
-    if (started || matterState !== 'ready' || !window.Matter) return;
+    if (started || !window.Matter) return;
     started = true;
 
-    const { Engine, Bodies, Composite, Body } = window.Matter;
+    const { Engine, Bodies, Composite, Mouse, MouseConstraint, Query } = window.Matter;
 
-    // Measure the settled grid before switching to absolute positioning
-    const stageRect = stage.getBoundingClientRect();
-    const finals = cardEls.map((el) => {
+    // Measure the static pills before switching to absolute layout
+    const sizes = pillEls.map((el) => {
       const r = el.getBoundingClientRect();
-      return {
-        x: r.left - stageRect.left,
-        y: r.top - stageRect.top,
-        w: r.width,
-        h: r.height
-      };
+      return { w: r.width, h: r.height };
     });
-    const stageH = stage.offsetHeight;
-    const stageW = stage.offsetWidth;
+    const W = pit.clientWidth;
+    const H = pit.clientHeight;
 
-    stage.classList.add('sv-physics-on');
-    grid.style.height = stageH + 'px';
-    cardEls.forEach((el, i) => {
-      el.style.width = finals[i].w + 'px';
-      el.style.transform = `translate(${finals[i].x}px, ${-finals[i].h - 60 - i * 170}px)`;
+    pit.classList.add('sv-physics-on');
+    pillEls.forEach((el, i) => {
+      el.style.width = sizes[i].w + 'px';
+      el.style.transform = 'translate(' + (W / 2 - sizes[i].w / 2) + 'px, ' + -sizes[i].h * 2 + 'px)';
     });
 
     const engine = Engine.create();
-    const bodies = finals.map((f, i) =>
-      Bodies.rectangle(
-        f.x + f.w / 2,                       // drop straight into its slot
-        -f.h / 2 - 60 - i * 170,             // staggered start above the stage
-        f.w, f.h,
-        {
-          restitution: 0.26,                 // one small bounce
-          friction: 0.9,
-          frictionAir: 0.02,
-          angle: (i - 1) * 0.035             // slight tilt for a natural fall
-        }
-      )
+
+    // Invisible walls on all four sides. The roof sits above the box so
+    // the pills can drop in from outside the visible area (the box has
+    // overflow:hidden) but a hard toss can never escape.
+    const T = 200;    // wall thickness — thick enough that nothing tunnels
+    const CEIL = 320; // headroom between box top and the roof
+    const walls = [
+      Bodies.rectangle(W / 2, H + T / 2, W + T * 2, T, { isStatic: true }),         // ground
+      Bodies.rectangle(W / 2, -CEIL - T / 2, W + T * 2, T, { isStatic: true }),     // roof
+      Bodies.rectangle(-T / 2, (H - CEIL) / 2, T, H + CEIL + T * 2, { isStatic: true }), // left
+      Bodies.rectangle(W + T / 2, (H - CEIL) / 2, T, H + CEIL + T * 2, { isStatic: true }) // right
+    ];
+
+    // Rounded-rectangle bodies, spread across the width, staggered above
+    const bodies = pillEls.map((el, i) => {
+      const { w, h } = sizes[i];
+      const pad = w / 2 + 16;
+      const usable = Math.max(1, W - pad * 2);
+      const x = pad + usable * ((i + 0.5) / pillEls.length);
+      const y = -(30 + i * 55) - h / 2;
+      return Bodies.rectangle(x, y, w, h, {
+        chamfer: { radius: h / 2 - 1 }, // capsule-like, matches the CSS pill
+        restitution: 0.3, // one soft bounce
+        friction: 0.6,
+        frictionAir: 0.02,
+        angle: (i % 2 ? 1 : -1) * 0.08
+      });
+    });
+
+    // Drag-and-toss
+    const mouse = Mouse.create(pit);
+    // Matter's own wheel/touch listeners would hijack page scrolling —
+    // drop them all; touch is re-added selectively below
+    ['wheel', 'mousewheel', 'DOMMouseScroll'].forEach((ev) =>
+      pit.removeEventListener(ev, mouse.mousewheel)
     );
-    const ground = Bodies.rectangle(stageW / 2, stageH + 30, stageW + 200, 60, { isStatic: true });
-    const wallL = Bodies.rectangle(-30, stageH / 2, 60, stageH * 4, { isStatic: true });
-    const wallR = Bodies.rectangle(stageW + 30, stageH / 2, 60, stageH * 4, { isStatic: true });
-    Composite.add(engine.world, [...bodies, ground, wallL, wallR]);
+    pit.removeEventListener('touchmove', mouse.mousemove);
+    pit.removeEventListener('touchstart', mouse.mousedown);
+    pit.removeEventListener('touchend', mouse.mouseup);
 
-    let calmFrames = 0;
+    const grab = MouseConstraint.create(engine, {
+      mouse,
+      constraint: { stiffness: 0.2, damping: 0.12 }
+    });
+
+    // Touch drag: engage Matter only when the finger lands on a pill;
+    // a swipe on empty box area falls through and scrolls the page
+    const touchHitsPill = (e) => {
+      const t = e.changedTouches[0];
+      const r = pit.getBoundingClientRect();
+      return Query.point(bodies, { x: t.clientX - r.left, y: t.clientY - r.top }).length > 0;
+    };
+    pit.addEventListener('touchstart', (e) => {
+      if (!touchHitsPill(e)) return;
+      wake();
+      mouse.mousedown(e); // preventDefaults internally for touches
+    }, { passive: false });
+    pit.addEventListener('touchmove', (e) => {
+      if (!grab.body) return;
+      mouse.mousemove(e);
+    }, { passive: false });
+    const endTouch = (e) => {
+      if (grab.body || mouse.button === 0) mouse.mouseup(e);
+    };
+    pit.addEventListener('touchend', endTouch);
+    pit.addEventListener('touchcancel', endTouch);
+
+    Composite.add(engine.world, [...bodies, ...walls, grab]);
+
     let rafId = 0;
-    let last = performance.now();
-    const startedAt = last;
+    let running = false;
+    let calmFrames = 0;
+    let last = 0;
+    let wokeAt = 0;
 
-    const settle = () => {
-      cancelAnimationFrame(rafId);
-      Composite.clear(engine.world, false);
-      Engine.clear(engine); // stop burning CPU once the effect is done
-      cardEls.forEach((el, i) => {
-        el.classList.add('sv-settled');
-        el.style.transform = `translate(${finals[i].x}px, ${finals[i].y}px) rotate(0rad)`;
+    const render = () => {
+      bodies.forEach((b, i) => {
+        const { w, h } = sizes[i];
+        pillEls[i].style.transform =
+          'translate(' + (b.position.x - w / 2) + 'px, ' + (b.position.y - h / 2) + 'px) ' +
+          'rotate(' + b.angle + 'rad)';
       });
     };
 
@@ -138,49 +221,59 @@
       const dt = Math.min(now - last, 33);
       last = now;
       Engine.update(engine, dt);
+      render();
 
-      let calm = true;
-      bodies.forEach((b, i) => {
-        const x = b.position.x - finals[i].w / 2;
-        const y = b.position.y - finals[i].h / 2;
-        cardEls[i].style.transform = `translate(${x}px, ${y}px) rotate(${b.angle}rad)`;
-        if (b.speed > 0.12 || Math.abs(b.angularVelocity) > 0.01) calm = false;
-      });
-
+      const dragging = !!grab.body;
+      let calm = !dragging;
+      if (calm) {
+        for (const b of bodies) {
+          if (b.speed > 0.14 || Math.abs(b.angularVelocity) > 0.012) {
+            calm = false;
+            break;
+          }
+        }
+      }
       calmFrames = calm ? calmFrames + 1 : 0;
-      if (calmFrames > 24 || now - startedAt > 8000) {
-        settle(); // settled (or safety timeout): snap to the aligned row
+
+      // Park the engine once everything has settled (safety cap: 15s),
+      // keeping the world intact so a grab can wake it back up
+      if (calmFrames > 45 || (!dragging && now - wokeAt > 15000)) {
+        running = false;
         return;
       }
       rafId = requestAnimationFrame(tick);
     };
-    rafId = requestAnimationFrame(tick);
+
+    const wake = () => {
+      if (running) return;
+      running = true;
+      calmFrames = 0;
+      last = wokeAt = performance.now();
+      rafId = requestAnimationFrame(tick);
+    };
+
+    // Release the grabbed pill if the cursor leaves the box mid-drag
+    pit.addEventListener('mouseleave', () => {
+      if (grab.body) mouse.button = -1;
+    });
+    pit.addEventListener('mousedown', wake);
+    wake(); // the initial drop
   };
 
-  // Stage 1: pre-load the library well before the section is visible
+  // Stage 1: fetch the library well before the section is visible
   const preload = new IntersectionObserver((entries) => {
-    if (entries.some(e => e.isIntersecting)) {
-      loadMatter();
+    if (entries.some((e) => e.isIntersecting)) {
       preload.disconnect();
+      loadMatter().catch(() => {});
     }
   }, { rootMargin: '600px 0px' });
-  preload.observe(stage);
+  preload.observe(pit);
 
-  // Stage 2: run the drop when the section actually enters the viewport
+  // Stage 2: run the drop when the box actually enters the viewport
   const trigger = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      if (matterState === 'ready') {
-        trigger.disconnect();
-        startSim();
-      } else if (matterState === 'loading') {
-        // library still on the wire: try again shortly, else stay static
-        setTimeout(() => { if (matterState === 'ready' && !started) startSim(); }, 400);
-        trigger.disconnect();
-      } else {
-        trigger.disconnect(); // failed/never loaded: static grid is the content
-      }
-    });
-  }, { threshold: 0.3 });
-  trigger.observe(stage);
+    if (!entries.some((e) => e.isIntersecting)) return;
+    trigger.disconnect();
+    loadMatter().then(startSim).catch(() => {}); // failed: static pills remain
+  }, { threshold: 0.35 });
+  trigger.observe(pit);
 })();
