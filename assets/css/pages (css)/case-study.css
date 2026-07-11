@@ -1,0 +1,95 @@
+/* ====================================================================
+   CASE STUDY PAGE — layout-only additions.
+   All typography, colours and card recipes come from root.css and the
+   homepage design system (homepage.css). No new fonts, sizes or weights.
+   ==================================================================== */
+
+/* --- Proof section shell (mirrors homepage-edge-section) --- */
+.cs-proof-section{background:#fff;padding:80px 0;position:relative}
+.cs-proof-wrapper{max-width:var(--container-max);margin:0 auto;padding:0 var(--gutter)}
+.cs-proof-header{text-align:center;margin-bottom:56px}
+.cs-proof-header h2{font-family:"Playfair Display",Georgia,serif;font-size:2.4rem;font-weight:600;color:var(--text-heading);margin-bottom:14px;letter-spacing:.02em}
+.cs-proof-subtitle{font-size:1.15rem;color:var(--muted);line-height:1.6;margin:0 auto;max-width:720px}
+
+/* --- Chart card (same recipe as homepage-edge-card) --- */
+.cs-chart-card{background:#fff;border:1px solid var(--rule);border-radius:20px;padding:36px 28px;box-shadow:0 4px 16px rgba(11,77,255,.06)}
+.cs-chart-card h3{font-family:Manrope,sans-serif;font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:6px}
+.cs-chart-sub{font-size:.95rem;color:var(--muted);line-height:1.6;margin:0 0 8px}
+.cs-chart-card .proof-stats{margin-bottom:1.5rem;padding:1.25rem 0}
+
+/* --- The chart itself --- */
+.cs-chart{position:relative}
+.cs-chart svg{display:block;width:100%;height:auto}
+.cs-chart text{font-family:Manrope,sans-serif;font-size:12px;fill:var(--muted)}
+.cs-chart .cs-endlabel{fill:var(--text-primary);font-weight:600;font-size:13px}
+.cs-grid-line{stroke:var(--rule);stroke-width:1}
+.cs-baseline{stroke:var(--chip-border);stroke-width:1}
+.cs-line{fill:none;stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.cs-line--cpm{stroke:var(--accent-red)}
+.cs-line--cpl{stroke:#0d9e7f}
+.cs-pt{stroke:#fff;stroke-width:2}
+.cs-pt--cpm{fill:var(--accent-red)}
+.cs-pt--cpl{fill:#0d9e7f}
+.cs-cross{stroke:var(--chip-border);stroke-width:1;stroke-dasharray:4 4;opacity:0;transition:opacity .15s}
+.cs-hit{fill:transparent}
+
+/* Tooltip */
+.cs-tooltip{position:absolute;top:8px;background:#fff;border:1px solid var(--rule);border-radius:10px;box-shadow:0 8px 24px rgba(11,77,255,.12);padding:10px 14px;font-size:.85rem;color:var(--text-primary);pointer-events:none;white-space:nowrap;z-index:2}
+.cs-tooltip strong{display:block;margin-bottom:4px;font-family:Manrope,sans-serif}
+.cs-tooltip .cs-tip-row{display:flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums}
+
+/* Legend */
+.cs-legend{display:flex;flex-wrap:wrap;gap:1.25rem;margin-top:12px}
+.cs-legend__item{display:inline-flex;align-items:center;gap:8px;font-size:.9rem;color:var(--muted);font-weight:500}
+.cs-dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0}
+.cs-dot--cpm{background:var(--accent-red)}
+.cs-dot--cpl{background:#0d9e7f}
+
+/* Data table fallback */
+.cs-data-table{margin-top:18px;font-size:.9rem;color:var(--text-muted)}
+.cs-data-table summary{cursor:pointer;color:var(--primary-blue);font-weight:600}
+.cs-data-table table{width:100%;border-collapse:collapse;margin-top:10px}
+.cs-data-table th,.cs-data-table td{padding:6px 10px;border-bottom:1px solid var(--rule);text-align:right;font-variant-numeric:tabular-nums;font-weight:400}
+.cs-data-table th:first-child,.cs-data-table td:first-child{text-align:left}
+.cs-data-table thead th{font-weight:600;color:var(--text-heading)}
+
+/* --- Screenshot cards --- */
+.cs-proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px}
+.cs-shot{background:#fff;border:1px solid var(--rule);border-radius:20px;padding:20px;box-shadow:0 4px 16px rgba(11,77,255,.06);margin:0;display:flex;flex-direction:column}
+.cs-shot--wide{grid-column:1/-1}
+.cs-shot img{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--rule)}
+.cs-shot figcaption{font-size:.9rem;color:var(--muted);line-height:1.6;padding-top:14px;margin-top:auto}
+
+/* Cropped reporting screenshot: shows table structure only
+   (title + spend/leads/revenue/ROAS columns, first five adset rows) */
+.cs-crop{overflow:hidden;aspect-ratio:1313/530;border-radius:12px;border:1px solid var(--rule)}
+.cs-crop img{width:133.6%;max-width:none;border:none;border-radius:0}
+
+/* --- Moves timeline additions --- */
+.cs-move-list{font-size:.95rem;color:var(--text-muted);line-height:1.7;margin:14px 0 0;padding-left:1.1rem}
+.cs-move-list li{margin-bottom:.5rem}
+.cs-move-list li:last-child{margin-bottom:0}
+.cs-step--signature .step-phase-content{border-color:var(--brand-2);box-shadow:0 8px 24px rgba(11,77,255,.12)}
+.cs-step--signature .phase-tag{margin-bottom:1rem;background:linear-gradient(135deg,var(--primary-blue) 0,#35a4ff 100%)}
+
+/* --- Responsive --- */
+@media (max-width:900px){
+.cs-proof-grid{grid-template-columns:1fr}
+}
+@media (max-width:768px){
+.cs-proof-section{padding:48px 0 56px}
+.cs-proof-header{margin-bottom:40px}
+.cs-proof-header h2{font-size:1.65rem;margin-bottom:12px}
+.cs-proof-subtitle{font-size:1rem}
+.cs-chart-card{padding:28px 20px;border-radius:16px}
+.cs-shot{padding:14px;border-radius:16px}
+.cs-shot figcaption{font-size:.85rem}
+.cs-chart text{font-size:15px}
+.cs-chart .cs-endlabel{font-size:16px}
+}
+@media (max-width:400px){
+.cs-proof-header h2{font-size:1.5rem}
+}
+@media (prefers-reduced-motion:reduce){
+.cs-cross{transition:none}
+}

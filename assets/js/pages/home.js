@@ -121,5 +121,64 @@ function initScrollAnimations() {
   // Observe all elements at once
   growthSteps.forEach(step => observer.observe(step));
   edgeCards.forEach(card => observer.observe(card));
-  
+
 }
+
+// ======================================================
+// 3. Polish layer: scroll reveals + proof stat count-up
+// ======================================================
+(() => {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const counters = document.querySelectorAll('.count[data-target]');
+  const reveals = document.querySelectorAll('.sb-reveal');
+
+  const runCount = (el) => {
+    const target = parseInt(el.dataset.target, 10);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    if (reduced || isNaN(target)) {
+      el.textContent = prefix + target + suffix;
+      return;
+    }
+    const duration = 1300;
+    const start = performance.now();
+    const tick = (now) => {
+      const p = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+      el.textContent = prefix + Math.round(target * eased) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  if (!('IntersectionObserver' in window) || reduced) {
+    reveals.forEach(el => el.classList.add('visible'));
+    return; // counters keep their final text from the HTML
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      io.unobserve(entry.target);
+      if (entry.target.classList.contains('sb-reveal')) {
+        entry.target.classList.add('visible');
+      } else {
+        runCount(entry.target);
+      }
+    });
+  }, { threshold: 0.35 });
+
+  counters.forEach(el => io.observe(el));
+  reveals.forEach(el => io.observe(el));
+})();
+
+// ======================================================
+// 4. Nav: soft shadow once the page is scrolled
+// ======================================================
+(() => {
+  const header = document.querySelector('.nav-header');
+  if (!header) return;
+  const onScroll = () => header.classList.toggle('nav-scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
