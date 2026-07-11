@@ -61,35 +61,35 @@ function initNavigation() {
     if (!isSwiping || !menu.classList.contains('open')) return;
     
     currentX = e.touches[0].clientX;
-    const diff = startX - currentX;
+    // The menu slides in from the right (closed = translateX(100%)),
+    // so the closing gesture is a RIGHT swipe (towards where it exits)
+    const diff = currentX - startX;
 
-    // CRITICAL FIX: Only allow LEFT swipe (closing direction)
-    // Prevent dragging menu off-screen to the right
     if (diff > 0) {
       isDragging = true;
-      
+
       // Cap maximum drag distance to menu width
       const clampedDiff = Math.min(diff, 300); // 300px max drag
-      
+
       // Apply transform with clamping
       requestAnimationFrame(() => {
-        menu.style.transform = `translateX(-${clampedDiff}px)`;
+        menu.style.transform = `translateX(${clampedDiff}px)`;
       });
-      
+
       // Prevent page scroll while dragging menu
       if (diff > 10) {
         e.preventDefault();
       }
     } else {
-      // Reset if user tries to swipe right (wrong direction)
+      // Reset if user tries to swipe left (wrong direction)
       menu.style.transform = '';
     }
   }, { passive: false }); // passive: false allows preventDefault
 
   menu.addEventListener('touchend', () => {
     if (!isSwiping) return;
-    
-    const diff = startX - currentX;
+
+    const diff = currentX - startX;
 
     requestAnimationFrame(() => {
       // Threshold for closing (60px swipe)
@@ -126,8 +126,16 @@ function initNavigation() {
     }
   }, { passive: true });
 
+  // Close the menu when a nav link is tapped (matters for same-page links)
+  menu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (menu.classList.contains('open')) closeMenu();
+    });
+  });
+
   function openMenu() {
     toggle.classList.add('active');
+    toggle.setAttribute('aria-expanded', 'true');
     menu.classList.add('open');
     body.classList.add('no-scroll', 'menu-open');
     menu.style.transform = '';
@@ -136,8 +144,9 @@ function initNavigation() {
   function closeMenu() {
     menu.classList.remove('open');
     toggle.classList.remove('active');
+    toggle.setAttribute('aria-expanded', 'false');
     body.classList.remove('no-scroll', 'menu-open');
-    
+
     // Ensure transform is reset
     menu.style.transform = '';
     menu.style.transition = '';
