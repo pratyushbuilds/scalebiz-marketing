@@ -1,62 +1,84 @@
-# Scalebiz Homepage — Section 2 & 3 Redesign Brief
+# Scalebiz Services Page — Redesign Brief (v2)
 
-Upgrade the two weakest homepage sections. The homepage is the highest drop-off point, so it should carry the strongest interactions on the site. Sections 4 and 5 stay as they are.
+Two changes: reorder the page, and rebuild the "What We Do" section as expandable cards.
 
-All prior HARD CONSTRAINTS still apply: typography immutable, design tokens frozen, respect `prefers-reduced-motion`, static fallback for every animation, nothing blocks first paint.
-
----
-
-## STEP 0 — Answer this before building
-
-**Is this site React?**
-- **If YES:** you may use Framer Motion / `motion` for the two components below.
-- **If NO:** do NOT add React just to use these components. Rebuild both effects with **GSAP + ScrollTrigger**, which the site already loads for the service page. Same visual result, no new framework.
-
-Report which path you took, and the total animation libraries the site now loads. We are trying to keep this lean; the site's speed is part of the client's pitch (they're a performance marketing agency).
+All prior HARD CONSTRAINTS apply: typography immutable, design tokens frozen, `prefers-reduced-motion` respected, static fallback for every animation, nothing blocks first paint.
 
 ---
 
-## SECTION 2 — "Why More Ad Spend Won't Fix It"
+## STEP 0 — Answer before building
 
-**Problem:** currently four flat static cards in a row. Reads like a template.
+skiper23 depends on React + framer-motion. **Is this site React?**
+- **If YES:** framer-motion is fine.
+- **If NO:** do NOT add React for this. Rebuild the expand/collapse with GSAP (already loaded on this page) or plain CSS transitions + a height/FLIP animation. Same behaviour, no new framework.
 
-**Change:** rebuild as a **scroll-reveal grid** in the style of Skiper UI `skiper104` (https://skiper-ui.com/v1/skiper104) — cards reveal with smooth staggered transitions as the section enters view.
-
-- Keep the existing four cards' content exactly as-is (Upstream: Your Offer / Inside the Ad Account / Downstream: Your Follow-Up / Our Job: The Diagnosis). Copy does not change.
-- Keep the existing card styling, colours, icons, and type tokens. Only the reveal motion and grid composition change.
-- **Licensing:** skiper104's free version requires Skiper UI attribution. Either add the required attribution, or reimplement the effect independently. Do not ship it uncredited.
-- **Fallback:** on `prefers-reduced-motion`, cards render immediately, no motion.
+Report which path you took and the total animation libraries this page now loads.
 
 ---
 
-## SECTION 3 — the method / how-we-work teaser
+## 1. Section reorder
 
-**Problem:** currently flat and forgettable.
+- **Section 2 = "What We Do"** (the services)
+- **Section 3 = "How We Work"** (the four-phase stacking cards — unchanged, just moved down)
 
-**Do NOT reuse the service page's stacking-cards animation here.** That is the service page's signature element; duplicating it makes the two pages look identical again and spends the payoff on the teaser.
+**Constraint:** the stacking-cards section is the page's signature moment and now sits below the services. Keep the services section vertically compact (collapsed cards must be tight) so users still reach the phases. Do not let the services block dominate the page.
 
-**Change:** rebuild as a **sticky scroll text reveal with blur**, in the style of Skiper UI `skiper44` (https://skiper-ui.com/v1/skiper44) — statement copy pinned and revealed line by line on scroll, with scale/backdrop-blur transitions.
+---
 
-- This is a **teaser**, not the full walkthrough. Keep it short. State the method as a few punchy lines, then link out to the Services page for the full four-phase breakdown.
-- Suggested lines to reveal in sequence (adjust to fit the component's rhythm):
-  1. We audit before we spend.
-  2. We fix what's leaking before we scale it.
-  3. We measure early, not after the budget's gone.
-  4. Then we pour fuel on what converts.
-- End the section with a link: "See how we work →" pointing to the Services page.
-- **Note:** skiper44 is a Pro component — copy/adapt the source rather than installing via CLI, and keep the attribution terms in mind.
-- **Fallback:** on `prefers-reduced-motion` and narrow mobile, render the lines as a plain static list, fully readable, no pinning or blur.
+## 2. "What We Do" — rebuild as expandable cards
+
+**Pattern:** click-to-expand cards, in the style of Skiper UI `skiper23` (https://skiper-ui.com/v1/skiper23). Collapsed card shows the service name; clicking expands it with a smooth layout animation to reveal the detail; clicking outside collapses it.
+
+- **Licensing:** skiper23's free version requires Skiper UI attribution. Either add it, or reimplement independently. Do not ship uncredited.
+- **Reuse existing tokens only** — card styling, colours, radius, spacing, type. No new visual language.
+
+### Card content (5 services)
+
+**Collapsed state:** service name only. Keep it clean and compact — no tags, no body copy visible.
+
+**Expanded state:** the copy below.
+
+1. **Paid Media (Meta & Google)** — *the anchor service*
+   > This is our core. We've managed crores in ad spend and taken accounts from breaking even to steady profit. Every rupee is tracked to a real result, not a vanity number. We audit the funnel before we touch the budget, then scale what actually converts.
+   - **Anchor treatment:** this card is **expanded by default** on load, and carries visibly more substance than the others (keep its supporting tags/detail). It should read as the main offering without breaking the visual system.
+
+2. **SEO**
+   > Traffic that doesn't switch off the day you pause ads. We go after the searches your buyers are already making, and build pages that actually rank for them.
+
+3. **Social Media**
+   > We run the accounts start to finish, from content to posting to replies. Built to back the paid side, so your organic and paid pull in the same direction.
+
+4. **Web & Funnel**
+   > Landing pages and funnels built to convert the traffic you're already paying for. Most growth leaks happen here, not in the ad account.
+
+5. **Influencer Marketing** *(NEW)*
+   > Creators who actually move product, not just rack up views. We pick them on fit and performance, brief them properly, and track what each one returns.
+
+### Supporting tags
+The client asked to remove supporting tags from all services except Paid Media.
+- **Implement as:** collapsed cards show no tags (clean, title-only). Paid Media keeps its fuller detail in the expanded state.
+- **⚠️ Flag for client:** do NOT leave the other four services with bare titles and no detail anywhere. Four empty-looking services undercuts the "one team owns the whole result" argument. The expanded copy above is the substitute for the tags — keep it.
+
+### Per-card CTA
+Add a CTA at the bottom of **each expanded card** (in the space below the text):
+- **Label:** "Talk to us about this →"
+- **Links to:** the site's existing audit/contact CTA destination.
+- Use an existing secondary/tertiary button or text-link style. It must not compete with the page's primary CTA.
+
+### Fallback
+On `prefers-reduced-motion` and narrow mobile: render all five cards expanded (or as a plain accordion with no layout animation), fully readable, in order. All copy and CTAs must be reachable without the animation.
 
 ---
 
 ## DO NOT TOUCH
-- Section 4 (case study teaser) and Section 5 — leave exactly as they are.
-- All copy claims and numbers across the page.
+- The hero, the four-phase copy, the physics-pills section, or the final CTA.
+- Any claims or numbers.
+- Typography tokens.
 
 ---
 
 ## REPORT BACK
-1. React or not, and which animation path you took.
-2. Total animation libraries the homepage now loads, and confirmation they're deferred/lazy-loaded so they don't block first paint.
-3. Confirmation that the service page's stacking-cards animation was NOT reused on the homepage.
+1. React or not; which animation path you took; total animation libraries on this page.
+2. Confirmation Paid Media is expanded by default and reads as the anchor.
+3. Confirmation the page still reaches the stacking-cards section without excessive scroll.
 4. Typography tokens preserved.

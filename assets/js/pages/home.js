@@ -295,7 +295,46 @@
 })();
 
 // ======================================================
-// 4. Nav: soft shadow once the page is scrolled
+// 4. Final CTA: split-form inline validation (progressive
+// enhancement — without JS the browser's native required-
+// field validation still gates the Formspree POST)
+// ======================================================
+(() => {
+  const form = document.querySelector('.audit-form');
+  if (!form) return;
+  form.setAttribute('novalidate', '');
+
+  const fields = Array.from(form.querySelectorAll('[required]'));
+  const wrap = (el) => el.closest('.af-field');
+
+  const check = (el) => {
+    const ok = el.checkValidity();
+    const w = wrap(el);
+    if (w) w.classList.toggle('af-field--error', !ok);
+    el.setAttribute('aria-invalid', String(!ok));
+    return ok;
+  };
+
+  fields.forEach((el) => {
+    el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', () => {
+      const w = wrap(el);
+      if (w && w.classList.contains('af-field--error')) check(el);
+    });
+  });
+
+  form.addEventListener('submit', (e) => {
+    const bad = fields.filter((el) => !check(el));
+    if (bad.length) {
+      e.preventDefault();
+      bad[0].focus();
+    }
+    // Valid submits fall through to the native POST — the same
+    // Formspree endpoint contact.html uses. No faked success state.
+  });
+})();
+
+// ======================================================
+// 5. Nav: soft shadow once the page is scrolled
 // ======================================================
 (() => {
   const header = document.querySelector('.nav-header');

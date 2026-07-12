@@ -408,7 +408,7 @@
     <section class="founder-note">
       <div class="founder-inner">
         <span class="sb-eyebrow">Proof — Case Study</span>
-        <h2>The market got more expensive. The leads got cheaper.</h2>
+        <h2>Cheaper leads. And far more of them converting.</h2>
 
         <div class="proof-stats sb-reveal">
           <div class="proof-stat">
@@ -416,18 +416,22 @@
                 data-prefix="−" data-suffix="%">−64%</span></span>
             <span class="proof-stat__label">Cost per lead</span>
           </div>
-          <span class="proof-vs" aria-hidden="true">while</span>
+          <span class="proof-vs" aria-hidden="true">and</span>
           <div class="proof-stat">
-            <span class="proof-stat__num proof-stat__num--bad"><span class="count" data-target="47"
-                data-prefix="+" data-suffix="%">+47%</span></span>
-            <span class="proof-stat__label">CPM — auction cost</span>
+            <!-- ⚠️ BLOCKER — UNCONFIRMED METRIC: the 234% figure's basis (baseline, period,
+                 and whether "conversions" means leads/registrations or actual closures) must
+                 be confirmed by the client before this ships. Adjust the label below to match
+                 exactly what was measured. -->
+            <span class="proof-stat__num proof-stat__num--conv"><span class="count" data-target="234"
+                data-prefix="+" data-suffix="%">+234%</span></span>
+            <span class="proof-stat__label">Conversions</span>
           </div>
         </div>
 
         <div class="founder-body">
           <p>
-            Rising CPMs should have made every lead pricier. Instead, cost per lead fell by nearly
-            two-thirds. The fix wasn't in the ad account. <span class="thesis">We repaired the
+            Cost per lead fell by nearly two-thirds, and conversions climbed 234% over the same
+            stretch. The fix wasn't in the ad account. <span class="thesis">We repaired the
               offer and the follow-up first, then scaled what worked.</span>
           </p>
         </div>
@@ -447,6 +451,8 @@
           <h2>Everything your growth needs, in one place.</h2>
           <p class="sv-subtitle">Paid media is our core. Social, SEO, web, funnel, and influencer work all
             plug into it, so one team owns the whole result.</p>
+          <a class="ed-link sv-run-link" href="service.html#what-we-do">See what we do <span class="ed-arrow"
+              aria-hidden="true">→</span></a>
         </div>
 
         <!-- The pill list below is the real content. On motion-safe
@@ -497,11 +503,23 @@
           </div>
         </div>
 
-        <div class="founder-sig">
-          <img src="/assets/images/Co-founderImage.webp" alt="Founder" class="founder-avatar" loading="lazy" />
-          <div class="founder-details">
-            <span class="founder-name">Pratyush Kumar</span>
-            <span class="founder-title">Co-Founder, Scalebiz Marketing</span>
+        <div class="founder-sig-row">
+          <div class="founder-sig">
+            <img src="/assets/images/Co-founderImage.webp" alt="Founder" class="founder-avatar" loading="lazy" />
+            <div class="founder-details">
+              <span class="founder-name">Pratyush Kumar</span>
+              <span class="founder-title">Co-Founder, Scalebiz Marketing</span>
+            </div>
+          </div>
+
+          <!-- PLACEHOLDER: second operator slot. Real photo, name and title to be
+               supplied by the client — do not publish with the TBD copy below. -->
+          <div class="founder-sig founder-sig--placeholder">
+            <div class="founder-avatar" aria-hidden="true">TBD</div>
+            <div class="founder-details">
+              <span class="founder-name">[Name — TBD]</span>
+              <span class="founder-title">[Title — TBD]</span>
+            </div>
           </div>
         </div>
 
@@ -512,49 +530,62 @@
       </div>
     </section>
 
-    <!-- SECTION 7: Risk reversal + final CTA -->
+    <!-- SECTION 7: Final CTA — split form + escape hatch -->
     <section class="audit-cta">
-      <div class="audit-inner">
+      <div class="audit-inner audit-inner--split">
         <span class="sb-eyebrow">Your Next Step</span>
-        <h2>Start With the Free Audit — <span class="highlight">Keep the Findings</span> Either Way</h2>
 
-        <p class="audit-subhead">
-          We'll audit your funnel end to end, from offer to targeting to follow-up, and send you a written
-          diagnosis of where growth is leaking and what we'd fix first. If the problem isn't in the ads,
-          we'll tell you that too.
-        </p>
+        <div class="audit-split">
 
-        <div class="audit-trust">
-          <div class="trust-chip">
-            <span class="trust-icon">✓</span>
-            <span>Free, no obligation</span>
+          <!-- Left half: the form (posts to the same Formspree endpoint as contact.html) -->
+          <div class="audit-half audit-half--form">
+            <h2 class="audit-half__title">Tell us what's blocking the growth</h2>
+            <form class="audit-form" action="https://formspree.io/f/xyzpnany" method="POST">
+              <input type="hidden" name="_subject" value="Homepage growth form — Scalebiz Marketing" />
+
+              <div class="af-field">
+                <label for="af-name">Name</label>
+                <input type="text" id="af-name" name="name" required autocomplete="name"
+                  placeholder="Your name" />
+                <p class="af-error">Please enter your name.</p>
+              </div>
+
+              <div class="af-field">
+                <label for="af-stage">Company's current stage</label>
+                <select id="af-stage" name="company_stage" required>
+                  <option value="" selected disabled>Select a stage</option>
+                  <option value="Just starting">Just starting</option>
+                  <option value="Running ads already">Running ads already</option>
+                  <option value="Scaling">Scaling</option>
+                  <option value="Stuck">Stuck</option>
+                </select>
+                <p class="af-error">Please select your current stage.</p>
+              </div>
+
+              <div class="af-field">
+                <label for="af-blocker">What's stopping your growth?</label>
+                <textarea id="af-blocker" name="growth_blocker" rows="3" required
+                  placeholder="A sentence or two is plenty"></textarea>
+                <p class="af-error">Tell us a little about what's in the way.</p>
+              </div>
+
+              <button type="submit" class="audit-btn audit-form__submit">Send It Over</button>
+            </form>
           </div>
-          <div class="trust-chip">
-            <span class="trust-icon">✓</span>
-            <span>Delivered in 48 hours</span>
+
+          <!-- Divider: vertical on desktop, horizontal when stacked -->
+          <div class="audit-or"><span>OR</span></div>
+
+          <!-- Right half: the escape hatch -->
+          <div class="audit-half audit-half--escape">
+            <h2 class="audit-half__title">Not sure?</h2>
+            <p class="audit-escape__line">
+              Not knowing what's blocking your growth is exactly the problem we solve.
+            </p>
+            <a href="contact.html" class="audit-btn">Let's Figure It Out</a>
           </div>
-          <div class="trust-chip">
-            <span class="trust-icon">✓</span>
-            <span>Written, actionable findings</span>
-          </div>
-          <div class="trust-chip">
-            <span class="trust-icon">✓</span>
-            <span>No lock-in contracts</span>
-          </div>
+
         </div>
-
-        <p class="audit-anchor">
-          The audit is step one of the method. You see the diagnosis before you commit to anything.
-        </p>
-
-        <div class="audit-btn-wrapper">
-          <a href="contact.html" class="audit-btn">Run My Free Audit</a>
-        </div>
-
-        <p class="audit-support">
-          Worst case, you get a second pair of expert eyes on your funnel and keep every finding.
-          Best case, you find the leak that's been capping your growth.
-        </p>
       </div>
     </section>
 

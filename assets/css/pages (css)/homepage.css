@@ -125,6 +125,51 @@
 .edge-line{left:2px;top:8px;bottom:0;height:auto;width:4px;transform:none}
 }
 
+/* --- Proof teaser: conversions stat. Same hue as the CPL green
+   (#0d9e7f, .proof-stat__num--good) darkened ~35% in HSL lightness —
+   a shade of the existing palette green, not a new hue. --- */
+.proof-stat__num--conv{color:#086853}
+
+/* --- What We Run: tertiary CTA under the copy (ed-link component) --- */
+.sv-run-link{margin:28px 0 0}
+@media (max-width:480px){.sv-run-link{margin-bottom:0}}
+
+/* --- Who You Work With: matched pair of operator slots --- */
+.founder-sig-row{display:flex;gap:2.5rem;margin-top:2.5rem;padding-top:2.5rem;border-top:1px solid rgba(0,0,0,.06)}
+.founder-sig-row .founder-sig{flex:1 1 0;margin-top:0;padding-top:0;border-top:0}
+.founder-sig--placeholder .founder-avatar{font-size:1.05rem;letter-spacing:.06em}
+@media (max-width:768px){.founder-sig-row{flex-direction:column;gap:1.75rem}}
+
+/* --- Final CTA: 50/50 split — form | OR divider | escape hatch.
+   Inputs are built from existing tokens only (chip border, primary
+   blue, accent red, 8px radius shared with .audit-btn/.nav-cta). --- */
+.audit-inner--split{max-width:1080px}
+.audit-split{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(2.25rem,4.5vw,4rem);align-items:stretch;margin-top:1.25rem;text-align:left}
+.audit-half{display:flex;flex-direction:column;justify-content:center}
+.audit-half__title{font-size:2rem;text-align:left;margin-bottom:1.5rem}
+.audit-form{display:flex;flex-direction:column;gap:1.15rem}
+.af-field{display:flex;flex-direction:column;gap:.45rem}
+.af-field label{font-family:Manrope,sans-serif;font-size:.9rem;font-weight:600;color:var(--text-heading);letter-spacing:.02em}
+.af-field input,.af-field select,.af-field textarea{width:100%;font:inherit;font-size:1rem;color:var(--text-primary);background:#fff;border:1px solid var(--chip-border);border-radius:8px;padding:.75rem .9rem;transition:border-color .25s,box-shadow .25s}
+.af-field textarea{resize:vertical;min-height:96px}
+.af-field input:focus,.af-field select:focus,.af-field textarea:focus{outline:none;border-color:var(--primary-blue);box-shadow:0 0 0 3px rgba(11,77,255,.12)}
+.af-error{display:none;font-size:.85rem;color:var(--accent-red);margin:0}
+.af-field--error input,.af-field--error select,.af-field--error textarea{border-color:var(--accent-red)}
+.af-field--error .af-error{display:block}
+.audit-form__submit{align-self:flex-start;margin-top:.5rem;padding:1rem 2.4rem;font-size:1.05rem;border:none;cursor:pointer}
+.audit-or{display:flex;flex-direction:column;align-items:center;gap:.9rem;align-self:stretch}
+.audit-or::before,.audit-or::after{content:"";width:1px;flex:1;background:rgba(0,0,0,.14)}
+.audit-or span{font-family:Manrope,sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.14em;color:var(--muted)}
+.audit-half--escape{align-items:center;text-align:center}
+.audit-half--escape .audit-half__title{text-align:center;margin-bottom:.85rem}
+.audit-escape__line{font-size:1.15rem;color:var(--text-muted);line-height:1.65;max-width:36ch;margin:0 0 2rem}
+@media (max-width:900px){
+.audit-split{grid-template-columns:1fr;gap:2.25rem}
+.audit-or{flex-direction:row;gap:1rem;align-self:auto}
+.audit-or::before,.audit-or::after{width:auto;height:1px;flex:1}
+.audit-form__submit{align-self:stretch}
+}
+
 /* --- Reduced motion: settle everything instantly --- */
 @media (prefers-reduced-motion:reduce){
 .ed-h1,.ed-sub,.hero--editorial .ed-link,.hero-microcopy,.audit-inner,.founder-inner,.phase-card,.audit-cta::after,.audit-cta h2 .highlight::after{animation:none}
