@@ -103,16 +103,81 @@ html{scroll-behavior:auto}
 }
 
 /* Whatever section directly follows the pinned stack must paint OVER
-   the position:fixed panels while they're covered (the role .sv-run
-   used to play). Layered backdrop + the vertical rhythm .sv-run had;
-   the backdrop is the page background so the section looks unchanged. */
-.sv-phases + .deliverables-section{position:relative;z-index:2;padding-top:110px;padding-bottom:96px}
-/* #what-we-do is the landing target for the homepage "See what we do"
-   CTA — keep the section clear of the 70px sticky nav on arrival */
-.sv-phases + .deliverables-section{scroll-margin-top:80px}
-.sv-phases + .deliverables-section::before{content:"";position:absolute;inset:0;left:50%;transform:translateX(-50%);width:100vw;background:var(--bg-main);z-index:-1}
+   the position:fixed panels while they're covered (the role .sv-run,
+   then .deliverables-section, used to play). Since the 2026-07-13
+   reorder that neighbour is the Why One Team founder-note: it already
+   has position:relative and an opaque full-width background, so it
+   only needs the stacking level. */
+.sv-phases + .founder-note{z-index:2}
+
+/* ====================================================================
+   1b. WHAT WE DO — expandable service cards (section 2 since the
+   2026-07-13 reorder; #what-we-do is the landing target for the
+   homepage "See what we do" CTA, hence the scroll margin for the
+   70px sticky nav). Click-to-expand accordion in the style of Skiper
+   UI's skiper23, reimplemented independently with a pure CSS
+   grid-template-rows transition (no Skiper source; wired up in
+   services.js). Card recipe = the existing phase-card language:
+   white card, --rule border, 16px radius, the same blue-tinted
+   shadow, and the anchor card reuses the phase-card--anchor gradient
+   + blue top border. No new tokens.
+   ==================================================================== */
+.sv-services{padding:72px 0 24px;scroll-margin-top:80px}
+.sv-services .sv-header{margin-bottom:40px}
+.sv-acc{max-width:880px;margin:0 auto;padding:0 var(--gutter);display:flex;flex-direction:column;gap:14px}
+.sv-acc-card{background:#fff;border:1px solid var(--rule);border-radius:16px;box-shadow:0 4px 16px rgba(11,77,255,.06);overflow:hidden;transition:border-color .3s,box-shadow .3s}
+.sv-acc-card:hover{border-color:var(--brand-2);box-shadow:0 8px 24px rgba(11,77,255,.12)}
+.sv-acc-head{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:18px 24px;background:none;border:0;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.sv-acc-title{font-family:Manrope,sans-serif;font-size:1.2rem;font-weight:700;color:var(--text-heading);line-height:1.3}
+.sv-acc-title-note{font-weight:600;font-size:.95rem;color:var(--muted)}
+/* plus that becomes a cross when open */
+.sv-acc-icon{position:relative;flex-shrink:0;width:22px;height:22px;transition:transform .35s var(--e-out)}
+.sv-acc-icon::before,.sv-acc-icon::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--primary-blue);border-radius:2px}
+.sv-acc-icon::before{width:14px;height:2px}
+.sv-acc-icon::after{width:2px;height:14px}
+.sv-acc-card.is-open .sv-acc-icon{transform:rotate(45deg)}
+/* expand/collapse: grid row 0fr -> 1fr */
+.sv-acc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--e-out)}
+.sv-acc-card.is-open .sv-acc-body{grid-template-rows:1fr}
+.sv-acc-inner{overflow:hidden;min-height:0}
+.sv-acc-content{padding:0 24px 22px;opacity:0;transform:translateY(4px);transition:opacity .35s var(--e-out),transform .35s var(--e-out)}
+.sv-acc-card.is-open .sv-acc-content{opacity:1;transform:none}
+.sv-acc-content p{font-size:1rem;color:var(--text-muted);line-height:1.7;margin:0 0 1rem;max-width:64ch}
+.sv-acc-content .phase-tag{margin-bottom:1rem}
+.sv-acc-content .phase-deliverables{margin:0 0 1.25rem}
+.sv-acc-cta{margin:4px 0 0;font-size:15px}
+/* anchor card: the existing phase-card--anchor recipe */
+.sv-acc-card--anchor{background:linear-gradient(135deg,#fff 0,#f4f8ff 100%);border-top:3px solid var(--primary-blue)}
+.sv-acc-card--anchor .phase-tag{background:linear-gradient(135deg,var(--primary-blue) 0,#35a4ff 100%)}
+.sv-acc-card--anchor .phase-deliverables li::before{color:var(--primary-blue);background:rgba(11,77,255,.1)}
+/* two columns keep the expanded anchor card short of dominating the
+   section (the phases below must stay in easy reach) */
+.sv-acc-card--anchor .phase-deliverables{display:grid;grid-template-columns:1fr 1fr;gap:10px 28px}
+.sv-acc-card--anchor .phase-deliverables li{margin-bottom:0}
 @media (max-width:768px){
-.sv-phases + .deliverables-section{padding-top:56px;padding-bottom:48px}
+.sv-services{padding:64px 0 8px}
+.sv-acc-card--anchor .phase-deliverables{grid-template-columns:1fr}
+.sv-acc-head{padding:15px 18px}
+.sv-acc-title{font-size:1.05rem}
+.sv-acc-content{padding:0 18px 18px}
+/* narrow mobile: plain accordion, no layout animation (brief fallback) */
+.sv-acc-body,.sv-acc-content,.sv-acc-icon{transition:none}
+}
+@media (max-width:480px){.sv-acc-cta{margin-bottom:0}}
+/* reduced motion: same content, no layout animation */
+@media (prefers-reduced-motion:reduce){
+.sv-acc-body,.sv-acc-content,.sv-acc-icon,.sv-acc-card{transition:none}
+}
+
+/* ====================================================================
+   3. FINAL CTA — word-reveal spans (wrapped at runtime by services.js,
+   motion-safe only; without JS/GSAP the text stays plain). Belt and
+   braces: reduced motion forces the words fully visible even if a
+   client toggles the OS setting after the wrap ran.
+   ==================================================================== */
+.sv-cta-reveal .sv-word{display:inline-block;will-change:opacity,transform}
+@media (prefers-reduced-motion:reduce){
+.sv-cta-reveal .sv-word{opacity:1!important;transform:none!important}
 }
 
 /* ====================================================================
@@ -132,7 +197,7 @@ html{scroll-behavior:auto}
 
 /* Static pills (default: mobile, reduced motion, no JS) */
 .sv-pills{list-style:none;margin:0;padding:28px;height:100%;display:flex;flex-wrap:wrap;gap:14px;align-items:center;align-content:center;justify-content:center}
-.sv-pill{margin:0;display:inline-flex;align-items:center;padding:14px 26px;border-radius:999px;font-family:Manrope,sans-serif;font-size:1rem;font-weight:700;letter-spacing:.01em;white-space:nowrap;box-shadow:0 8px 20px rgba(11,77,255,.1)}
+.sv-pill{margin:0;display:inline-flex;align-items:center;padding:18px 34px;border-radius:999px;font-family:Manrope,sans-serif;font-size:1.15rem;font-weight:700;letter-spacing:.01em;white-space:nowrap;box-shadow:0 8px 20px rgba(11,77,255,.1)}
 .sv-pill--paid{background:linear-gradient(135deg,var(--primary-blue) 0,#0940d9 100%);color:#fff}
 .sv-pill--seo{background:linear-gradient(135deg,var(--brand-1) 0,#13c49f 100%);color:var(--text-heading)}
 .sv-pill--social{background:linear-gradient(135deg,var(--brand-2) 0,#2a8ce6 100%);color:#fff}
@@ -151,5 +216,5 @@ html{scroll-behavior:auto}
 .sv-run{padding:56px 0}
 .sv-split-copy h2{font-size:1.65rem}
 .sv-pit{height:360px;border-radius:18px}
-.sv-pill{padding:12px 20px;font-size:.92rem}
+.sv-pill{padding:14px 26px;font-size:1.02rem}
 }

@@ -216,7 +216,137 @@
       </div>
     </section>
 
-    <!-- SECTION 2: HOW WE WORK — stacking phase cards -->
+    <!-- SECTION 2: WHAT WE DO — expandable service cards.
+         Click-to-expand accordion in the style of Skiper UI's skiper23,
+         reimplemented independently (own markup/CSS/JS — no Skiper source
+         shipped, so no attribution requirement). Markup ships every card
+         OPEN: no-JS readers get all copy; services.js collapses all but
+         the anchor card and wires the accordion up. Animation is a pure
+         CSS grid-template-rows transition — disabled under
+         prefers-reduced-motion and on narrow mobile per the brief. -->
+    <section class="sv-services" id="what-we-do">
+      <div class="sv-header sb-reveal">
+        <span class="sb-eyebrow">What We Do</span>
+        <h2>Performance-Led. Full-Service Capable.</h2>
+        <p class="sv-subtitle">Paid media is the anchor, and it's where our proof lives. The rest of the stack exists so
+          growth never gets bottlenecked by a single channel.</p>
+      </div>
+
+      <div class="sv-acc sb-reveal">
+
+        <!-- Anchor service: expanded by default, carries the fuller detail -->
+        <article class="sv-acc-card sv-acc-card--anchor is-open">
+          <button class="sv-acc-head" type="button" id="acc-paid-head" aria-expanded="true"
+            aria-controls="acc-paid">
+            <span class="sv-acc-title">Paid Media <span class="sv-acc-title-note">(Meta &amp; Google)</span></span>
+            <span class="sv-acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="sv-acc-body" id="acc-paid" role="region" aria-labelledby="acc-paid-head">
+            <div class="sv-acc-inner">
+              <div class="sv-acc-content">
+                <span class="phase-tag">Anchor Service</span>
+                <p>
+                  This is our core. We've managed crores in ad spend and taken accounts from breaking even
+                  to steady profit. Every rupee is tracked to a real result, not a vanity number. We audit
+                  the funnel before we touch the budget, then scale what actually converts.
+                </p>
+                <ul class="phase-deliverables">
+                  <li>Full-funnel campaign strategy and builds</li>
+                  <li>Creative testing with pre-defined kill/scale rules</li>
+                  <li>Clean conversion tracking and attribution</li>
+                  <li>Weekly reporting you can actually act on</li>
+                </ul>
+                <a class="ed-link sv-acc-cta" href="contact.html">Talk to us about this <span class="ed-arrow"
+                    aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="sv-acc-card is-open">
+          <button class="sv-acc-head" type="button" id="acc-seo-head" aria-expanded="true"
+            aria-controls="acc-seo">
+            <span class="sv-acc-title">SEO</span>
+            <span class="sv-acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="sv-acc-body" id="acc-seo" role="region" aria-labelledby="acc-seo-head">
+            <div class="sv-acc-inner">
+              <div class="sv-acc-content">
+                <p>
+                  Traffic that doesn't switch off the day you pause ads. We go after the searches your
+                  buyers are already making, and build pages that actually rank for them.
+                </p>
+                <a class="ed-link sv-acc-cta" href="contact.html">Talk to us about this <span class="ed-arrow"
+                    aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="sv-acc-card is-open">
+          <button class="sv-acc-head" type="button" id="acc-social-head" aria-expanded="true"
+            aria-controls="acc-social">
+            <span class="sv-acc-title">Social Media</span>
+            <span class="sv-acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="sv-acc-body" id="acc-social" role="region" aria-labelledby="acc-social-head">
+            <div class="sv-acc-inner">
+              <div class="sv-acc-content">
+                <p>
+                  We run the accounts start to finish, from content to posting to replies. Built to back
+                  the paid side, so your organic and paid pull in the same direction.
+                </p>
+                <a class="ed-link sv-acc-cta" href="contact.html">Talk to us about this <span class="ed-arrow"
+                    aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="sv-acc-card is-open">
+          <button class="sv-acc-head" type="button" id="acc-web-head" aria-expanded="true"
+            aria-controls="acc-web">
+            <span class="sv-acc-title">Web &amp; Funnel</span>
+            <span class="sv-acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="sv-acc-body" id="acc-web" role="region" aria-labelledby="acc-web-head">
+            <div class="sv-acc-inner">
+              <div class="sv-acc-content">
+                <p>
+                  Landing pages and funnels built to convert the traffic you're already paying for. Most
+                  growth leaks happen here, not in the ad account.
+                </p>
+                <a class="ed-link sv-acc-cta" href="contact.html">Talk to us about this <span class="ed-arrow"
+                    aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="sv-acc-card is-open">
+          <button class="sv-acc-head" type="button" id="acc-influencer-head" aria-expanded="true"
+            aria-controls="acc-influencer">
+            <span class="sv-acc-title">Influencer Marketing</span>
+            <span class="sv-acc-icon" aria-hidden="true"></span>
+          </button>
+          <div class="sv-acc-body" id="acc-influencer" role="region" aria-labelledby="acc-influencer-head">
+            <div class="sv-acc-inner">
+              <div class="sv-acc-content">
+                <p>
+                  Creators who actually move product, not just rack up views. We pick them on fit and
+                  performance, brief them properly, and track what each one returns.
+                </p>
+                <a class="ed-link sv-acc-cta" href="contact.html">Talk to us about this <span class="ed-arrow"
+                    aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3: HOW WE WORK — stacking phase cards -->
     <section class="sv-phases" id="how-we-work">
       <div class="sv-header sb-reveal">
         <span class="sb-eyebrow">How We Work</span>
@@ -268,104 +398,9 @@
       </div>
     </section>
 
-    <!-- SECTION 3: Services — performance-led, full-service capable
-         (swapped in from the homepage) -->
-    <section class="deliverables-section" id="what-we-do">
-      <div class="deliverables-header sb-reveal">
-        <span class="sb-eyebrow">What We Do</span>
-        <h2>Performance-Led. Full-Service Capable.</h2>
-        <p>Paid media is the anchor, and it's where our proof lives. The rest of the stack exists so
-          growth never gets bottlenecked by a single channel.</p>
-      </div>
-
-      <div class="phase-grid">
-        <!-- Anchor service: paid media (full-width for visual weight) -->
-        <div class="phase-card phase-card--anchor">
-          <span class="phase-tag">Anchor Service</span>
-          <div class="anchor-cols">
-            <div>
-              <div class="homepage-edge-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="m3 11 18-5v12L3 14v-3z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
-                </svg>
-              </div>
-              <h3>Paid Media</h3>
-              <p class="phase-subtitle">Where the proof lives.</p>
-
-              <p class="phase-description">
-                Meta and Google campaigns, run diagnosis-first: audit before spend, kill/scale rules before
-                launch, and measurement behind every decision. This is the engine behind results like a 64%
-                drop in cost per lead against rising CPMs.
-              </p>
-            </div>
-
-            <ul class="phase-deliverables">
-              <li>Full-funnel campaign strategy and builds</li>
-              <li>Creative testing with pre-defined kill/scale rules</li>
-              <li>Clean conversion tracking and attribution</li>
-              <li>Weekly reporting you can actually act on</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Supporting: SEO -->
-        <div class="phase-card">
-          <span class="phase-tag">Supporting</span>
-          <div class="homepage-edge-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8" />
-              <path stroke-linecap="round" d="m21 21-4.35-4.35" />
-            </svg>
-          </div>
-          <h3>SEO</h3>
-          <p class="phase-subtitle">So paid isn't your only door.</p>
-
-          <p class="phase-description">
-            Search visibility that compounds while paid drives the near-term volume, so acquisition
-            doesn't live and die by the auction.
-          </p>
-        </div>
-
-        <!-- Supporting: Social -->
-        <div class="phase-card">
-          <span class="phase-tag">Supporting</span>
-          <div class="homepage-edge-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            </svg>
-          </div>
-          <h3>Social &amp; Content</h3>
-          <p class="phase-subtitle">So your brand survives the click.</p>
-
-          <p class="phase-description">
-            A presence that backs your ads. Buyers check the profile before they buy. We make sure what
-            they find closes the sale instead of leaking it.
-          </p>
-        </div>
-
-        <!-- Supporting: Web -->
-        <div class="phase-card">
-          <span class="phase-tag">Supporting</span>
-          <div class="homepage-edge-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="4" width="20" height="16" rx="2" />
-              <path stroke-linecap="round" d="M2 9h20" />
-            </svg>
-          </div>
-          <h3>Web &amp; Funnels</h3>
-          <p class="phase-subtitle">So clicks land somewhere that converts.</p>
-
-          <p class="phase-description">
-            Landing pages and funnel builds treated as part of media performance, because the page is
-            where most paid traffic actually leaks.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 4: WHY ONE TEAM -->
+    <!-- SECTION 4: WHY ONE TEAM (directly follows .sv-phases, so it now
+         carries the cover role: it must paint over the pinned panels —
+         see the .sv-phases + .founder-note rule in services-v2.css) -->
     <section class="founder-note">
       <div class="founder-inner">
         <span class="sb-eyebrow">Why One Team</span>
@@ -384,49 +419,70 @@
       </div>
     </section>
 
-    <!-- SECTION 5: CTA — same free-audit entry offer as the homepage -->
+    <!-- SECTION 5: Final CTA — split form + escape hatch (same layout
+         system as the homepage final CTA; layout CSS ships in
+         homepage.css, validation in home.js — both already loaded
+         here). Copy is a reframed take on the homepage section's, so
+         the two pages carry the same message without reading
+         identical. The .sv-cta-reveal texts get a skiper70/72-style
+         scroll-scrubbed word reveal (services.js, GSAP ScrollTrigger,
+         motion-safe only — plain text otherwise). -->
     <section class="audit-cta">
-      <div class="audit-inner">
+      <div class="audit-inner audit-inner--split">
         <span class="sb-eyebrow">Your Next Step</span>
-        <h2>Want to See Where <span class="highlight">Your Funnel's Leaking</span>?</h2>
 
-        <p class="audit-subhead">
-          Start with the free audit. We'll go through your offer, targeting, and follow-up, then send you
-          a written diagnosis of what we'd fix first. If the problem isn't in the ads, we'll tell you that
-          too.
-        </p>
+        <div class="audit-split">
 
-        <div class="audit-trust">
-          <div class="trust-chip">
-            <span class="trust-icon">✓</span>
-            <span>Free, no obligation</span>
+          <!-- Left half: the form (posts to the same Formspree endpoint as contact.html) -->
+          <div class="audit-half audit-half--form">
+            <h2 class="audit-half__title sv-cta-reveal">Tell us where growth is stuck</h2>
+            <form class="audit-form" action="https://formspree.io/f/xyzpnany" method="POST">
+              <input type="hidden" name="_subject" value="Services page growth form — Scalebiz Marketing" />
+
+              <div class="af-field">
+                <label for="af-name">Name</label>
+                <input type="text" id="af-name" name="name" required autocomplete="name"
+                  placeholder="Your name" />
+                <p class="af-error">Please enter your name.</p>
+              </div>
+
+              <div class="af-field">
+                <label for="af-stage">Company's current stage</label>
+                <select id="af-stage" name="company_stage" required>
+                  <option value="" selected disabled>Select a stage</option>
+                  <option value="Just starting">Just starting</option>
+                  <option value="Running ads already">Running ads already</option>
+                  <option value="Scaling">Scaling</option>
+                  <option value="Stuck">Stuck</option>
+                </select>
+                <p class="af-error">Please select your current stage.</p>
+              </div>
+
+              <div class="af-field">
+                <label for="af-blocker">What's stopping your growth?</label>
+                <textarea id="af-blocker" name="growth_blocker" rows="3" required
+                  placeholder="A sentence or two is plenty"></textarea>
+                <p class="af-error">Tell us a little about what's in the way.</p>
+              </div>
+
+              <button type="submit" class="audit-btn audit-form__submit">Send It — We'll Take a Look</button>
+            </form>
           </div>
-          <div class="trust-chip">
-            <span class="trust-icon">✓</span>
-            <span>Delivered in 48 hours</span>
+
+          <!-- Divider: vertical on desktop, horizontal when stacked -->
+          <div class="audit-or"><span>OR</span></div>
+
+          <!-- Right half: the escape hatch -->
+          <div class="audit-half audit-half--escape">
+            <h2 class="audit-half__title sv-cta-reveal">Want the diagnosis first?</h2>
+            <p class="audit-escape__line sv-cta-reveal">
+              You've seen what we run and how we work — the free audit shows what's leaking in
+              <em>your</em> funnel before you commit to anything.
+            </p>
+            <a href="contact.html" class="audit-btn">Run My Free Audit</a>
           </div>
-          <div class="trust-chip">
-            <span class="trust-icon">✓</span>
-            <span>Written, actionable findings</span>
-          </div>
-          <div class="trust-chip">
-            <span class="trust-icon">✓</span>
-            <span>No lock-in contracts</span>
-          </div>
+
         </div>
-
-        <p class="audit-anchor">
-          The audit is step one of the method. You see the diagnosis before you commit to anything.
-        </p>
-
-        <div class="audit-btn-wrapper">
-          <a href="contact.html" class="audit-btn">Run My Free Audit</a>
-        </div>
-
-        <p class="audit-support">
-          Worst case, you get a second pair of expert eyes on your funnel and keep every finding.
-          Best case, you find the leak that's been capping your growth.
-        </p>
       </div>
     </section>
 

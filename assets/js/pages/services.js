@@ -16,6 +16,20 @@ const svLoadScript = (src) =>
     document.head.appendChild(s);
   });
 
+// Single shared GSAP+ScrollTrigger load, used by the phase pinning
+// AND the final-CTA word reveal — each script is injected at most
+// once no matter how many blocks ask for it.
+const SV_GSAP_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
+const SV_ST_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';
+let svGsapPromise = null;
+const svGsapReady = () => {
+  if (!svGsapPromise) {
+    svGsapPromise = (window.gsap ? Promise.resolve() : svLoadScript(SV_GSAP_SRC))
+      .then(() => (window.ScrollTrigger ? Promise.resolve() : svLoadScript(SV_ST_SRC)));
+  }
+  return svGsapPromise;
+};
+
 // CSS smooth-scrolling is disabled on the pages that load this file
 // (it corrupts ScrollTrigger's measurements — see services-v2.css),
 // so reproduce it for in-page anchor links here.
@@ -32,6 +46,61 @@ document.addEventListener('click', (e) => {
 });
 
 // ----------------------------------------------------------------
+// 0. What We Do: expandable service cards (skiper23-style pattern,
+// reimplemented independently — no Skiper source). The HTML ships
+// every card OPEN so no-JS readers get all copy; this block
+// collapses everything except the anchor card, then runs a one-open
+// accordion. Clicking outside the cards collapses the open one.
+// The animation itself is pure CSS (grid-template-rows transition,
+// disabled under reduced motion and on narrow mobile) — no library.
+// ----------------------------------------------------------------
+(() => {
+  const acc = document.querySelector('.sv-acc');
+  if (!acc) return;
+  const cards = Array.from(acc.querySelectorAll('.sv-acc-card'));
+
+  // The accordion sits ABOVE the pinned phase stack: every expand/
+  // collapse shifts the page height under ScrollTrigger's pins, so
+  // remeasure once the CSS transition (.45s) has settled.
+  let refreshTimer = null;
+  const scheduleRefresh = () => {
+    clearTimeout(refreshTimer);
+    refreshTimer = setTimeout(() => {
+      if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+    }, 520);
+  };
+
+  const setOpen = (card, open) => {
+    card.classList.toggle('is-open', open);
+    const head = card.querySelector('.sv-acc-head');
+    if (head) head.setAttribute('aria-expanded', String(open));
+  };
+
+  // Initial state: only the anchor card (Paid Media) stays expanded
+  cards.forEach((card) => setOpen(card, card.classList.contains('sv-acc-card--anchor')));
+
+  acc.addEventListener('click', (e) => {
+    const head = e.target.closest('.sv-acc-head');
+    if (!head) return;
+    const card = head.closest('.sv-acc-card');
+    const willOpen = !card.classList.contains('is-open');
+    cards.forEach((c) => setOpen(c, false));
+    if (willOpen) setOpen(card, true);
+    scheduleRefresh();
+  });
+
+  // skiper23 behaviour: a click anywhere outside collapses the open card
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.sv-acc')) return;
+    let changed = false;
+    cards.forEach((c) => {
+      if (c.classList.contains('is-open')) { setOpen(c, false); changed = true; }
+    });
+    if (changed) scheduleRefresh();
+  });
+})();
+
+// ----------------------------------------------------------------
 // 1. Phases: GSAP ScrollTrigger stacking panels.
 // Each panel pins below the nav; the panels behind scale down with
 // a deeper shadow as the next one arrives (scrubbed). The pinned
@@ -44,9 +113,6 @@ document.addEventListener('click', (e) => {
   const stack = document.querySelector('.sv-stack');
   const panels = stack ? Array.from(stack.querySelectorAll('.sv-panel')) : [];
   if (panels.length < 2) return;
-
-  const GSAP_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
-  const ST_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';
 
   const init = () => {
     const gsap = window.gsap;
@@ -127,10 +193,89 @@ document.addEventListener('click', (e) => {
   };
 
   // Deferred + async injected: never blocks first paint
-  svLoadScript(GSAP_SRC)
-    .then(() => svLoadScript(ST_SRC))
+  svGsapReady()
     .then(init)
     .catch(() => {}); // load failed: the colour stack is still complete content
+})();
+
+// ----------------------------------------------------------------
+// 1b. Final CTA: scroll-scrubbed word-by-word text reveal
+// (skiper70/72-style pattern, reimplemented independently — no
+// Skiper source shipped). The HTML ships plain text; words are
+// wrapped in spans only once GSAP is available and motion is
+// allowed, so no-JS / reduced-motion / CDN-failure all read the
+// plain copy. Runs on mobile too (house rule for this page).
+// ----------------------------------------------------------------
+(() => {
+  if (svReduced) return;
+
+  const section = document.querySelector('.audit-cta');
+  const targets = section ? Array.from(section.querySelectorAll('.sv-cta-reveal')) : [];
+  if (!targets.length) return;
+
+  // Wrap each word in a span, walking text nodes so inline elements
+  // (like the <em> in the escape line) survive intact
+  const wrapWords = (el) => {
+    const spans = [];
+    const walk = (node) => {
+      Array.from(node.childNodes).forEach((child) => {
+        if (child.nodeType === Node.TEXT_NODE) {
+          const frag = document.createDocumentFragment();
+          child.textContent.split(/(\s+)/).forEach((part) => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) {
+              frag.appendChild(document.createTextNode(' '));
+            } else {
+              const s = document.createElement('span');
+              s.className = 'sv-word';
+              s.textContent = part;
+              frag.appendChild(s);
+              spans.push(s);
+            }
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === Node.ELEMENT_NODE) {
+          walk(child);
+        }
+      });
+    };
+    walk(el);
+    return spans;
+  };
+
+  svGsapReady()
+    .then(() => {
+      const gsap = window.gsap;
+      const ScrollTrigger = window.ScrollTrigger;
+      if (!gsap || !ScrollTrigger) return;
+      gsap.registerPlugin(ScrollTrigger);
+
+      const words = targets.reduce((all, el) => all.concat(wrapWords(el)), []);
+      if (!words.length) return;
+
+      // Dim words brighten in DOM order as the section enters; the
+      // window ends at 40% viewport so the reveal always completes
+      // with the footer's scroll runway to spare
+      gsap.fromTo(
+        words,
+        { opacity: 0.15, y: 8, skewX: -6 },
+        {
+          opacity: 1,
+          y: 0,
+          skewX: 0,
+          ease: 'none',
+          duration: 0.5,
+          stagger: 0.06,
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 85%',
+            end: 'top 40%',
+            scrub: 0.6
+          }
+        }
+      );
+    })
+    .catch(() => {}); // no GSAP: the plain text was never touched
 })();
 
 // ----------------------------------------------------------------
@@ -179,11 +324,68 @@ document.addEventListener('click', (e) => {
 
     const engine = Engine.create();
 
+    // Drop plan. The pills got ~18% bigger (2026-07-13), which makes
+    // the box genuinely crowded (total pill width > box width) — a
+    // naive spread drop left pills wedged near-vertical against the
+    // walls and each other. So the drop is shelf-packed: pills are
+    // taken widest-first and greedily grouped into rows that fit the
+    // box width; each row is centred and released one row-height
+    // above the previous, so every pill lands nearly flat either on
+    // the floor or on a full row below it. Still real physics — the
+    // bounce on landing and drag-and-toss are unchanged.
+    const inset = 12; // row ends sit this close to the walls when justified
+    const gap = 10;
+    // First-fit decreasing: seed each row with the widest remaining
+    // pill, then fill the leftover width with ANY remaining pill that
+    // fits. Plain width-ordered rows left the narrow box (mobile) with
+    // one pill per row and wall gaps beside them — the exact slots the
+    // small pills wedged into on end.
+    const byWidthDesc = sizes.map((s, i) => i).sort((a, b) => sizes[b].w - sizes[a].w);
+    const usable = W - inset * 2;
+    const remaining = byWidthDesc.slice();
+    const rows = [];
+    while (remaining.length) {
+      const row = [remaining.shift()];
+      let rowW = sizes[row[0]].w;
+      for (let k = 0; k < remaining.length;) {
+        const w = sizes[remaining[k]].w;
+        if (rowW + gap + w <= usable) {
+          rowW += gap + w;
+          row.push(remaining.splice(k, 1)[0]);
+        } else {
+          k++;
+        }
+      }
+      rows.push(row);
+    }
+    // Multi-pill rows are justified wall-to-wall: a centred row leaves
+    // a wall-width gap that's narrower than a small pill's length but
+    // wider than its height — exactly the slot the smallest pill kept
+    // wedging into on end. Justified rows leave only wide mid-row gaps
+    // (small pills lie flat in those) or slivers too thin to enter.
+    const plan = {}; // dom index -> spawn {x, y, angle}
+    rows.forEach((row, r) => {
+      const pillSum = row.reduce((s, i) => s + sizes[i].w, 0);
+      const justified = row.length > 1;
+      const g = justified ? Math.max(0, W - inset * 2 - pillSum) / (row.length - 1) : 0;
+      let cursor = justified ? inset : (W - pillSum) / 2;
+      row.forEach((i, j) => {
+        const { w, h } = sizes[i];
+        plan[i] = {
+          x: cursor + w / 2,
+          y: -(30 + r * 150 + j * 18) - h / 2,
+          angle: ((r + j) % 2 ? 1 : -1) * 0.04
+        };
+        cursor += w + g;
+      });
+    });
+
     // Invisible walls on all four sides. The roof sits above the box so
     // the pills can drop in from outside the visible area (the box has
-    // overflow:hidden) but a hard toss can never escape.
-    const T = 200;    // wall thickness — thick enough that nothing tunnels
-    const CEIL = 320; // headroom between box top and the roof
+    // overflow:hidden) but a hard toss can never escape. Headroom is
+    // derived from the deepest spawn so no row starts inside the roof.
+    const T = 200; // wall thickness — thick enough that nothing tunnels
+    const CEIL = Math.max(...Object.keys(plan).map((i) => -plan[i].y)) + 100;
     const walls = [
       Bodies.rectangle(W / 2, H + T / 2, W + T * 2, T, { isStatic: true }),         // ground
       Bodies.rectangle(W / 2, -CEIL - T / 2, W + T * 2, T, { isStatic: true }),     // roof
@@ -191,19 +393,14 @@ document.addEventListener('click', (e) => {
       Bodies.rectangle(W + T / 2, (H - CEIL) / 2, T, H + CEIL + T * 2, { isStatic: true }) // right
     ];
 
-    // Rounded-rectangle bodies, spread across the width, staggered above
     const bodies = pillEls.map((el, i) => {
       const { w, h } = sizes[i];
-      const pad = w / 2 + 16;
-      const usable = Math.max(1, W - pad * 2);
-      const x = pad + usable * ((i + 0.5) / pillEls.length);
-      const y = -(30 + i * 55) - h / 2;
-      return Bodies.rectangle(x, y, w, h, {
+      return Bodies.rectangle(plan[i].x, plan[i].y, w, h, {
         chamfer: { radius: h / 2 - 1 }, // capsule-like, matches the CSS pill
         restitution: 0.3, // one soft bounce
-        friction: 0.6,
+        friction: 0.3,
         frictionAir: 0.02,
-        angle: (i % 2 ? 1 : -1) * 0.08
+        angle: plan[i].angle
       });
     });
 
