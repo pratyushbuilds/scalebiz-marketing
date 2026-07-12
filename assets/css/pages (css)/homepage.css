@@ -5,7 +5,7 @@
 /* ====================================================================
    2. Why Brands Choose Edge Storefronts and Built on Proven Tools & Infrastructure Section - Home Page
    ==================================================================== */
-.homepage-edge-section{background:#fff;padding:80px 0;position:relative}.homepage-edge-wrapper{width:100%;margin:0 auto;padding:0 var(--gutter)}.homepage-edge-header{text-align:center;margin-bottom:60px}.homepage-edge-header h2{font-family:"Playfair Display",Georgia,serif;font-size:2.4rem;font-weight:600;color:var(--text-heading);margin-bottom:14px;letter-spacing:.02em}.edge-subtitle{font-size:1.15rem;color:var(--muted);max-width:100%;margin:0 auto;line-height:1.6}.homepage-edge-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}.homepage-edge-icon,.logo-item,.logos-scroll{display:flex;display:flex}.homepage-edge-card{background:#fff;border:1px solid var(--rule);border-radius:20px;padding:36px 28px;text-align:left;transition:.3s;box-shadow:0 4px 16px rgba(11,77,255,.06);opacity:0;transform:translateY(30px)}.homepage-edge-card.visible{opacity:1;transform:translateY(0)}.homepage-edge-card:first-child{transition-delay:0.1s}.homepage-edge-card:nth-child(2){transition-delay:0.2s}.homepage-edge-card:nth-child(3){transition-delay:0.3s}.homepage-edge-card:nth-child(4){transition-delay:0.4s}.homepage-edge-card:hover{transform:translateY(-12px);box-shadow:0 12px 32px rgba(11,77,255,.15);border-color:var(--brand-2)}.homepage-edge-icon{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,rgba(11,77,255,.1),rgba(79,70,229,.1));align-items:center;justify-content:center;margin-bottom:20px;color:var(--brand-2);transition:.3s}.homepage-edge-card:hover .homepage-edge-icon{background:linear-gradient(135deg,var(--brand-2),var(--brand-1));color:#fff;transform:rotate(-5deg) scale(1.05)}.homepage-edge-icon svg{width:28px;height:28px}.homepage-edge-card h3{font-family:Manrope,sans-serif;font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:12px}.homepage-edge-card p{font-size:.95rem;color:var(--text-muted);line-height:1.7;margin:0}@media (max-width:1024px){.homepage-edge-grid{grid-template-columns:repeat(2,1fr);gap:24px}}@media (max-width:768px){.homepage-edge-section{padding:48px 0 56px}.homepage-edge-wrapper{padding:0 16px}.homepage-edge-header{margin-bottom:42px}.homepage-edge-header h2{font-size:1.65rem;margin-bottom:12px}.edge-subtitle{font-size:1rem}.homepage-edge-grid{grid-template-columns:1fr;gap:20px}.homepage-edge-card{padding:28px 20px;border-radius:16px}.homepage-edge-icon{width:48px;height:48px;border-radius:12px;margin-bottom:16px}.homepage-edge-icon svg{width:24px;height:24px}.homepage-edge-card h3{font-size:1.15rem;margin-bottom:10px}.homepage-edge-card p{font-size:.9rem;line-height:1.6}.homepage-edge-card:hover{transform:translateY(0)}.logo-item,.logos-container::after,.logos-container::before{width:100px}.section-title h2{font-size:2rem}.logo-item{height:60px;margin:0 30px}}@media (max-width:400px){.homepage-edge-header h2{font-size:1.5rem}.homepage-edge-card{padding:24px 18px}.homepage-edge-card h3{font-size:1.05rem}.homepage-edge-card p{font-size:.85rem}}.homepage-edge-card,.homepage-edge-grid,.homepage-edge-section,.homepage-edge-wrapper{max-width:100%;overflow-x:visible}.section-title{max-width:100%;border-top:1px solid rgba(0,0,0,.03);border-bottom:1px solid rgba(0,0,0,.03)}.logos-container{width:100%}.stack-track img{filter:drop-shadow(0 0 8px rgba(0, 0, 0, .15))}.logos-container::before{left:0}.logos-scroll{animation:30s linear infinite scroll;width:fit-content}.logo-item img{max-height:60px;width:auto;height:auto;object-fit:contain;opacity:.7;max-width:75px;opacity:.85;transition:opacity .3s,transform .3s}@media (max-width:768px){.logos-scroll{animation-duration:20s!important}.logos-container{padding:80px 0!important;border-top:1px solid rgba(0,0,0,.04)}.logo-item img{max-height:50px;width:auto;opacity:.85}}.section-title{text-align:center;margin:0;padding:32px 0 12px;background:linear-gradient(180deg,#edf2f7 0,#f8f9fb 100%);border:none}.section-title h2{color:var(--text-heading);letter-spacing:.04em;font-family:"Playfair Display",Georgia,serif;font-weight:600;font-size:1.65rem;color:var(--text-heading);letter-spacing:.02em;margin-bottom:0}.logos-container{background:linear-gradient(180deg,#f8f9fb 0,#e9edf2 100%);padding:28px 0 48px;position:relative;overflow:hidden;max-width:100%;border-top:1px solid rgba(0,0,0,.04)}.logo-item{flex-shrink:0;align-items:center;justify-content:center;flex-shrink:0;width:90px;height:55px;margin:0 22px;align-items:center;justify-content:center}.logo-item:hover img{opacity:1;transform:scale(1.05)}.logos-container::after,.logos-container::before{content:'';position:absolute;top:0;height:100%;z-index:2;pointer-events:none;width:80px;background:linear-gradient(to right,rgba(248,249,251,.98) 0,transparent 100%)}.logos-container::after{right:0;background:linear-gradient(to left,rgba(233,237,242,.98) 0,transparent 100%)}@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-25%)}}
+.homepage-edge-section{background:#fff;padding:80px 0;position:relative}.homepage-edge-wrapper{width:100%;margin:0 auto;padding:0 var(--gutter)}.homepage-edge-header{text-align:center;margin-bottom:60px}.homepage-edge-header h2{font-family:"Playfair Display",Georgia,serif;font-size:2.4rem;font-weight:600;color:var(--text-heading);margin-bottom:14px;letter-spacing:.02em}.edge-subtitle{font-size:1.15rem;color:var(--muted);max-width:100%;margin:0 auto;line-height:1.6}.homepage-edge-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}.homepage-edge-icon,.logo-item,.logos-scroll{display:flex;display:flex}.homepage-edge-card{background:#fff;border:1px solid var(--rule);border-radius:20px;padding:36px 28px;text-align:left;transition:.3s;box-shadow:0 4px 16px rgba(11,77,255,.06)}.homepage-edge-card.visible{opacity:1;transform:translateY(0)}.homepage-edge-card:first-child{transition-delay:0.1s}.homepage-edge-card:nth-child(2){transition-delay:0.2s}.homepage-edge-card:nth-child(3){transition-delay:0.3s}.homepage-edge-card:nth-child(4){transition-delay:0.4s}.homepage-edge-card:hover{transform:translateY(-12px);box-shadow:0 12px 32px rgba(11,77,255,.15);border-color:var(--brand-2)}.homepage-edge-icon{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,rgba(11,77,255,.1),rgba(79,70,229,.1));align-items:center;justify-content:center;margin-bottom:20px;color:var(--brand-2);transition:.3s}.homepage-edge-card:hover .homepage-edge-icon{background:linear-gradient(135deg,var(--brand-2),var(--brand-1));color:#fff;transform:rotate(-5deg) scale(1.05)}.homepage-edge-icon svg{width:28px;height:28px}.homepage-edge-card h3{font-family:Manrope,sans-serif;font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:12px}.homepage-edge-card p{font-size:.95rem;color:var(--text-muted);line-height:1.7;margin:0}@media (max-width:1024px){.homepage-edge-grid{grid-template-columns:repeat(2,1fr);gap:24px}}@media (max-width:768px){.homepage-edge-section{padding:48px 0 56px}.homepage-edge-wrapper{padding:0 16px}.homepage-edge-header{margin-bottom:42px}.homepage-edge-header h2{font-size:1.65rem;margin-bottom:12px}.edge-subtitle{font-size:1rem}.homepage-edge-grid{grid-template-columns:1fr;gap:20px}.homepage-edge-card{padding:28px 20px;border-radius:16px}.homepage-edge-icon{width:48px;height:48px;border-radius:12px;margin-bottom:16px}.homepage-edge-icon svg{width:24px;height:24px}.homepage-edge-card h3{font-size:1.15rem;margin-bottom:10px}.homepage-edge-card p{font-size:.9rem;line-height:1.6}.homepage-edge-card:hover{transform:translateY(0)}.logo-item,.logos-container::after,.logos-container::before{width:100px}.section-title h2{font-size:2rem}.logo-item{height:60px;margin:0 30px}}@media (max-width:400px){.homepage-edge-header h2{font-size:1.5rem}.homepage-edge-card{padding:24px 18px}.homepage-edge-card h3{font-size:1.05rem}.homepage-edge-card p{font-size:.85rem}}.homepage-edge-card,.homepage-edge-grid,.homepage-edge-section,.homepage-edge-wrapper{max-width:100%;overflow-x:visible}.section-title{max-width:100%;border-top:1px solid rgba(0,0,0,.03);border-bottom:1px solid rgba(0,0,0,.03)}.logos-container{width:100%}.stack-track img{filter:drop-shadow(0 0 8px rgba(0, 0, 0, .15))}.logos-container::before{left:0}.logos-scroll{animation:30s linear infinite scroll;width:fit-content}.logo-item img{max-height:60px;width:auto;height:auto;object-fit:contain;opacity:.7;max-width:75px;opacity:.85;transition:opacity .3s,transform .3s}@media (max-width:768px){.logos-scroll{animation-duration:20s!important}.logos-container{padding:80px 0!important;border-top:1px solid rgba(0,0,0,.04)}.logo-item img{max-height:50px;width:auto;opacity:.85}}.section-title{text-align:center;margin:0;padding:32px 0 12px;background:linear-gradient(180deg,#edf2f7 0,#f8f9fb 100%);border:none}.section-title h2{color:var(--text-heading);letter-spacing:.04em;font-family:"Playfair Display",Georgia,serif;font-weight:600;font-size:1.65rem;color:var(--text-heading);letter-spacing:.02em;margin-bottom:0}.logos-container{background:linear-gradient(180deg,#f8f9fb 0,#e9edf2 100%);padding:28px 0 48px;position:relative;overflow:hidden;max-width:100%;border-top:1px solid rgba(0,0,0,.04)}.logo-item{flex-shrink:0;align-items:center;justify-content:center;flex-shrink:0;width:90px;height:55px;margin:0 22px;align-items:center;justify-content:center}.logo-item:hover img{opacity:1;transform:scale(1.05)}.logos-container::after,.logos-container::before{content:'';position:absolute;top:0;height:100%;z-index:2;pointer-events:none;width:80px;background:linear-gradient(to right,rgba(248,249,251,.98) 0,transparent 100%)}.logos-container::after{right:0;background:linear-gradient(to left,rgba(233,237,242,.98) 0,transparent 100%)}@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-25%)}}
 /* ============================================
     3. AUDIT CTA (HIGH ENERGY) - Home Page
 ============================================ */
@@ -89,9 +89,91 @@
 .founder-chips{display:flex;flex-wrap:wrap;gap:1rem;margin:0 0 2.5rem}
 .founder-chips .trust-chip{cursor:default}
 
+/* --- Section 2: scroll-reveal grid (skiper104 recipe, rebuilt with GSAP).
+   DEFAULT layout below is the static fallback (no-JS, reduced-motion,
+   GSAP failed): a plain 4-column grid with the connector line drawn in
+   full. home.js adds .edge-104 to the section to switch on the tall
+   track + sticky grid, and .edge-motion only bridges the GSAP download
+   window so nothing paints before the scrub takes over. --- */
+.edge-track{position:relative}
+.edge-cols{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;max-width:var(--container-max);margin:0 auto;width:100%}
+.edge-col{position:relative;z-index:2;display:flex;flex-direction:column;gap:40px}
+.edge-visual{height:240px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--rule);border-radius:20px;box-shadow:0 4px 16px rgba(11,77,255,.06)}
+.edge-visual .homepage-edge-icon{margin-bottom:0;width:72px;height:72px;border-radius:18px}
+.edge-visual .homepage-edge-icon svg{width:34px;height:34px}
+.edge-node{width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:var(--primary-blue);color:#fff;font-family:Manrope,sans-serif;font-weight:700;font-size:.9rem}
+.edge-text h3{font-family:Manrope,sans-serif;font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:12px}
+.edge-text p{font-size:.95rem;color:var(--text-muted);line-height:1.7;margin:0}
+.edge-line{position:absolute;left:0;top:294px;height:4px;width:100%;background:var(--primary-blue);transform-origin:left;z-index:1}
+/* motion mode: tall track + sticky centred grid (added by home.js).
+   The exact top is measured and set inline by home.js — translateY
+   centring must NOT be used here: sticky release math ignores the
+   transform, so the grid would detach half its height too early and
+   leave a phantom gap before the next section. */
+.edge-104 .edge-track{height:280vh}
+.edge-104 .edge-sticky{position:sticky;top:0}
+.edge-104.homepage-edge-section{padding-bottom:0}
+.edge-104 .edge-visual,.edge-104 .edge-node,.edge-104 .edge-text,.edge-104 .edge-line{will-change:transform,opacity}
+/* bridge: hide reveal targets only while GSAP is downloading */
+.edge-motion .edge-visual,.edge-motion .edge-node,.edge-motion .edge-text,.edge-motion .edge-line{opacity:0}
+/* narrow: vertical list on a left accent line (skiper104's mobile variant) */
+@media (max-width:1024px){
+.edge-cols{grid-template-columns:1fr;gap:48px;padding-left:48px}
+.edge-col{gap:16px}
+.edge-visual{height:200px}
+.edge-node{position:absolute;left:-44px;top:0;z-index:2}
+.edge-line{left:2px;top:8px;bottom:0;height:auto;width:4px;transform:none}
+}
+
+/* --- Proof teaser: conversions stat. Same hue as the CPL green
+   (#0d9e7f, .proof-stat__num--good) darkened ~35% in HSL lightness —
+   a shade of the existing palette green, not a new hue. --- */
+.proof-stat__num--conv{color:#086853}
+
+/* --- What We Run: tertiary CTA under the copy (ed-link component) --- */
+.sv-run-link{margin:28px 0 0}
+@media (max-width:480px){.sv-run-link{margin-bottom:0}}
+
+/* --- Who You Work With: matched pair of operator slots --- */
+.founder-sig-row{display:flex;gap:2.5rem;margin-top:2.5rem;padding-top:2.5rem;border-top:1px solid rgba(0,0,0,.06)}
+.founder-sig-row .founder-sig{flex:1 1 0;margin-top:0;padding-top:0;border-top:0}
+.founder-sig--placeholder .founder-avatar{font-size:1.05rem;letter-spacing:.06em}
+@media (max-width:768px){.founder-sig-row{flex-direction:column;gap:1.75rem}}
+
+/* --- Final CTA: 50/50 split — form | OR divider | escape hatch.
+   Inputs are built from existing tokens only (chip border, primary
+   blue, accent red, 8px radius shared with .audit-btn/.nav-cta). --- */
+.audit-inner--split{max-width:1080px}
+.audit-split{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(2.25rem,4.5vw,4rem);align-items:stretch;margin-top:1.25rem;text-align:left}
+.audit-half{display:flex;flex-direction:column;justify-content:center}
+.audit-half__title{font-size:2rem;text-align:left;margin-bottom:1.5rem}
+.audit-form{display:flex;flex-direction:column;gap:1.15rem}
+.af-field{display:flex;flex-direction:column;gap:.45rem}
+.af-field label{font-family:Manrope,sans-serif;font-size:.9rem;font-weight:600;color:var(--text-heading);letter-spacing:.02em}
+.af-field input,.af-field select,.af-field textarea{width:100%;font:inherit;font-size:1rem;color:var(--text-primary);background:#fff;border:1px solid var(--chip-border);border-radius:8px;padding:.75rem .9rem;transition:border-color .25s,box-shadow .25s}
+.af-field textarea{resize:vertical;min-height:96px}
+.af-field input:focus,.af-field select:focus,.af-field textarea:focus{outline:none;border-color:var(--primary-blue);box-shadow:0 0 0 3px rgba(11,77,255,.12)}
+.af-error{display:none;font-size:.85rem;color:var(--accent-red);margin:0}
+.af-field--error input,.af-field--error select,.af-field--error textarea{border-color:var(--accent-red)}
+.af-field--error .af-error{display:block}
+.audit-form__submit{align-self:flex-start;margin-top:.5rem;padding:1rem 2.4rem;font-size:1.05rem;border:none;cursor:pointer}
+.audit-or{display:flex;flex-direction:column;align-items:center;gap:.9rem;align-self:stretch}
+.audit-or::before,.audit-or::after{content:"";width:1px;flex:1;background:rgba(0,0,0,.14)}
+.audit-or span{font-family:Manrope,sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.14em;color:var(--muted)}
+.audit-half--escape{align-items:center;text-align:center}
+.audit-half--escape .audit-half__title{text-align:center;margin-bottom:.85rem}
+.audit-escape__line{font-size:1.15rem;color:var(--text-muted);line-height:1.65;max-width:36ch;margin:0 0 2rem}
+@media (max-width:900px){
+.audit-split{grid-template-columns:1fr;gap:2.25rem}
+.audit-or{flex-direction:row;gap:1rem;align-self:auto}
+.audit-or::before,.audit-or::after{width:auto;height:1px;flex:1}
+.audit-form__submit{align-self:stretch}
+}
+
 /* --- Reduced motion: settle everything instantly --- */
 @media (prefers-reduced-motion:reduce){
 .ed-h1,.ed-sub,.hero--editorial .ed-link,.hero-microcopy,.audit-inner,.founder-inner,.phase-card,.audit-cta::after,.audit-cta h2 .highlight::after{animation:none}
 .sb-reveal,.homepage-growth-step,.homepage-edge-card{opacity:1;transform:none;transition:none}
+.edge-motion .edge-visual,.edge-motion .edge-node,.edge-motion .edge-text,.edge-motion .edge-line{opacity:1}
 .ed-stroke{transition:none;stroke-dashoffset:0!important}
 }

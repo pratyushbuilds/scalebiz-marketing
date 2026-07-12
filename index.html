@@ -80,6 +80,8 @@
   <link rel="stylesheet" href="assets/css/common (css)/root.css" />
   <link rel="stylesheet" href="assets/css/common (css)/performanceOptimization.css" />
   <link rel="stylesheet" href="assets/css/pages (css)/homepage.css" />
+  <!-- Pill-box section (shared with the services page) -->
+  <link rel="stylesheet" href="assets/css/pages (css)/services-v2.css" />
   <!-- Async footer -->
   <link rel="stylesheet" href="assets/css/common (css)/footer.css" media="print" onload="this.media='all'"/>
   <!--Fallback for footer -->
@@ -175,8 +177,9 @@
            even when it's not in the ads.
         </h1>
 
-        <p class="ed-sub">Performance-led growth partners. We audit the whole funnel — your offer, your targeting, your
-          follow-up — fix what's broken, then scale what works. Not just ads: your full digital presence.</p>
+        <p class="ed-sub">Performance-led growth partners. We audit the whole funnel (your offer, your targeting,
+          your follow-up), fix what's broken, then scale what works. That covers your full digital presence,
+          ads included.</p>
         <a class="ed-link" href="/contact.html"><span class="ed-arrow" aria-hidden="true">→</span>Get My Free Funnel
           Audit</a>
         <p class="hero-microcopy">Free · 48-hour turnaround · findings are yours to keep</p>
@@ -193,72 +196,103 @@
           <h2>Why More Ad Spend Won't Fix It</h2>
           <p class="edge-subtitle">
             Most agencies optimise the ad account. But the leak that's capping your growth usually
-            sits upstream or downstream of it — and no budget increase can patch that.
+            sits upstream or downstream of it. No budget increase can patch that.
           </p>
         </div>
 
-        <!-- Reasons Grid -->
-        <div class="homepage-edge-grid">
+        <!-- Scroll-reveal grid (skiper104 recipe): a sticky centred grid
+             inside a tall track. Per column: visual drops in from above,
+             the numbered node pops from scale(0), the text rises from
+             below, and the accent line grows across — all scrubbed to
+             scroll. home.js switches .edge-104 on (desktop, motion-safe);
+             the default layout below is the static fallback, and the
+             narrow layout is a vertical list on a left accent line. -->
+        <div class="edge-track">
+          <div class="edge-sticky">
+            <div class="edge-cols">
 
-          <!-- Leak 1: upstream -->
-          <div class="homepage-edge-card">
-            <div class="homepage-edge-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
+              <!-- Leak 1: upstream -->
+              <div class="edge-col">
+                <div class="edge-visual">
+                  <div class="homepage-edge-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="edge-node" aria-hidden="true">1</div>
+                <div class="edge-text">
+                  <h3>Upstream: Your Offer</h3>
+                  <p>
+                    If the offer doesn't land, better targeting just delivers more people to a "no".
+                    That leak lives on your page rather than in your ad account. It's the first place we look.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Leak 2: the account itself -->
+              <div class="edge-col">
+                <div class="edge-visual">
+                  <div class="homepage-edge-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="edge-node" aria-hidden="true">2</div>
+                <div class="edge-text">
+                  <h3>Inside the Ad Account</h3>
+                  <p>
+                    Sometimes it genuinely is the ads: fatigued creative, broken structure, the wrong
+                    optimisation event. We check. We just don't assume the search ends there.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Leak 3: downstream -->
+              <div class="edge-col">
+                <div class="edge-visual">
+                  <div class="homepage-edge-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="edge-node" aria-hidden="true">3</div>
+                <div class="edge-text">
+                  <h3>Downstream: Your Follow-Up</h3>
+                  <p>
+                    Leads nobody called. Carts nobody recovered. You already paid for those clicks, and
+                    the leak is everything that happens after them.
+                  </p>
+                </div>
+              </div>
+
+              <!-- The difference: diagnosis -->
+              <div class="edge-col">
+                <div class="edge-visual">
+                  <div class="homepage-edge-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="edge-node" aria-hidden="true">4</div>
+                <div class="edge-text">
+                  <h3>Our Job: The Diagnosis</h3>
+                  <p>
+                    An agency paid to manage ads sees every problem as an ad problem. We're paid to find
+                    where growth actually leaks, wherever it sits, and fix that first.
+                  </p>
+                </div>
+              </div>
+
+              <div class="edge-line" aria-hidden="true"></div>
             </div>
-            <h3>Upstream: Your Offer</h3>
-            <p>
-              If the offer doesn't land, better targeting just delivers more people to a "no".
-              That leak lives on your page, not in your ad account — and it's the first place we look.
-            </p>
           </div>
-
-          <!-- Leak 2: the account itself -->
-          <div class="homepage-edge-card">
-            <div class="homepage-edge-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
-            </div>
-            <h3>Inside the Ad Account</h3>
-            <p>
-              Sometimes it genuinely is the ads — fatigued creative, broken structure, the wrong
-              optimisation event. We check. We just don't assume the search ends there.
-            </p>
-          </div>
-
-          <!-- Leak 3: downstream -->
-          <div class="homepage-edge-card">
-            <div class="homepage-edge-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-              </svg>
-            </div>
-            <h3>Downstream: Your Follow-Up</h3>
-            <p>
-              Leads nobody called. Carts nobody recovered. Emails that never went out. You already
-              paid for that click — the leak is everything that happens after it.
-            </p>
-          </div>
-
-          <!-- The difference: diagnosis -->
-          <div class="homepage-edge-card">
-            <div class="homepage-edge-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3>Our Job: The Diagnosis</h3>
-            <p>
-              An agency paid to manage ads sees every problem as an ad problem. We're paid to find
-              where growth actually leaks — wherever it sits — and fix that first.
-            </p>
-          </div>
-
         </div>
 
       </div>
@@ -272,7 +306,7 @@
         <div class="homepage-growth-header sb-reveal">
           <span class="sb-eyebrow">How We Work</span>
           <h2>The Method: Diagnose First, Scale Second</h2>
-          <p class="growth-subtitle">The same four steps, whatever your industry — because finding the leak matters
+          <p class="growth-subtitle">The same four steps, whatever your industry. Finding the leak matters
             more than knowing your niche.</p>
         </div>
 
@@ -293,7 +327,7 @@
               <h3>Audit</h3>
               <p class="step-phase-tagline">Find where growth actually leaks.</p>
               <p class="step-phase-desc">
-                We go through the whole funnel — offer, targeting, follow-up, measurement — and pinpoint
+                We go through the whole funnel (offer, targeting, follow-up, measurement) and pinpoint
                 the constraint that's actually capping growth, not just the one inside the ad account.
               </p>
             </div>
@@ -335,8 +369,8 @@
               <h3>Build Measurement</h3>
               <p class="step-phase-tagline">Make every rupee traceable.</p>
               <p class="step-phase-desc">
-                Clean tracking and honest reporting, so we — and you — can see exactly what each channel
-                returns. From here on, decisions come from data, not opinions.
+                Clean tracking and honest reporting, so both of us can see exactly what each channel
+                returns. From here on, decisions come from the data.
               </p>
             </div>
           </div>
@@ -354,8 +388,8 @@
               <h3>Scale</h3>
               <p class="step-phase-tagline">Pour budget into what's proven.</p>
               <p class="step-phase-desc">
-                With the base fixed and measurement in place, we scale spend on what's working — and keep
-                testing, so growth compounds instead of plateauing.
+                With the base fixed and measurement in place, we scale spend on what's working. And we
+                keep testing, so growth compounds instead of plateauing.
               </p>
             </div>
           </div>
@@ -374,7 +408,7 @@
     <section class="founder-note">
       <div class="founder-inner">
         <span class="sb-eyebrow">Proof — Case Study</span>
-        <h2>The market got more expensive. The leads got cheaper.</h2>
+        <h2>Cheaper leads. And far more of them converting.</h2>
 
         <div class="proof-stats sb-reveal">
           <div class="proof-stat">
@@ -382,18 +416,22 @@
                 data-prefix="−" data-suffix="%">−64%</span></span>
             <span class="proof-stat__label">Cost per lead</span>
           </div>
-          <span class="proof-vs" aria-hidden="true">while</span>
+          <span class="proof-vs" aria-hidden="true">and</span>
           <div class="proof-stat">
-            <span class="proof-stat__num proof-stat__num--bad"><span class="count" data-target="47"
-                data-prefix="+" data-suffix="%">+47%</span></span>
-            <span class="proof-stat__label">CPM — auction cost</span>
+            <!-- ⚠️ BLOCKER — UNCONFIRMED METRIC: the 234% figure's basis (baseline, period,
+                 and whether "conversions" means leads/registrations or actual closures) must
+                 be confirmed by the client before this ships. Adjust the label below to match
+                 exactly what was measured. -->
+            <span class="proof-stat__num proof-stat__num--conv"><span class="count" data-target="234"
+                data-prefix="+" data-suffix="%">+234%</span></span>
+            <span class="proof-stat__label">Conversions</span>
           </div>
         </div>
 
         <div class="founder-body">
           <p>
-            Rising CPMs should have made every lead pricier. Instead, cost per lead fell by nearly
-            two-thirds — because the fix wasn't in the ad account. <span class="thesis">We repaired the
+            Cost per lead fell by nearly two-thirds, and conversions climbed 234% over the same
+            stretch. The fix wasn't in the ad account. <span class="thesis">We repaired the
               offer and the follow-up first, then scaled what worked.</span>
           </p>
         </div>
@@ -403,99 +441,33 @@
       </div>
     </section>
 
-    <!-- SECTION 5: Services — performance-led, full-service capable -->
-    <section class="deliverables-section">
-      <div class="deliverables-header sb-reveal">
-        <span class="sb-eyebrow">What We Do</span>
-        <h2>Performance-Led. Full-Service Capable.</h2>
-        <p>Paid media is the anchor — it's where our proof lives. The rest of the stack exists so growth
-          is never bottlenecked by a single channel.</p>
-      </div>
+    <!-- SECTION 5: WHAT WE RUN — editorial copy + bounded physics pill box
+         (swapped in from the services page) -->
+    <section class="sv-run" id="what-we-run">
+      <div class="sv-split">
 
-      <div class="phase-grid">
-        <!-- Anchor service: paid media (full-width for visual weight) -->
-        <div class="phase-card phase-card--anchor">
-          <span class="phase-tag">Anchor Service</span>
-          <div class="anchor-cols">
-            <div>
-              <div class="homepage-edge-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="m3 11 18-5v12L3 14v-3z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M11.6 16.8a3 3 0 1 1-5.8-1.6" />
-                </svg>
-              </div>
-              <h3>Paid Media</h3>
-              <p class="phase-subtitle">Where the proof lives.</p>
-
-              <p class="phase-description">
-                Meta and Google campaigns, run diagnosis-first: audit before spend, kill/scale rules before
-                launch, and measurement behind every decision. This is the engine behind results like a 64%
-                drop in cost per lead against rising CPMs.
-              </p>
-            </div>
-
-            <ul class="phase-deliverables">
-              <li>Full-funnel campaign strategy and builds</li>
-              <li>Creative testing with pre-defined kill/scale rules</li>
-              <li>Clean conversion tracking and attribution</li>
-              <li>Weekly reporting you can actually act on</li>
-            </ul>
-          </div>
+        <div class="sv-split-copy sb-reveal">
+          <span class="sb-eyebrow">What We Run</span>
+          <h2>Everything your growth needs, in one place.</h2>
+          <p class="sv-subtitle">Paid media is our core. Social, SEO, web, funnel, and influencer work all
+            plug into it, so one team owns the whole result.</p>
+          <a class="ed-link sv-run-link" href="service.html#what-we-do">See what we do <span class="ed-arrow"
+              aria-hidden="true">→</span></a>
         </div>
 
-        <!-- Supporting: SEO -->
-        <div class="phase-card">
-          <span class="phase-tag">Supporting</span>
-          <div class="homepage-edge-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8" />
-              <path stroke-linecap="round" d="m21 21-4.35-4.35" />
-            </svg>
-          </div>
-          <h3>SEO</h3>
-          <p class="phase-subtitle">So paid isn't your only door.</p>
-
-          <p class="phase-description">
-            Search visibility that compounds while paid drives the near-term volume — so acquisition
-            doesn't live and die by the auction.
-          </p>
+        <!-- The pill list below is the real content. On motion-safe
+             devices, services.js drops these same pills into the box with
+             Matter.js and makes them draggable. -->
+        <div class="sv-pit" aria-label="Services: Paid Media, SEO, Social Media, Web and Funnel, Influencer Marketing">
+          <ul class="sv-pills">
+            <li class="sv-pill sv-pill--paid">Paid Media</li>
+            <li class="sv-pill sv-pill--seo">SEO</li>
+            <li class="sv-pill sv-pill--social">Social Media</li>
+            <li class="sv-pill sv-pill--web">Web &amp; Funnel</li>
+            <li class="sv-pill sv-pill--influencer">Influencer Marketing</li>
+          </ul>
         </div>
 
-        <!-- Supporting: Social -->
-        <div class="phase-card">
-          <span class="phase-tag">Supporting</span>
-          <div class="homepage-edge-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            </svg>
-          </div>
-          <h3>Social &amp; Content</h3>
-          <p class="phase-subtitle">So your brand survives the click.</p>
-
-          <p class="phase-description">
-            A presence that backs your ads. Buyers check the profile before they buy — we make sure what
-            they find closes the sale instead of leaking it.
-          </p>
-        </div>
-
-        <!-- Supporting: Web -->
-        <div class="phase-card">
-          <span class="phase-tag">Supporting</span>
-          <div class="homepage-edge-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="4" width="20" height="16" rx="2" />
-              <path stroke-linecap="round" d="M2 9h20" />
-            </svg>
-          </div>
-          <h3>Web &amp; Funnels</h3>
-          <p class="phase-subtitle">So clicks land somewhere that converts.</p>
-
-          <p class="phase-description">
-            Landing pages and funnel builds treated as part of media performance — because the page is
-            where most paid traffic actually leaks.
-          </p>
-        </div>
       </div>
     </section>
 
@@ -507,12 +479,12 @@
 
         <div class="founder-body">
           <p>
-            Scalebiz is run by operators, not account managers.
+            Scalebiz is run by operators who've done this work themselves.
           </p>
           <p>
             Before building this agency, our founding team ran paid accounts across categories, budgets,
             and auction conditions. <span class="thesis">The method comes from enough spend to see where
-              growth actually leaks — and what fixes it.</span>
+              growth actually leaks, and what fixes it.</span>
           </p>
         </div>
 
@@ -531,64 +503,89 @@
           </div>
         </div>
 
-        <div class="founder-sig">
-          <img src="/assets/images/Co-founderImage.webp" alt="Founder" class="founder-avatar" loading="lazy" />
-          <div class="founder-details">
-            <span class="founder-name">Pratyush Kumar</span>
-            <span class="founder-title">Co-Founder, Scalebiz Marketing</span>
+        <div class="founder-sig-row">
+          <div class="founder-sig">
+            <img src="/assets/images/Co-founderImage.webp" alt="Founder" class="founder-avatar" loading="lazy" />
+            <div class="founder-details">
+              <span class="founder-name">Pratyush Kumar</span>
+              <span class="founder-title">Co-Founder, Scalebiz Marketing</span>
+            </div>
+          </div>
+
+          <!-- PLACEHOLDER: second operator slot. Real photo, name and title to be
+               supplied by the client — do not publish with the TBD copy below. -->
+          <div class="founder-sig founder-sig--placeholder">
+            <div class="founder-avatar" aria-hidden="true">TBD</div>
+            <div class="founder-details">
+              <span class="founder-name">[Name — TBD]</span>
+              <span class="founder-title">[Title — TBD]</span>
+            </div>
           </div>
         </div>
 
         <p class="founder-closer">
-          We built Scalebiz for founders who want a partner that diagnoses before it spends — and stays
+          We built Scalebiz for founders who want a partner that diagnoses before it spends, then stays
           accountable to the numbers after.
         </p>
       </div>
     </section>
 
-    <!-- SECTION 7: Risk reversal + final CTA -->
+    <!-- SECTION 7: Final CTA — split form + escape hatch -->
     <section class="audit-cta">
-      <div class="audit-inner">
+      <div class="audit-inner audit-inner--split">
         <span class="sb-eyebrow">Your Next Step</span>
-        <h2>Start With the Free Audit — <span class="highlight">Keep the Findings</span> Either Way</h2>
 
-        <p class="audit-subhead">
-          We'll audit your funnel end to end — offer, targeting, follow-up — and send you a written
-          diagnosis of where growth is leaking and what we'd fix first. If the problem isn't in the ads,
-          we'll tell you that too.
-        </p>
+        <div class="audit-split">
 
-        <div class="audit-trust">
-          <div class="trust-chip">
-            <span class="trust-icon">✓</span>
-            <span>Free, no obligation</span>
+          <!-- Left half: the form (posts to the same Formspree endpoint as contact.html) -->
+          <div class="audit-half audit-half--form">
+            <h2 class="audit-half__title">Tell us what's blocking the growth</h2>
+            <form class="audit-form" action="https://formspree.io/f/xyzpnany" method="POST">
+              <input type="hidden" name="_subject" value="Homepage growth form — Scalebiz Marketing" />
+
+              <div class="af-field">
+                <label for="af-name">Name</label>
+                <input type="text" id="af-name" name="name" required autocomplete="name"
+                  placeholder="Your name" />
+                <p class="af-error">Please enter your name.</p>
+              </div>
+
+              <div class="af-field">
+                <label for="af-stage">Company's current stage</label>
+                <select id="af-stage" name="company_stage" required>
+                  <option value="" selected disabled>Select a stage</option>
+                  <option value="Just starting">Just starting</option>
+                  <option value="Running ads already">Running ads already</option>
+                  <option value="Scaling">Scaling</option>
+                  <option value="Stuck">Stuck</option>
+                </select>
+                <p class="af-error">Please select your current stage.</p>
+              </div>
+
+              <div class="af-field">
+                <label for="af-blocker">What's stopping your growth?</label>
+                <textarea id="af-blocker" name="growth_blocker" rows="3" required
+                  placeholder="A sentence or two is plenty"></textarea>
+                <p class="af-error">Tell us a little about what's in the way.</p>
+              </div>
+
+              <button type="submit" class="audit-btn audit-form__submit">Send It Over</button>
+            </form>
           </div>
-          <div class="trust-chip">
-            <span class="trust-icon">✓</span>
-            <span>Delivered in 48 hours</span>
+
+          <!-- Divider: vertical on desktop, horizontal when stacked -->
+          <div class="audit-or"><span>OR</span></div>
+
+          <!-- Right half: the escape hatch -->
+          <div class="audit-half audit-half--escape">
+            <h2 class="audit-half__title">Not sure?</h2>
+            <p class="audit-escape__line">
+              Not knowing what's blocking your growth is exactly the problem we solve.
+            </p>
+            <a href="contact.html" class="audit-btn">Let's Figure It Out</a>
           </div>
-          <div class="trust-chip">
-            <span class="trust-icon">✓</span>
-            <span>Written, actionable findings</span>
-          </div>
-          <div class="trust-chip">
-            <span class="trust-icon">✓</span>
-            <span>No lock-in contracts</span>
-          </div>
+
         </div>
-
-        <p class="audit-anchor">
-          The audit is step one of the method — you see the diagnosis before you commit to anything.
-        </p>
-
-        <div class="audit-btn-wrapper">
-          <a href="contact.html" class="audit-btn">Run My Free Audit</a>
-        </div>
-
-        <p class="audit-support">
-          Worst case: you get a second pair of expert eyes on your funnel and keep every finding.
-          Best case: you find the leak that's been capping your growth.
-        </p>
       </div>
     </section>
 
@@ -675,6 +672,7 @@
 
     <script defer src="assets/js/common/navbar.js"></script>
     <script defer src="assets/js/pages/home.js"></script>
+    <script defer src="assets/js/pages/services.js"></script>
     <script defer src="assets/js/common/footer.js"></script>
     <script defer src="assets/js/common/observer.js"></script>
 

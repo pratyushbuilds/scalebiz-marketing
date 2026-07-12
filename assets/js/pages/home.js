@@ -79,50 +79,172 @@
 })();
 
 // ======================================================
-// 2. Section 2 and Section 3 (Scroll Trigger Animation)
+// 2. Section 2: scroll-reveal grid — the skiper104 recipe,
+// rebuilt with GSAP from its observed scroll behaviour
+// (no Skiper UI source code is shipped): a sticky centred
+// grid inside a tall track; per column the visual drops in
+// from y:-50, the numbered node pops from scale(0) and the
+// text rises from y:+50 in lockstep, while the accent line
+// grows scaleX across the grid — everything scrubbed to
+// scroll, then a dwell before the grid releases.
+// Desktop + motion-safe only: narrow screens use the static
+// vertical-list variant (as skiper104 does), reduced-motion
+// and no-JS get the complete static grid.
 // ======================================================
-// Wait for DOM to be ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initScrollAnimations);
-} else {
-  initScrollAnimations();
-}
+(() => {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const desktop = window.matchMedia('(min-width: 1025px)').matches;
+  const section = document.querySelector('.homepage-edge-section');
+  const track = section ? section.querySelector('.edge-track') : null;
+  const sticky = track ? track.querySelector('.edge-sticky') : null;
+  if (reduced || !desktop || !track || !sticky) return;
 
-function initScrollAnimations() {
-  
-  // Section 2: Growth Steps
-  const growthSteps = document.querySelectorAll('.homepage-growth-step');
-  
-  // Section 3: Edge Cards
-  const edgeCards = document.querySelectorAll('.homepage-edge-card');
-  
-  // Exit early if no elements found
-  if (growthSteps.length === 0 && edgeCards.length === 0) return;
-  
-  // Intersection Observer options
-  const observerOptions = {
-    threshold: 0.2,
-    rootMargin: '0px 0px -50px 0px'
+  // Switch the motion layout on SYNCHRONOUSLY (before first paint /
+  // scroll restoration) so the page height is final immediately.
+  // Waiting for GSAP meant a reload mid-section restored scroll
+  // against the short static layout, then everything below shifted
+  // ~2000px when the tall track appeared.
+  section.classList.add('edge-104');
+  // Bridge: hide the reveal targets while GSAP downloads so nothing
+  // paints once and then jumps back to a hidden state
+  section.classList.add('edge-motion');
+
+  // Centre the sticky grid by measurement (no translateY(-50%):
+  // sticky release math ignores transforms and would detach the grid
+  // half its height early, leaving a phantom gap before section 3)
+  const centerSticky = () => {
+    sticky.style.top = Math.max(84, (window.innerHeight - sticky.offsetHeight) / 2) + 'px';
   };
-  
-  // Single observer for all animations
-  const observer = new IntersectionObserver((entries) => {
-    // Use requestAnimationFrame to batch DOM changes
-    requestAnimationFrame(() => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target); // Animate only once
-        }
-      });
-    });
-  }, observerOptions);
-  
-  // Observe all elements at once
-  growthSteps.forEach(step => observer.observe(step));
-  edgeCards.forEach(card => observer.observe(card));
+  centerSticky();
 
-}
+  const loadScript = (src, isLoaded) =>
+    isLoaded()
+      ? Promise.resolve()
+      : new Promise((resolve, reject) => {
+          const s = document.createElement('script');
+          s.src = src;
+          s.async = true;
+          s.onload = resolve;
+          s.onerror = reject;
+          document.head.appendChild(s);
+        });
+
+  const GSAP_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
+  const ST_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js';
+
+  const init = () => {
+    const gsap = window.gsap;
+    const ScrollTrigger = window.ScrollTrigger;
+    if (!gsap || !ScrollTrigger) return;
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ ignoreMobileResize: true });
+    // root.css sets html{scroll-behavior:smooth}, which turns the
+    // instant scroll jumps ScrollTrigger performs while measuring
+    // into ANIMATED scrolls — rects get sampled mid-flight and the
+    // trigger positions come out offset by the scroll distance
+    // (reproduced on reload-with-restored-scroll). Force instant
+    // scrolling for the duration of every refresh.
+    ScrollTrigger.addEventListener('refreshInit', () => {
+      document.documentElement.style.scrollBehavior = 'auto';
+    });
+    ScrollTrigger.addEventListener('refresh', () => {
+      document.documentElement.style.scrollBehavior = '';
+    });
+
+    const cols = gsap.utils.toArray('.edge-col', track);
+    const line = track.querySelector('.edge-line');
+    const targets = [];
+    cols.forEach((col) =>
+      targets.push(col.querySelector('.edge-visual'), col.querySelector('.edge-node'), col.querySelector('.edge-text'))
+    );
+    if (line) targets.push(line);
+
+    // Timing map sampled from the original: column i reveals over
+    // [START + i*SEG, +LEN] of track progress, all three elements in
+    // lockstep; the line's length tracks the whole run and its
+    // thickness pops with the first column. Unlike the demo (which
+    // parks a huge dwell after the reveal), the windows are spread
+    // across almost the whole track so the section releases right
+    // after the last card lands — no dead scrolling.
+    const START = 0.05;
+    const SEG = 0.2;
+    const LEN = 0.28;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: track,
+        start: 'top 50%', // the sticky grid centres right as the run begins
+        end: 'bottom bottom',
+        scrub: 0.8 // smoothing in place of the original's spring
+      }
+    });
+
+    cols.forEach((col, i) => {
+      const at = START + i * SEG;
+      tl.fromTo(col.querySelector('.edge-visual'), { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: LEN, ease: 'none' }, at);
+      tl.fromTo(col.querySelector('.edge-node'), { scale: 0 }, { scale: 1, duration: LEN, ease: 'none' }, at);
+      tl.fromTo(col.querySelector('.edge-text'), { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: LEN, ease: 'none' }, at);
+    });
+    if (line) {
+      tl.fromTo(line, { scaleX: 0 }, { scaleX: 1, duration: (cols.length - 1) * SEG + LEN, ease: 'none' }, START);
+      tl.fromTo(line, { scaleY: 0 }, { scaleY: 1, duration: LEN, ease: 'none' }, START);
+    }
+    tl.to({}, { duration: 0.07 }); // short beat on the finished grid, then release
+
+    section.classList.remove('edge-motion'); // scrub owns the states now
+
+    // Re-centre on every ScrollTrigger refresh (resize, orientation)
+    ScrollTrigger.addEventListener('refreshInit', centerSticky);
+    // Settling refresh: late font reflow moves everything above the
+    // track, and after a reload the browser keeps re-applying the
+    // restored scroll position for a while — either can land in the
+    // middle of a refresh and corrupt trigger measurements (starts
+    // come out offset by the scroll distance). Timing can't be won —
+    // so refresh, CHECK the measurements, and retry with backoff
+    // until they're sane.
+    let settleTries = 0;
+    const settle = () => {
+      settleTries++;
+      ScrollTrigger.refresh();
+      const insane = ScrollTrigger.getAll().some((t) => t.start < -window.innerHeight);
+      if (insane && settleTries < 6) setTimeout(settle, 350 * settleTries);
+    };
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => setTimeout(settle, 60));
+    }
+    if (document.readyState === 'complete') {
+      setTimeout(settle, 250);
+    } else {
+      window.addEventListener('load', () => setTimeout(settle, 250), { once: true });
+    }
+
+    // If the viewport crosses below the desktop breakpoint, tear the
+    // scrub down cleanly — the mobile layout must not inherit a tall
+    // track and half-driven transforms
+    const mq = window.matchMedia('(min-width: 1025px)');
+    const onBreak = (e) => {
+      if (e.matches) return;
+      mq.removeEventListener('change', onBreak);
+      ScrollTrigger.removeEventListener('refreshInit', centerSticky);
+      if (tl.scrollTrigger) tl.scrollTrigger.kill();
+      tl.kill();
+      gsap.set(targets, { clearProps: 'all' });
+      sticky.style.top = '';
+      section.classList.remove('edge-104');
+    };
+    mq.addEventListener('change', onBreak);
+  };
+
+  loadScript(GSAP_SRC, () => !!window.gsap)
+    .then(() => loadScript(ST_SRC, () => !!window.ScrollTrigger))
+    .then(init)
+    .catch(() => {
+      // GSAP unavailable: fall all the way back to the static layout
+      section.classList.remove('edge-motion');
+      section.classList.remove('edge-104');
+      sticky.style.top = '';
+    });
+})();
 
 // ======================================================
 // 3. Polish layer: scroll reveals + proof stat count-up
@@ -173,7 +295,46 @@ function initScrollAnimations() {
 })();
 
 // ======================================================
-// 4. Nav: soft shadow once the page is scrolled
+// 4. Final CTA: split-form inline validation (progressive
+// enhancement — without JS the browser's native required-
+// field validation still gates the Formspree POST)
+// ======================================================
+(() => {
+  const form = document.querySelector('.audit-form');
+  if (!form) return;
+  form.setAttribute('novalidate', '');
+
+  const fields = Array.from(form.querySelectorAll('[required]'));
+  const wrap = (el) => el.closest('.af-field');
+
+  const check = (el) => {
+    const ok = el.checkValidity();
+    const w = wrap(el);
+    if (w) w.classList.toggle('af-field--error', !ok);
+    el.setAttribute('aria-invalid', String(!ok));
+    return ok;
+  };
+
+  fields.forEach((el) => {
+    el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', () => {
+      const w = wrap(el);
+      if (w && w.classList.contains('af-field--error')) check(el);
+    });
+  });
+
+  form.addEventListener('submit', (e) => {
+    const bad = fields.filter((el) => !check(el));
+    if (bad.length) {
+      e.preventDefault();
+      bad[0].focus();
+    }
+    // Valid submits fall through to the native POST — the same
+    // Formspree endpoint contact.html uses. No faked success state.
+  });
+})();
+
+// ======================================================
+// 5. Nav: soft shadow once the page is scrolled
 // ======================================================
 (() => {
   const header = document.querySelector('.nav-header');
