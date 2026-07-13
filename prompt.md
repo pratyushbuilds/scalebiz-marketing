@@ -1,91 +1,129 @@
-# Scalebiz — Final Polish Brief
+# Scalebiz — Fixes, Code Organisation & Performance
 
-Prior HARD CONSTRAINTS apply: typography immutable, design tokens frozen, no new libraries.
+Work in this order. Sections 1 and 2 are correctness bugs and must be done first.
 
----
-
-## ⚠️ 1. SUPABASE KEYS — read this before doing anything
-
-The client asked to gitignore the Supabase **Project URL** and **anon key** because they're "public."
-
-**Do NOT do that. It's the wrong fix, and it will break the deployed site.**
-
-The Supabase **anon key is designed to be public.** It ships in client-side JS by design. Gitignoring it provides zero security (anyone can read it in DevTools on the live site) while breaking the build, since the static site needs it to run. What actually secures the data is **Row Level Security**, not key secrecy.
-
-**Do this instead:**
-
-1. **Verify RLS is enabled and insert-only** on the `submissions` table. Confirm from the client (browser) context that SELECT, UPDATE, and DELETE are all denied and only INSERT succeeds. Paste the policy. **This is the actual security control — if it's not right, fix it now.**
-2. **Search the entire repo AND the full git history for a `service_role` key.** That key bypasses RLS entirely and must never be committed or exposed. If one is found anywhere (source, `.env`, commit history), flag it immediately — it must be **rotated in the Supabase dashboard**, not just deleted from the file.
-3. **Add a `.gitignore`** covering `.env`, `.env.local`, `node_modules`, editor/OS files, and any build artefacts. Good hygiene, but do not move the anon key into it.
-4. Report back plainly on whether the current setup is secure, and what (if anything) needs rotating.
+**GOLDEN RULE: do not break the UI/UX or the backend.** Every animation, interaction, form, and Supabase submission must work exactly as it does now. If any optimisation risks an interaction, skip it and flag it rather than guessing.
 
 ---
 
-## 2. IMAGES
+## 1. 🚨 CRITICAL — the `<head>` is still pointing at the old site
 
-- **Homepage → "Who You Work With" section:** two image placeholders. Add both team photos from `assets/images`.
-- **About page → Team section:** one photo is already set; add the second team member's photo from `assets/images`.
-- Match the existing image treatment exactly (grayscale/hover, scale-in, aspect ratio, sizing). The two portraits must look like a matched pair, not two different crops.
-- Serve them properly: correct dimensions, compressed, with `alt` text (each person's name + role). Do not ship uncompressed full-size photos.
+The `<head>` was carried over from the previous "Edge Storefronts" project and still references that domain and business. **This is not cosmetic — it can hand your SEO to a different site.** Fix on every page.
 
----
+The live domain is: scalebizmarketing.com
+This replaces every edgrstorefronts.in reference in the codebase.
 
-## 3. BRAND NAME CONSISTENCY
+- **`<link rel="canonical">` points to `https://edgrstorefronts.in/`.** A canonical tag tells search engines which URL is authoritative. Pointing every page at the old domain risks Google crediting/indexing that domain instead of this one. **Update to the real Scalebiz Marketing domain, and make it page-specific** (each page canonicals to itself, not all to the homepage).
+- **All `og:url` and `og:image` / `twitter:image` URLs** point at `edgrstorefronts.in`. Update to the real domain. Confirm the OG image actually exists at the new path — link previews break silently otherwise.
+- **Schema markup address says Varanasi, UP.** The contact page says Civil Lines, New Delhi. **These contradict each other.** Confirm with the client which is the real business address and make schema, contact page, and footer agree.
+- **`"alternateName": "Scalebiz"`** — left over from the brand-name pass. Decide with the client whether to keep it (it's legitimate as an alternate name) or remove.
+- **Favicon is a TODO** pointing at old branding assets. Flag for the client to supply real favicon/branding files.
+- Sweep every page for any other `edgrstorefronts` / Edge Storefronts reference in meta, schema, comments, or asset paths.
 
-- Search **every page, plus the legal pages, footer, nav, meta tags, OG tags, and page titles** for standalone uses of "**Scalebiz**".
-- Replace with "**Scalebiz Marketing**".
-- Exception: leave it as-is where it's part of a URL, a slug, a file path, an email address, or a social handle.
-
----
-
-## 4. NAV BUTTON COPY
-
-- The nav CTA button currently reads "**Get Audit →**". Change the **text only** to "**Let's Connect →**".
-- Destination is unchanged (contact page).
-- Apply across **all 5 pages** and the legal pages — anywhere the nav appears.
-- Do not change the button's styling, size, or position.
+- You need to check each domain properly here, in final cta section of all 5 pages we have split cta, if the user clicks lets figure it out then they land on contact page with the url says src=cta_unsure&from=page there are the small details you need to check and work upon.
 
 ---
 
-## 5. FOOTER SOCIAL LINKS
+## 2. 🚨 CRITICAL — broken legal pages
 
-Wire these across **all 5 pages AND the 3 legal pages**:
-
-- **Instagram:** https://www.instagram.com/scalebizmarketing/
-- **LinkedIn:** https://www.linkedin.com/company/scalebiz-marketing/
-- **Facebook:** https://www.facebook.com/pratyush.kumar.24/
-
-All external links: `target="_blank"` + `rel="noopener noreferrer"`.
-
-**⚠️ Flag for the client:** the Facebook link is a **personal profile**, sitting alongside two company pages. On an agency footer this reads as inconsistent and slightly unprofessional. Recommend either omitting Facebook until a company page exists, or creating one. Build it as instructed, but surface this.
+- The footer links to Privacy / Terms / Cookies currently **404**. Fix the paths (they moved to `/legal/`). Test every link from every page, including the duplicate links in the footer bottom bar.
+- **The legal pages have no navbar.** Add the site's standard nav to all 3, identical to the other pages (including the "Let's Connect" CTA).
+- While there: confirm the legal pages carry the correct footer, brand name, and social links.
+- If the nav and footer are still duplicated markup across 8 pages, **refactor them into shared includes/components now.** They've now been edited three separate times; this keeps costing.
 
 ---
 
-## 6. CONTACT PAGE — direct channels
+## 3. CODE ORGANISATION
 
-Fill in the placeholders:
+- Rename the CSS folders: `common (css)` and `pages (css)` have **spaces and parentheses in the path**. This is fragile (URL encoding, some build tools, some servers). Rename to `common/` and `pages/`, update all references.
+- Consolidate duplicate/overlapping CSS. Establish a clear structure: tokens/root → shared components (nav, footer, buttons, forms, cards) → page-specific.
+- Remove dead files, commented-out blocks, and any leftover Edge Storefronts assets.
+- **Do not rename or restructure anything the JS depends on** (class names, ids, data attributes) without updating the JS in the same commit.
+- Ensure after rename you must rename file calls in html as well.
+---
 
-- **WhatsApp:** +91 63862 76008 — as a `wa.me` click-to-chat link (`https://wa.me/916386276008`). Give this real visual weight; it's the highest-converting channel for this audience.
-- **Email:** leave as a clearly labelled placeholder for now.
-- **LinkedIn:** https://www.linkedin.com/in/pratyush-kumar-218915337
-- **Location:**
-  > Civil Lines, New Delhi – 110054
-  > North Delhi, Delhi, India
+## 4. UNUSED CSS/JS — ⚠️ HANDLE WITH CARE
 
-Keep the existing styling. Don't add a map or new components.
+**Read this before running any purge tool.**
+
+Automated unused-CSS tools scan static HTML. They **cannot see classes applied at runtime by JavaScript.** This site is full of them: GSAP stacking-card states, Matter.js pill states, the expand/collapse service cards, the team photo hover reveal, the mobile nav open state, form error/success states.
+
+A naive purge will delete those rules, the build will pass, and the animations will break silently.
+
+**Required approach:**
+1. **First, produce a report of what would be removed. Do NOT delete anything yet.** Show it to the client.
+2. Build a **safelist** covering every JS-applied class, every animation state, every `:hover`/`:focus`/`.active`/`.open`/`.expanded`/error/success state, and anything injected by GSAP/Matter.js/Framer Motion.
+3. Only then purge.
+4. **Manually verify every interactive state afterwards:** stacking cards scroll, pill drag, service card expand/collapse, team hover, mobile nav, all 5 forms (including error and success states), all fallbacks under `prefers-reduced-motion` and at mobile widths.
+
+Same care for JS: remove genuinely dead code, but don't strip anything an event listener or library depends on.
 
 ---
 
-## 7. FOOTER ON LEGAL PAGES
+## 5. PERFORMANCE — the low-risk, high-value work
 
-Confirm the 3 legal pages carry the **same footer** as the rest of the site (all links, socials, and the brand name fix). If the footer is duplicated markup rather than a shared component/include, **refactor it into a shared one now** — it's about to be edited on 8 pages and something will get missed otherwise.
+**Fonts**
+- Currently Google Fonts via CDN with a preload + `media="print"` swap. **Self-host the two font families instead** (Manrope, Playfair Display) as `woff2`, subset to `latin`. Removes two third-party connections from the critical path and is faster and more private.
+- Use `font-display: swap`, preload only the weights actually used above the fold.
+- Audit which weights are genuinely used — loading unused weights is pure waste.
+
+**Font Awesome — remove it**
+- The whole Font Awesome CSS is being loaded for what is probably a handful of icons. **Replace with inline SVGs** for the icons actually used (socials, nav, cards). This is likely one of the biggest single wins available.
+
+**Animation libraries — the biggest weight on the site**
+- **Report the actual size of GSAP, Matter.js, and Framer Motion (if present), per page.** The client needs to see what the animations cost.
+- Ensure each is loaded **only on the page that uses it**, deferred, and never in the critical path.
+- Matter.js must remain **desktop-only** and lazy-loaded (already specified — verify it still is).
+- If GSAP is loaded in full, import only the plugins used (ScrollTrigger) rather than the whole library.
+
+**Images**
+- Convert to **WebP** (with fallbacks), compress, and serve correctly sized. The team photos and any proof screenshots are the priority.
+- Add `width`/`height` attributes to every image to prevent layout shift (CLS).
+- `loading="lazy"` on everything below the fold; **never** on the hero/LCP image.
+- The proof screenshots on the case study page must stay legible after compression — text in images degrades fast. Check them by eye.
+
+**Scripts**
+- `defer` on everything non-critical.
+- GTM is currently a blocking inline script in `<head>`. Keep GTM (it's needed) but verify it isn't delaying first paint; consider loading it after the critical content.
+
+**CSS delivery**
+- The inlined critical CSS approach is good — keep it, but regenerate it so it matches the current above-the-fold content on each page (it was written for the old site).
+- Everything else loads async.
+
+**Other**
+- Enable text compression (gzip/brotli) and sensible cache headers at the host.
+- Add a `sitemap.xml` and `robots.txt` if not present.
+
+---
+
+## 6. Sitemap & robots
+ 
+- Generate `sitemap.xml` listing all real pages, using the chosen canonical URL form.
+- Add `robots.txt` pointing at the sitemap.
+- Do NOT include the blog post *template* file in the sitemap (it's scaffolding, not a page).
+---
+
+## 7. Verify before launch
+ 
+- Every canonical resolves and points to itself (not the old domain, not the homepage).
+- `http://` and the non-canonical www/non-www variant both 301 correctly.
+- Paste a link into WhatsApp and LinkedIn and confirm the preview card renders with the right title, description, and image.
+- Zero occurrences of `edgrstorefronts` anywhere in the repo.
+---
+
+## 8. MEASURE — before and after
+
+- Run **Lighthouse on every page, mobile profile, throttled**, before and after. Report both.
+- Target: LCP under 2.5s, CLS under 0.1, and a real improvement in total page weight.
+- **Test on a real mid-range Android over mobile data**, not just desktop DevTools. That's how most of this client's prospects will see the site.
 
 ---
 
 ## REPORT BACK
-1. **RLS status: the exact policy, and confirmation that only INSERT is permitted from the client. Plus: was a `service_role` key found anywhere in the repo or git history?**
-2. Both team photos placed on both pages, matched treatment, compressed, alt text.
-3. Count of "Scalebiz" → "Scalebiz Marketing" replacements, and where.
-4. Nav button updated on all 8 pages (5 + 3 legal).
-5. Socials wired on all 8 pages; is the footer now a shared component?
-6. Contact page channels wired; WhatsApp link tested.
+1. Canonical/OG/schema fixed on every page; confirmed no `edgrstorefronts` references remain anywhere.
+2. Legal pages: links fixed, navbar added, footer correct.
+3. Nav + footer now shared components?
+4. **The unused-CSS removal report — BEFORE deleting anything.**
+5. Per-page bundle size for GSAP / Matter.js / Framer Motion.
+6. Lighthouse before/after, mobile, every page.
+7. An explicit list of every interactive state you re-tested after the purge.

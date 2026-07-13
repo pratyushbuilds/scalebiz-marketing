@@ -8,25 +8,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Google Tag Manager -->
+  <!-- Google Tag Manager — deferred so it can't delay first paint.
+       dataLayer is live immediately; gtm.js loads on window load (or the
+       first tap/scroll/keypress, whichever happens first). -->
   <script>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-NNRH63P5');
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    (function () {
+      var fired = false;
+      function loadGTM() {
+        if (fired) return; fired = true;
+        var j = document.createElement('script');
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-NNRH63P5';
+        document.head.appendChild(j);
+      }
+      if (document.readyState === 'complete') { setTimeout(loadGTM, 200); }
+      else { window.addEventListener('load', function () { setTimeout(loadGTM, 200); }); }
+      ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) {
+        window.addEventListener(ev, loadGTM, { once: true, passive: true });
+      });
+    })();
   </script>
   <!-- End GTM -->
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://www.googletagmanager.com">
 
   <!-- Preload to fonts -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap">
 
   <!-- CRITICAL INLINE CSS (nav/header/hero only — same block as homepage) -->
     <style>
@@ -40,7 +49,7 @@
   <meta name="description"
     content="One team running your paid ads, social media, and SEO. We audit first, fix what's leaking, then scale what works. Diagnosis-first performance marketing." />
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://edgrstorefronts.in/service" />
+  <link rel="canonical" href="https://scalebizmarketing.com/service.html" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:locale" content="en_IN" />
@@ -49,8 +58,8 @@
   <meta property="og:title" content="Services | Scalebiz Marketing - Paid Ads, Social & SEO Under One Team" />
   <meta property="og:description"
     content="One team running your paid ads, social media, and SEO. We audit first, fix what's leaking, then scale what works." />
-  <meta property="og:url" content="https://edgrstorefronts.in/service" />
-  <meta property="og:image" content="https://edgrstorefronts.in/assets/images/opengraph-es-logo.png" />
+  <meta property="og:url" content="https://scalebizmarketing.com/service.html" />
+  <meta property="og:image" content="https://scalebizmarketing.com/assets/images/og-scalebiz.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="Scalebiz Marketing – Performance-Led Growth Partner" />
   <meta property="og:image:width" content="1200" />
@@ -61,29 +70,25 @@
   <meta name="twitter:title" content="Services | Scalebiz Marketing - Paid Ads, Social & SEO Under One Team" />
   <meta name="twitter:description"
     content="One team running your paid ads, social media, and SEO. We audit first, fix what's leaking, then scale what works." />
-  <meta name="twitter:image" content="https://edgrstorefronts.in/assets/images/opengraph-es-logo.png" />
+  <meta name="twitter:image" content="https://scalebizmarketing.com/assets/images/og-scalebiz.png" />
   <meta name="twitter:image:alt" content="Scalebiz Marketing – Performance-Led Growth Partner" />
 
   <!-- Async to fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap"></noscript>
 
-  <!-- Async Font Awesome to avoid render-blocking -->
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style"
-    onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  </noscript>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="assets/css/common (css)/root.css" />
-  <link rel="stylesheet" href="assets/css/common (css)/performanceOptimization.css" />
-  <link rel="stylesheet" href="assets/css/pages (css)/homepage.css" />
-  <link rel="stylesheet" href="assets/css/pages (css)/services-v2.css" />
+  <!-- Fonts — self-hosted (latin variable woff2, ~86 KB total for the whole site) -->
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-latin-var.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/playfair-latin-var.woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/common/fonts.css">
+  <link rel="stylesheet" href="assets/css/common/root.css" />
+  <link rel="stylesheet" href="assets/css/common/performanceOptimization.css" />
+  <link rel="stylesheet" href="assets/css/pages/homepage.css" />
+  <link rel="stylesheet" href="assets/css/pages/services-v2.css" />
   <!-- Async footer -->
-  <link rel="stylesheet" href="assets/css/common (css)/footer.css" media="print" onload="this.media='all'"/>
+  <link rel="stylesheet" href="assets/css/common/footer.css" media="print" onload="this.media='all'"/>
   <!--Fallback for footer -->
-  <noscript><link rel="stylesheet" href="assets/css/common (css)/footer.css"></noscript>
+  <noscript><link rel="stylesheet" href="assets/css/common/footer.css"></noscript>
 
   <!-- Favicons (TODO: replace with Scalebiz brand assets) -->
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
@@ -101,7 +106,7 @@
     "provider": {
       "@type": "Organization",
       "name": "Scalebiz Marketing",
-      "url": "https://edgrstorefronts.in/"
+      "url": "https://scalebizmarketing.com/"
     },
     "areaServed": {
       "@type": "Country",
@@ -153,7 +158,7 @@
         }
       ]
     },
-    "url": "https://edgrstorefronts.in/service"
+    "url": "https://scalebizmarketing.com/service.html"
   }
   </script>
 </head>
@@ -165,31 +170,9 @@
   <!-- End Google Tag Manager (noscript) -->
   <div id="page">
 
-    <header class="nav-header">
-      <nav class="navbar">
-        <!-- Brand (text wordmark until Scalebiz logo asset is ready) -->
-        <a href="index.html" class="nav-logo">
-          Scalebiz <span class="nav-logo__accent">Marketing</span><span class="nav-logo__dot">.</span>
-        </a>
-
-        <!-- Menu Toggle (Mobile) -->
-        <button class="nav-toggle" aria-label="Toggle Menu" aria-expanded="false">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </button>
-
-        <!-- Nav Links -->
-        <ul class="nav-menu">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="service.html">Services</a></li>
-          <li><a href="case-study.html">Case Study</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="blog/index.html">Blog</a></li>
-          <li><a href="contact.html?src=nav" class="nav-cta">Let's Connect →</a></li>
-        </ul>
-      </nav>
-    </header>
+    <header class="nav-header" data-site-nav></header>
+  <!-- no defer: renders the nav during parse so it's in the first paint -->
+  <script src="assets/js/common/navbar.js"></script>
 
     <!-- SECTION 1: HERO -->
     <section class="hero hero--editorial hero--services" aria-labelledby="ed-hero">
@@ -445,7 +428,6 @@
 
     <footer class="ef-footer" role="contentinfo" aria-label="Site footer" data-site-footer data-page="services"></footer>
 
-    <script defer src="assets/js/common/navbar.js"></script>
     <script defer src="assets/js/common/form-backend.js"></script>
     <script defer src="assets/js/common/audit-split-cta.js"></script>
     <script defer src="assets/js/pages/home.js"></script>

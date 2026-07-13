@@ -1,9 +1,66 @@
 // ================================================
-// Navigation Menu - Optimized & Fixed
+// Site Navbar — shared component + interactions
+//
+// The nav markup used to be copy-pasted into every page. It is now
+// rendered from here into each page's
+// <header class="nav-header" data-site-nav> mount, so the brand,
+// links and CTA copy live in exactly ONE place (same pattern as
+// assets/js/common/footer.js). The mount keeps its 70px height from
+// the inlined critical CSS, so injecting the content causes no CLS.
+//
+// URLs are ROOT-RELATIVE ("/contact.html") so the same markup works
+// at any directory depth (root, /legal/, /blog/) — the site deploys
+// at the domain root (see _redirects / sitemap.xml).
 // ================================================
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initNavigation);
+function renderNav() {
+  const mounts = document.querySelectorAll('header[data-site-nav]');
+  if (!mounts.length) return;
+
+  const html = `
+      <nav class="navbar">
+        <!-- Brand (text wordmark until Scalebiz logo asset is ready) -->
+        <a href="/index.html" class="nav-logo">
+          Scalebiz <span class="nav-logo__accent">Marketing</span><span class="nav-logo__dot">.</span>
+        </a>
+
+        <!-- Menu Toggle (Mobile) -->
+        <button class="nav-toggle" aria-label="Toggle Menu" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+
+        <!-- Nav Links -->
+        <ul class="nav-menu">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/service.html">Services</a></li>
+          <li><a href="/case-study.html">Case Study</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/blog/index.html">Blog</a></li>
+          <li><a href="/contact.html?src=nav" class="nav-cta">Let's Connect →</a></li>
+        </ul>
+      </nav>`;
+
+  mounts.forEach((el) => {
+    el.innerHTML = html;
+  });
+}
+
+// This script is loaded WITHOUT defer, immediately after the nav mount,
+// so the nav is injected during HTML parsing and lands in the first
+// paint (keeps the nav an LCP-friendly, no-pop-in element). If the
+// mount isn't in the DOM yet (script moved into <head>), fall back to
+// DOMContentLoaded.
+if (document.querySelector('header[data-site-nav]')) {
+  renderNav();
+  initNavigation();
+} else if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    renderNav();
+    initNavigation();
+  });
 } else {
+  renderNav();
   initNavigation();
 }
 

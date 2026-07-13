@@ -36,21 +36,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Google Tag Manager -->
+  <!-- Google Tag Manager — deferred so it can't delay first paint.
+       dataLayer is live immediately; gtm.js loads on window load (or the
+       first tap/scroll/keypress, whichever happens first). -->
   <script>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-NNRH63P5');
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    (function () {
+      var fired = false;
+      function loadGTM() {
+        if (fired) return; fired = true;
+        var j = document.createElement('script');
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-NNRH63P5';
+        document.head.appendChild(j);
+      }
+      if (document.readyState === 'complete') { setTimeout(loadGTM, 200); }
+      else { window.addEventListener('load', function () { setTimeout(loadGTM, 200); }); }
+      ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) {
+        window.addEventListener(ev, loadGTM, { once: true, passive: true });
+      });
+    })();
   </script>
   <!-- End GTM -->
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap">
 
   <!-- CRITICAL INLINE CSS (nav + article — plain, fast reading page) -->
   <style>
@@ -75,7 +84,10 @@
   <!-- ⟨EDIT⟩ Primary Meta Tags -->
   <title>Post title | Scalebiz Marketing</title>
   <meta name="description" content="One-sentence summary of the post for search results and social shares." />
-  <link rel="canonical" href="https://edgrstorefronts.in/blog/post-template.html" />
+  <link rel="canonical" href="https://scalebizmarketing.com/blog/post-template.html" />
+  <!-- ⟨EDIT⟩ REMOVE the noindex line below when publishing a real post.
+       It keeps this scaffolding file out of search engines. -->
+  <meta name="robots" content="noindex" />
 
   <!-- ⟨EDIT⟩ Open Graph -->
   <meta property="og:locale" content="en_IN" />
@@ -83,18 +95,20 @@
   <meta property="og:site_name" content="Scalebiz Marketing" />
   <meta property="og:title" content="Post title | Scalebiz Marketing" />
   <meta property="og:description" content="One-sentence summary of the post." />
-  <meta property="og:url" content="https://edgrstorefronts.in/blog/post-template.html" />
-  <meta property="og:image" content="https://edgrstorefronts.in/assets/images/opengraph-es-logo.png" />
+  <meta property="og:url" content="https://scalebizmarketing.com/blog/post-template.html" />
+  <meta property="og:image" content="https://scalebizmarketing.com/assets/images/og-scalebiz.png" />
 
   <!-- Async fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap"></noscript>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="../assets/css/common (css)/root.css" />
-  <link rel="stylesheet" href="../assets/css/common (css)/performanceOptimization.css" />
-  <link rel="stylesheet" href="../assets/css/common (css)/footer.css" media="print" onload="this.media='all'" />
-  <noscript><link rel="stylesheet" href="../assets/css/common (css)/footer.css"></noscript>
+  <!-- Fonts — self-hosted (latin variable woff2, ~86 KB total for the whole site) -->
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/manrope-latin-var.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/playfair-latin-var.woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/common/fonts.css">
+  <link rel="stylesheet" href="../assets/css/common/root.css" />
+  <link rel="stylesheet" href="../assets/css/common/performanceOptimization.css" />
+  <link rel="stylesheet" href="../assets/css/common/footer.css" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="../assets/css/common/footer.css"></noscript>
 
   <link rel="icon" type="image/x-icon" href="../favicon.ico" />
   <link rel="icon" href="../assets/images/branding_image_transparent_back.png" type="image/png" />
@@ -105,26 +119,9 @@
       style="display:none;visibility:hidden"></iframe></noscript>
   <div id="page">
 
-    <header class="nav-header">
-      <nav class="navbar">
-        <a href="../index.html" class="nav-logo">
-          Scalebiz <span class="nav-logo__accent">Marketing</span><span class="nav-logo__dot">.</span>
-        </a>
-        <button class="nav-toggle" aria-label="Toggle Menu" aria-expanded="false">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </button>
-        <ul class="nav-menu">
-          <li><a href="../index.html">Home</a></li>
-          <li><a href="../service.html">Services</a></li>
-          <li><a href="../case-study.html">Case Study</a></li>
-          <li><a href="../about.html">About</a></li>
-          <li><a href="index.html">Blog</a></li>
-          <li><a href="../contact.html?src=nav" class="nav-cta">Let's Connect →</a></li>
-        </ul>
-      </nav>
-    </header>
+    <header class="nav-header" data-site-nav></header>
+  <!-- no defer: renders the nav during parse so it's in the first paint -->
+  <script src="../assets/js/common/navbar.js"></script>
 
     <article class="post">
       <div class="post__inner">
@@ -161,7 +158,6 @@
     <footer class="ef-footer" role="contentinfo" aria-label="Site footer" data-site-footer data-page="blog"></footer>
   </div>
 
-  <script defer src="../assets/js/common/navbar.js"></script>
   <script defer src="../assets/js/common/footer.js"></script>
 </body>
 

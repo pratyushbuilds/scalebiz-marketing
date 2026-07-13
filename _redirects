@@ -1,6 +1,11 @@
-# Redirects (Cloudflare Pages / Netlify format).
+# Redirects (Netlify format).
 # The site isn't live yet, so these are precautionary — they only matter
 # if the old URLs were ever indexed or linked externally.
+
+# Canonical host: force www → apex (Netlify also needs the primary
+# domain set to scalebizmarketing.com in Site settings → Domain).
+https://www.scalebizmarketing.com/* https://scalebizmarketing.com/:splat 301!
+http://www.scalebizmarketing.com/*  https://scalebizmarketing.com/:splat 301!
 
 # Legal pages moved into /legal/ (2026-07-13)
 /privacy.html   /legal/privacy.html   301
