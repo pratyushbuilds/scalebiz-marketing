@@ -56,13 +56,11 @@
    blended) over photos; the placeholder slot drops it so the text
    inverts against the light slot instead */
 .team-portrait__caption{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;gap:.15rem;padding:4rem 1.6rem 1.5rem;background:linear-gradient(180deg,transparent,rgba(22,22,22,.55))}
-.team-portrait--placeholder .team-portrait__caption{background:none}
 .team-portrait__name{font-family:"Playfair Display",Georgia,serif;font-size:clamp(1.7rem,2.6vw,2.4rem);font-weight:600;line-height:1.15;color:#fff;mix-blend-mode:difference}
 .team-portrait__role{font-family:Manrope,sans-serif;font-size:.95rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#fff;mix-blend-mode:difference}
 .team-portrait__bio{font-size:1rem;color:var(--text-muted);line-height:1.65;margin:1.25rem 0 0;max-width:44ch}
 /* placeholder slot: clearly a slot, not a design choice */
 .team-portrait__photo-slot{position:absolute;inset:14px;border:2px dashed var(--chip-border);border-radius:12px;display:flex;align-items:center;justify-content:center}
-.team-portrait__photo-slot span{font-family:Manrope,sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.14em;color:var(--muted)}
 /* grayscale with hover reveal — desktop pointers, motion-safe only;
    everyone else keeps full colour */
 @media (min-width:1025px) and (prefers-reduced-motion:no-preference){

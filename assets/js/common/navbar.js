@@ -8,18 +8,27 @@
 // assets/js/common/footer.js). The mount keeps its 70px height from
 // the inlined critical CSS, so injecting the content causes no CLS.
 //
-// URLs are ROOT-RELATIVE ("/contact.html") so the same markup works
-// at any directory depth (root, /legal/, /blog/) — the site deploys
-// at the domain root (see _redirects / sitemap.xml).
+// URLs are built against the SITE ROOT derived from this script's own
+// src (it always lives at <root>/assets/js/common/navbar.js), so the
+// same markup works at any page depth (root, /legal/, /blog/) AND over
+// file:// — never hardcode root-absolute "/x.html" paths here (they
+// 404 when the client opens pages via file://).
 // ================================================
+// Captured at eval time — currentScript is null inside callbacks.
+const NAV_SITE_ROOT = (() => {
+  const src = document.currentScript && document.currentScript.src;
+  return src ? src.replace(/assets\/js\/common\/[^/?#]*([?#].*)?$/, '') : '/';
+})();
+
 function renderNav() {
   const mounts = document.querySelectorAll('header[data-site-nav]');
   if (!mounts.length) return;
 
+  const R = NAV_SITE_ROOT;
   const html = `
       <nav class="navbar">
         <!-- Brand (text wordmark until Scalebiz logo asset is ready) -->
-        <a href="/index.html" class="nav-logo">
+        <a href="${R}index.html" class="nav-logo">
           Scalebiz <span class="nav-logo__accent">Marketing</span><span class="nav-logo__dot">.</span>
         </a>
 
@@ -32,12 +41,12 @@ function renderNav() {
 
         <!-- Nav Links -->
         <ul class="nav-menu">
-          <li><a href="/index.html">Home</a></li>
-          <li><a href="/service.html">Services</a></li>
-          <li><a href="/case-study.html">Case Study</a></li>
-          <li><a href="/about.html">About</a></li>
-          <li><a href="/blog/index.html">Blog</a></li>
-          <li><a href="/contact.html?src=nav" class="nav-cta">Let's Connect →</a></li>
+          <li><a href="${R}index.html">Home</a></li>
+          <li><a href="${R}service.html">Services</a></li>
+          <li><a href="${R}case-study.html">Case Study</a></li>
+          <li><a href="${R}about.html">About</a></li>
+          <li><a href="${R}blog/index.html">Blog</a></li>
+          <li><a href="${R}contact.html?src=nav" class="nav-cta">Let's Connect →</a></li>
         </ul>
       </nav>`;
 

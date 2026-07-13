@@ -288,10 +288,10 @@ document.addEventListener('click', (e) => {
 // ----------------------------------------------------------------
 (() => {
   if (svReduced) return; // static pill cluster stays as-is
-  // Desktop-only (final-polish brief 2026-07-14): Matter.js physics is
-  // the single heaviest script on the site — on phones the static pill
-  // cluster ships instead and the library is never fetched.
-  if (!window.matchMedia('(min-width: 1025px)').matches) return;
+  // Runs on desktop AND mobile (client decision 2026-07-14, reaffirming
+  // the 2026-07-13 mobile-animations request — overrides the perf
+  // brief's desktop-only clause). Matter.js stays lazy: fetched only
+  // when the pill box approaches the viewport.
 
   const pit = document.querySelector('.sv-pit');
   const pillEls = pit ? Array.from(pit.querySelectorAll('.sv-pill')) : [];

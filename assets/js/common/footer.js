@@ -7,11 +7,18 @@
 // so brand name, nav links and social URLs live in exactly ONE place.
 // (Same JS-component pattern as assets/js/common/audit-split-cta.js.)
 //
-// URLs are ROOT-RELATIVE ("/contact.html") so the same markup works at
-// any directory depth (root, /legal/, /blog/) — the site deploys at the
-// domain root (see _redirects / sitemap.xml).
+// URLs are built against the SITE ROOT derived from this script's own
+// src (it always lives at <root>/assets/js/common/footer.js), so the
+// same markup works at any page depth (root, /legal/, /blog/) AND over
+// file:// — never hardcode root-absolute "/x.html" paths here (they
+// 404 when the client opens pages via file://).
 // ================================================
 (function () {
+  // Captured at eval time — currentScript is null inside callbacks.
+  const SITE_ROOT = (() => {
+    const src = document.currentScript && document.currentScript.src;
+    return src ? src.replace(/assets\/js\/common\/[^/?#]*([?#].*)?$/, '') : '/';
+  })();
   // ---- Real social profiles (wire once here) ----
   const SOCIALS = [
     {
@@ -39,10 +46,11 @@
 
   function footerHTML(page) {
     const from = PAGE_VALUES.includes(page) ? page : 'home';
-    const contactHref = `/contact.html?src=footer&from=${from}`;
+    const R = SITE_ROOT;
+    const contactHref = `${R}contact.html?src=footer&from=${from}`;
     return `
       <div class="ef-footer__top">
-        <a href="/index.html" class="ef-footer__brand" aria-label="Scalebiz Marketing home">
+        <a href="${R}index.html" class="ef-footer__brand" aria-label="Scalebiz Marketing home">
           <span class="ef-logo">Scalebiz Marketing</span>
         </a>
 
@@ -50,8 +58,8 @@
           <div class="ef-col">
             <h3 class="ef-col__title">Company</h3>
             <ul class="ef-links">
-              <li><a href="/about.html">About</a></li>
-              <li><a href="/about.html#team">Team</a></li>
+              <li><a href="${R}about.html">About</a></li>
+              <li><a href="${R}about.html#team">Team</a></li>
               <li><a href="${contactHref}">Contact</a></li>
             </ul>
           </div>
@@ -59,28 +67,28 @@
           <div class="ef-col">
             <h3 class="ef-col__title">Services</h3>
             <ul class="ef-links">
-              <li><a href="/service.html#what-we-do">Paid Media</a></li>
-              <li><a href="/service.html#what-we-do">SEO</a></li>
-              <li><a href="/service.html#what-we-do">Social &amp; Content</a></li>
-              <li><a href="/service.html#what-we-do">Web &amp; Funnels</a></li>
-              <li><a href="/service.html#what-we-do">Influencer Marketing</a></li>
+              <li><a href="${R}service.html#what-we-do">Paid Media</a></li>
+              <li><a href="${R}service.html#what-we-do">SEO</a></li>
+              <li><a href="${R}service.html#what-we-do">Social &amp; Content</a></li>
+              <li><a href="${R}service.html#what-we-do">Web &amp; Funnels</a></li>
+              <li><a href="${R}service.html#what-we-do">Influencer Marketing</a></li>
             </ul>
           </div>
 
           <div class="ef-col">
             <h3 class="ef-col__title">Resources</h3>
             <ul class="ef-links">
-              <li><a href="/case-study.html">Case Studies</a></li>
-              <li><a href="/blog/index.html">Blog</a></li>
+              <li><a href="${R}case-study.html">Case Studies</a></li>
+              <li><a href="${R}blog/index.html">Blog</a></li>
             </ul>
           </div>
 
           <div class="ef-col">
             <h3 class="ef-col__title">Legal</h3>
             <ul class="ef-links">
-              <li><a href="/legal/privacy.html">Privacy Policy</a></li>
-              <li><a href="/legal/terms.html">Terms of Use</a></li>
-              <li><a href="/legal/cookies.html">Cookie Policy</a></li>
+              <li><a href="${R}legal/privacy.html">Privacy Policy</a></li>
+              <li><a href="${R}legal/terms.html">Terms of Use</a></li>
+              <li><a href="${R}legal/cookies.html">Cookie Policy</a></li>
             </ul>
           </div>
 
@@ -103,9 +111,9 @@
       <div class="ef-footer__bottom">
         <p>© <span id="ef-year"></span> Scalebiz Marketing. All rights reserved.</p>
         <ul class="ef-inline">
-          <li><a href="/legal/privacy.html">Privacy</a></li>
-          <li><a href="/legal/terms.html">Terms</a></li>
-          <li><a href="/legal/cookies.html">Cookies</a></li>
+          <li><a href="${R}legal/privacy.html">Privacy</a></li>
+          <li><a href="${R}legal/terms.html">Terms</a></li>
+          <li><a href="${R}legal/cookies.html">Cookies</a></li>
         </ul>
       </div>`;
   }

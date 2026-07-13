@@ -103,19 +103,6 @@ html {
   /* Shadow changes instantly - no transition! */
 }
 
-/* ==================== Grid Layouts ==================== */
-/* Keep this as-is - already good */
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-
-/* ==================== Light Gradients ==================== */
-/* Keep this as-is - already good */
-.section-bg {
-  background: linear-gradient(135deg, rgba(11, 77, 255, 0.05) 0%, rgba(79, 70, 229, 0.05) 100%);
-}
-
 /* ==================== Content Visibility (Lazy Rendering) ==================== */
 /* ENHANCED: Added specific sections from your pages */
 .about-philosophy-section,
