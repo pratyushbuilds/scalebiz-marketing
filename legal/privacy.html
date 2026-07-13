@@ -7,19 +7,34 @@
 
     <!-- Fonts -->
   <!-- 🔥 Optimized font loading -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <link
-    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap"
-    rel="stylesheet">
 
-    <link rel="stylesheet" href="../assets/css/common (css)/root.css" />
+  <!-- Fonts — self-hosted (latin variable woff2, ~86 KB total for the whole site) -->
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/manrope-latin-var.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/playfair-latin-var.woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/common/fonts.css">
+    <link rel="stylesheet" href="../assets/css/common/root.css" />
     <link rel="stylesheet" href="../assets/css/legal.css"/>
-    <link rel="stylesheet" href="../assets/css/common (css)/footer.css" />
+    <link rel="stylesheet" href="../assets/css/common/footer.css" />
+
+  <meta name="description" content="How Scalebiz Marketing collects, uses, and protects your personal data — what we store from forms and analytics, your rights, and how to reach us." />
+  <link rel="canonical" href="https://scalebizmarketing.com/legal/privacy.html" />
+
+  <!-- Favicons (TODO: replace with Scalebiz brand assets) -->
+  <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+  <link rel="icon" href="../assets/images/branding_image_transparent_back.png" type="image/png" />
+
+  <!-- CRITICAL INLINE CSS (nav) — same block as every other page -->
+  <style>
+    .nav-header{position:sticky;top:0;z-index:999;backdrop-filter:blur(8px);background:rgba(250,249,246,.85);border-bottom:1px solid rgba(0,0,0,.05);height:70px}.navbar{max-width:1200px;margin:0 auto;padding:.8rem clamp(16px,5vw,48px);display:flex;align-items:center;justify-content:space-between}.nav-logo{font-weight:700;font-size:1.35rem;color:var(--text-heading);letter-spacing:.01em;text-decoration:none;transition:opacity .2s}.nav-logo:hover{opacity:.8}.nav-logo__accent{color:var(--primary-blue)}.nav-logo__dot{color:var(--accent-red)}.nav-menu{list-style:none;display:flex;align-items:center;gap:2.2rem;margin:0;padding:0}.nav-menu a{font-size:1.07rem;color:var(--text-primary);text-decoration:none;font-weight:500;transition:color .25s}.nav-menu a:hover{color:var(--primary-blue)}.nav-cta{background:linear-gradient(135deg,#0b4dff,#35a4ff);color:#fff!important;padding:.6rem 1.2rem;border-radius:8px;font-weight:600;transition:.3s}.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(11,77,255,.25)}.nav-toggle{display:none;flex-direction:column;justify-content:space-between;width:28px;height:18px;background:0 0;border:none;cursor:pointer}.nav-toggle .bar{height:3px;width:100%;background:var(--text-primary);border-radius:2px;transition:.3s}@media (max-width:900px){.nav-toggle{display:flex}.nav-menu{position:fixed;top:0;right:0;height:100vh;width:72%;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,.08);flex-direction:column;align-items:flex-start;padding:6rem 2rem;gap:1.25rem;transform:translateX(100%);transition:transform .4s}.nav-menu.open{transform:translateX(0)}.nav-link{font-size:1.1rem;width:100%}.cta-link{display:inline-block;width:100%;text-align:center;margin-top:1.5rem}.nav-toggle.active .bar:first-child{transform:rotate(45deg) translateY(7px)}.nav-toggle.active .bar:nth-child(2){opacity:0}.nav-toggle.active .bar:nth-child(3){transform:rotate(-45deg) translateY(-7px)}}.nav-menu{transition:transform .3s,opacity .3s;will-change:transform}
+  </style>
 </head>
 <body>
-    <section class="legal-page">
+  <header class="nav-header" data-site-nav></header>
+  <!-- no defer: renders the nav during parse so it's in the first paint -->
+  <script src="../assets/js/common/navbar.js"></script>
+
+  <section class="legal-page">
   <div class="legal-container">
     <h1 class="legal-title">Privacy Policy</h1>
     <p class="legal-updated">Last updated: November 2025</p>
@@ -76,78 +91,7 @@
   </div>
 </section>
 
-<footer class="ef-footer" role="contentinfo" aria-label="Site footer">
-      <div class="ef-footer__top">
-        <a href="../index.html" class="ef-footer__brand" aria-label="Scalebiz Marketing home">
-          <span class="ef-logo">Scalebiz Marketing</span>
-        </a>
-
-        <nav class="ef-footer__nav" aria-label="Footer">
-          <div class="ef-col">
-            <h3 class="ef-col__title">Company</h3>
-            <ul class="ef-links">
-              <li><a href="../about.html">About</a></li>
-              <li><a href="../about.html#team">Team</a></li>
-              <li><a href="../contact.html?src=footer&from=legal">Contact</a></li>
-            </ul>
-          </div>
-
-          <div class="ef-col">
-            <h3 class="ef-col__title">Services</h3>
-            <ul class="ef-links">
-              <li><a href="../service.html#what-we-do">Paid Media</a></li>
-              <li><a href="../service.html#what-we-do">SEO</a></li>
-              <li><a href="../service.html#what-we-do">Social &amp; Content</a></li>
-              <li><a href="../service.html#what-we-do">Web &amp; Funnels</a></li>
-              <li><a href="../service.html#what-we-do">Influencer Marketing</a></li>
-            </ul>
-          </div>
-
-          <div class="ef-col">
-            <h3 class="ef-col__title">Resources</h3>
-            <ul class="ef-links">
-              <li><a href="../case-study.html">Case Studies</a></li>
-              <li><a href="../blog/index.html">Blog</a></li>
-            </ul>
-          </div>
-
-          <div class="ef-col">
-            <h3 class="ef-col__title">Legal</h3>
-            <ul class="ef-links">
-              <li><a href="privacy.html">Privacy Policy</a></li>
-              <li><a href="terms.html">Terms of Use</a></li>
-              <li><a href="cookies.html">Cookie Policy</a></li>
-            </ul>
-          </div>
-
-          <div class="ef-col ef-col--social">
-            <h3 class="ef-col__title">Follow us</h3>
-            <ul class="ef-social">
-              <!-- TODO: replace href="#" with the real Scalebiz Marketing profile URLs (do not guess) -->
-              <li><a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5m5 5a5 5 0 1 0 .001 10.001A5 5 0 0 0 12 7m0 2.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5M18 6.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2" /></svg> Instagram</a></li>
-              <li><a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M6.94 6.5A1.94 1.94 0 1 1 5 4.56 1.94 1.94 0 0 1 6.94 6.5ZM7 8.75H4V20h3ZM20 20h-3v-5.5c0-1.31-.47-2.2-1.65-2.2-.9 0-1.43.61-1.67 1.2-.09.22-.11.53-.11.83V20h-3s.04-9.77 0-10.75h3v1.52a2.97 2.97 0 0 1 2.68-1.48c1.96 0 3.45 1.28 3.45 4.04Z" /></svg> LinkedIn</a></li>
-              <li><a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z" /></svg> Facebook</a></li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-
-      <div class="ef-footer__cta">
-        <div class="ef-cta__inner">
-          <p class="ef-cta__text">Not ready for the audit yet?</p>
-          <a class="ef-cta__btn" href="../contact.html?src=footer&from=legal">Get in touch →</a>
-        </div>
-      </div>
-
-      <div class="ef-footer__bottom">
-        <p>© <span id="ef-year"></span> Scalebiz Marketing. All rights reserved.</p>
-        <ul class="ef-inline">
-          <li><a href="privacy.html">Privacy</a></li>
-          <li><a href="terms.html">Terms</a></li>
-          <li><a href="cookies.html">Cookies</a></li>
-        </ul>
-      </div>
-    </footer>
+<footer class="ef-footer" role="contentinfo" aria-label="Site footer" data-site-footer data-page="legal"></footer>
 
       
   <script defer src="../assets/js/common/footer.js"></script>

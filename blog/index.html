@@ -7,22 +7,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Google Tag Manager -->
+  <!-- Google Tag Manager — deferred so it can't delay first paint.
+       dataLayer is live immediately; gtm.js loads on window load (or the
+       first tap/scroll/keypress, whichever happens first). -->
   <script>
-    (function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-NNRH63P5');
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    (function () {
+      var fired = false;
+      function loadGTM() {
+        if (fired) return; fired = true;
+        var j = document.createElement('script');
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-NNRH63P5';
+        document.head.appendChild(j);
+      }
+      if (document.readyState === 'complete') { setTimeout(loadGTM, 200); }
+      else { window.addEventListener('load', function () { setTimeout(loadGTM, 200); }); }
+      ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) {
+        window.addEventListener(ev, loadGTM, { once: true, passive: true });
+      });
+    })();
   </script>
   <!-- End GTM -->
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://www.googletagmanager.com">
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap">
 
   <!-- CRITICAL INLINE CSS (nav + blog index — plain, fast page, no animations) -->
   <style>
@@ -54,7 +63,7 @@
   <title>Blog | Scalebiz Marketing</title>
   <meta name="description"
     content="Practical breakdowns of performance marketing from Scalebiz Marketing — what actually moves growth. Publishing soon." />
-  <link rel="canonical" href="https://edgrstorefronts.in/blog/" />
+  <link rel="canonical" href="https://scalebizmarketing.com/blog/" />
 
   <!-- Open Graph -->
   <meta property="og:locale" content="en_IN" />
@@ -62,22 +71,22 @@
   <meta property="og:site_name" content="Scalebiz Marketing" />
   <meta property="og:title" content="Blog | Scalebiz Marketing" />
   <meta property="og:description" content="Practical breakdowns of performance marketing. Publishing soon." />
-  <meta property="og:url" content="https://edgrstorefronts.in/blog/" />
-  <meta property="og:image" content="https://edgrstorefronts.in/assets/images/opengraph-es-logo.png" />
+  <meta property="og:url" content="https://scalebizmarketing.com/blog/" />
+  <meta property="og:image" content="https://scalebizmarketing.com/assets/images/og-scalebiz.png" />
 
   <!-- Async fonts + Font Awesome -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,600&display=swap"></noscript>
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="../assets/css/common (css)/root.css" />
-  <link rel="stylesheet" href="../assets/css/common (css)/performanceOptimization.css" />
+  <!-- Fonts — self-hosted (latin variable woff2, ~86 KB total for the whole site) -->
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/manrope-latin-var.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/playfair-latin-var.woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/common/fonts.css">
+  <link rel="stylesheet" href="../assets/css/common/root.css" />
+  <link rel="stylesheet" href="../assets/css/common/performanceOptimization.css" />
   <!-- homepage.css supplies the shared split-CTA (.audit-*/.af-*) styling -->
-  <link rel="stylesheet" href="../assets/css/pages (css)/homepage.css" />
-  <link rel="stylesheet" href="../assets/css/common (css)/footer.css" media="print" onload="this.media='all'" />
-  <noscript><link rel="stylesheet" href="../assets/css/common (css)/footer.css"></noscript>
+  <link rel="stylesheet" href="../assets/css/pages/homepage.css" />
+  <link rel="stylesheet" href="../assets/css/common/footer.css" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="../assets/css/common/footer.css"></noscript>
 
   <link rel="icon" type="image/x-icon" href="../favicon.ico" />
   <link rel="icon" href="../assets/images/branding_image_transparent_back.png" type="image/png" />
@@ -88,26 +97,9 @@
       style="display:none;visibility:hidden"></iframe></noscript>
   <div id="page">
 
-    <header class="nav-header">
-      <nav class="navbar">
-        <a href="../index.html" class="nav-logo">
-          Scalebiz <span class="nav-logo__accent">Marketing</span><span class="nav-logo__dot">.</span>
-        </a>
-        <button class="nav-toggle" aria-label="Toggle Menu" aria-expanded="false">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </button>
-        <ul class="nav-menu">
-          <li><a href="../index.html">Home</a></li>
-          <li><a href="../service.html">Services</a></li>
-          <li><a href="../case-study.html">Case Study</a></li>
-          <li><a href="../about.html">About</a></li>
-          <li><a href="index.html">Blog</a></li>
-          <li><a href="../contact.html?src=nav" class="nav-cta">Get Audit →</a></li>
-        </ul>
-      </nav>
-    </header>
+    <header class="nav-header" data-site-nav></header>
+  <!-- no defer: renders the nav during parse so it's in the first paint -->
+  <script src="../assets/js/common/navbar.js"></script>
 
     <section class="blog-hero">
       <div class="blog-wrap">
@@ -169,81 +161,9 @@
       </noscript>
     </section>
 
-    <footer class="ef-footer" role="contentinfo" aria-label="Site footer">
-      <div class="ef-footer__top">
-        <a href="../index.html" class="ef-footer__brand" aria-label="Scalebiz Marketing home">
-          <span class="ef-logo">Scalebiz Marketing</span>
-        </a>
-
-        <nav class="ef-footer__nav" aria-label="Footer">
-          <div class="ef-col">
-            <h3 class="ef-col__title">Company</h3>
-            <ul class="ef-links">
-              <li><a href="../about.html">About</a></li>
-              <li><a href="../about.html#team">Team</a></li>
-              <li><a href="../contact.html?src=footer&from=blog">Contact</a></li>
-            </ul>
-          </div>
-
-          <div class="ef-col">
-            <h3 class="ef-col__title">Services</h3>
-            <ul class="ef-links">
-              <li><a href="../service.html#what-we-do">Paid Media</a></li>
-              <li><a href="../service.html#what-we-do">SEO</a></li>
-              <li><a href="../service.html#what-we-do">Social &amp; Content</a></li>
-              <li><a href="../service.html#what-we-do">Web &amp; Funnels</a></li>
-              <li><a href="../service.html#what-we-do">Influencer Marketing</a></li>
-            </ul>
-          </div>
-
-          <div class="ef-col">
-            <h3 class="ef-col__title">Resources</h3>
-            <ul class="ef-links">
-              <li><a href="../case-study.html">Case Studies</a></li>
-              <li><a href="index.html">Blog</a></li>
-            </ul>
-          </div>
-
-          <div class="ef-col">
-            <h3 class="ef-col__title">Legal</h3>
-            <ul class="ef-links">
-              <li><a href="../legal/privacy.html">Privacy Policy</a></li>
-              <li><a href="../legal/terms.html">Terms of Use</a></li>
-              <li><a href="../legal/cookies.html">Cookie Policy</a></li>
-            </ul>
-          </div>
-
-          <div class="ef-col ef-col--social">
-            <h3 class="ef-col__title">Follow us</h3>
-            <ul class="ef-social">
-              <!-- TODO: replace href="#" with the real Scalebiz Marketing profile URLs (do not guess) -->
-              <li><a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5m5 5a5 5 0 1 0 .001 10.001A5 5 0 0 0 12 7m0 2.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5M18 6.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2" /></svg> Instagram</a></li>
-              <li><a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M6.94 6.5A1.94 1.94 0 1 1 5 4.56 1.94 1.94 0 0 1 6.94 6.5ZM7 8.75H4V20h3ZM20 20h-3v-5.5c0-1.31-.47-2.2-1.65-2.2-.9 0-1.43.61-1.67 1.2-.09.22-.11.53-.11.83V20h-3s.04-9.77 0-10.75h3v1.52a2.97 2.97 0 0 1 2.68-1.48c1.96 0 3.45 1.28 3.45 4.04Z" /></svg> LinkedIn</a></li>
-              <li><a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z" /></svg> Facebook</a></li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-
-      <div class="ef-footer__cta">
-        <div class="ef-cta__inner">
-          <p class="ef-cta__text">Not ready for the audit yet?</p>
-          <a class="ef-cta__btn" href="../contact.html?src=footer&from=blog">Get in touch →</a>
-        </div>
-      </div>
-
-      <div class="ef-footer__bottom">
-        <p>© <span id="ef-year"></span> Scalebiz Marketing. All rights reserved.</p>
-        <ul class="ef-inline">
-          <li><a href="../legal/privacy.html">Privacy</a></li>
-          <li><a href="../legal/terms.html">Terms</a></li>
-          <li><a href="../legal/cookies.html">Cookies</a></li>
-        </ul>
-      </div>
-    </footer>
+    <footer class="ef-footer" role="contentinfo" aria-label="Site footer" data-site-footer data-page="blog"></footer>
   </div>
 
-  <script defer src="../assets/js/common/navbar.js"></script>
   <script defer src="../assets/js/common/form-backend.js"></script>
   <script defer src="../assets/js/common/audit-split-cta.js"></script>
   <script defer src="../assets/js/common/footer.js"></script>

@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+# Blog post template is scaffolding, not a real page
+Disallow: /blog/post-template.html
 
-Sitemap: https://edgrstorefronts.in/sitemap.xml
+Sitemap: https://scalebizmarketing.com/sitemap.xml
