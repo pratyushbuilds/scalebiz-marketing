@@ -88,9 +88,9 @@
   <noscript><link rel="stylesheet" href="assets/css/common (css)/footer.css"></noscript>
 
   <!-- Favicons (TODO: replace with Scalebiz brand assets) -->
-  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-  <link rel="icon" href="/assets/images/branding_image_transparent_back.png" type="image/png" />
-  <link rel="apple-touch-icon" href="/assets/images/branding_image_transparent_back.png" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" href="assets/images/branding_image_transparent_back.png" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/images/branding_image_transparent_back.png" />
 
   <!-- Schema Markup for Home Page (Organization) -->
   <script type="application/ld+json">
@@ -152,8 +152,8 @@
           <li><a href="service.html">Services</a></li>
           <li><a href="case-study.html">Case Study</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="blogs.html">Blog</a></li>
-          <li><a href="contact.html" class="nav-cta">Get Audit →</a></li>
+          <li><a href="blog/index.html">Blog</a></li>
+          <li><a href="contact.html?src=nav" class="nav-cta">Get Audit →</a></li>
         </ul>
       </nav>
     </header>
@@ -180,7 +180,7 @@
         <p class="ed-sub">Performance-led growth partners. We audit the whole funnel (your offer, your targeting,
           your follow-up), fix what's broken, then scale what works. That covers your full digital presence,
           ads included.</p>
-        <a class="ed-link" href="/contact.html"><span class="ed-arrow" aria-hidden="true">→</span>Get My Free Funnel
+        <a class="ed-link" href="contact.html?src=hero&from=home"><span class="ed-arrow" aria-hidden="true">→</span>Get My Free Funnel
           Audit</a>
         <p class="hero-microcopy">Free · 48-hour turnaround · findings are yours to keep</p>
       </div>
@@ -398,7 +398,7 @@
 
         <!-- CTA -->
         <div class="homepage-growth-cta">
-          <a href="/service.html">→ See how we apply this to your brand</a>
+          <a href="service.html#how-we-work">→ See how we apply this to your brand</a>
         </div>
 
       </div>
@@ -505,7 +505,7 @@
 
         <div class="founder-sig-row">
           <div class="founder-sig">
-            <img src="/assets/images/Co-founderImage.webp" alt="Founder" class="founder-avatar" loading="lazy" />
+            <img src="assets/images/Co-founderImage.webp" alt="Founder" class="founder-avatar" loading="lazy" />
             <div class="founder-details">
               <span class="founder-name">Pratyush Kumar</span>
               <span class="founder-title">Co-Founder, Scalebiz Marketing</span>
@@ -530,68 +530,27 @@
       </div>
     </section>
 
-    <!-- SECTION 7: Final CTA — split form + escape hatch -->
-    <section class="audit-cta">
-      <div class="audit-inner audit-inner--split">
-        <span class="sb-eyebrow">Your Next Step</span>
-
-        <div class="audit-split">
-
-          <!-- Left half: the form (posts to the same Formspree endpoint as contact.html) -->
-          <div class="audit-half audit-half--form">
-            <h2 class="audit-half__title">Tell us what's blocking the growth</h2>
-            <form class="audit-form" action="https://formspree.io/f/xyzpnany" method="POST">
-              <input type="hidden" name="_subject" value="Homepage growth form — Scalebiz Marketing" />
-
-              <div class="af-field">
-                <label for="af-name">Name</label>
-                <input type="text" id="af-name" name="name" required autocomplete="name"
-                  placeholder="Your name" />
-                <p class="af-error">Please enter your name.</p>
-              </div>
-
-              <div class="af-field">
-                <label for="af-stage">Company's current stage</label>
-                <select id="af-stage" name="company_stage" required>
-                  <option value="" selected disabled>Select a stage</option>
-                  <option value="Just starting">Just starting</option>
-                  <option value="Running ads already">Running ads already</option>
-                  <option value="Scaling">Scaling</option>
-                  <option value="Stuck">Stuck</option>
-                </select>
-                <p class="af-error">Please select your current stage.</p>
-              </div>
-
-              <div class="af-field">
-                <label for="af-blocker">What's stopping your growth?</label>
-                <textarea id="af-blocker" name="growth_blocker" rows="3" required
-                  placeholder="A sentence or two is plenty"></textarea>
-                <p class="af-error">Tell us a little about what's in the way.</p>
-              </div>
-
-              <button type="submit" class="audit-btn audit-form__submit">Send It Over</button>
-            </form>
-          </div>
-
-          <!-- Divider: vertical on desktop, horizontal when stacked -->
-          <div class="audit-or"><span>OR</span></div>
-
-          <!-- Right half: the escape hatch -->
-          <div class="audit-half audit-half--escape">
-            <h2 class="audit-half__title">Not sure?</h2>
-            <p class="audit-escape__line">
-              Not knowing what's blocking your growth is exactly the problem we solve.
-            </p>
-            <a href="contact.html" class="audit-btn">Let's Figure It Out</a>
-          </div>
-
+    <!-- SECTION 7: Final CTA — split form + escape hatch. Markup is
+         rendered by the shared component (assets/js/common/audit-split-cta.js);
+         this placeholder only carries the page's copy. -->
+    <section class="audit-cta" data-audit-split-cta
+      data-from="home"
+      data-form-title="Tell us what's blocking the growth"
+      data-subject="Homepage growth form — Scalebiz Marketing"
+      data-submit-label="Send It Over"
+      data-escape-title="Not sure?"
+      data-escape-line="Not knowing what's blocking your growth is exactly the problem we solve."
+      data-escape-label="Let's Figure It Out">
+      <noscript>
+        <div class="audit-inner">
+          <a href="contact.html?src=cta_unsure&from=home" class="audit-btn">Let's Figure It Out</a>
         </div>
-      </div>
+      </noscript>
     </section>
 
     <footer class="ef-footer" role="contentinfo" aria-label="Site footer">
       <div class="ef-footer__top">
-        <a href="/" class="ef-footer__brand" aria-label="Scalebiz Marketing home">
+        <a href="index.html" class="ef-footer__brand" aria-label="Scalebiz Marketing home">
           <span class="ef-logo">Scalebiz Marketing</span>
         </a>
 
@@ -600,18 +559,19 @@
             <h3 class="ef-col__title">Company</h3>
             <ul class="ef-links">
               <li><a href="about.html">About</a></li>
-              <li><a href="about.html">Team</a></li>
-              <li><a href="contact.html">Contact</a></li>
+              <li><a href="about.html#team">Team</a></li>
+              <li><a href="contact.html?src=footer&from=home">Contact</a></li>
             </ul>
           </div>
 
           <div class="ef-col">
             <h3 class="ef-col__title">Services</h3>
             <ul class="ef-links">
-              <li><a href="service.html">Paid Media</a></li>
-              <li><a href="service.html">SEO</a></li>
-              <li><a href="service.html">Social &amp; Content</a></li>
-              <li><a href="service.html">Web &amp; Funnels</a></li>
+              <li><a href="service.html#what-we-do">Paid Media</a></li>
+              <li><a href="service.html#what-we-do">SEO</a></li>
+              <li><a href="service.html#what-we-do">Social &amp; Content</a></li>
+              <li><a href="service.html#what-we-do">Web &amp; Funnels</a></li>
+              <li><a href="service.html#what-we-do">Influencer Marketing</a></li>
             </ul>
           </div>
 
@@ -619,35 +579,26 @@
             <h3 class="ef-col__title">Resources</h3>
             <ul class="ef-links">
               <li><a href="case-study.html">Case Studies</a></li>
-              <li><a href="blogs.html">Blog</a></li>
+              <li><a href="blog/index.html">Blog</a></li>
             </ul>
           </div>
 
           <div class="ef-col">
             <h3 class="ef-col__title">Legal</h3>
             <ul class="ef-links">
-              <li><a href="/privacy.html">Privacy Policy</a></li>
-              <li><a href="/terms.html">Terms of Use</a></li>
-              <li><a href="/cookies.html">Cookie Policy</a></li>
+              <li><a href="legal/privacy.html">Privacy Policy</a></li>
+              <li><a href="legal/terms.html">Terms of Use</a></li>
+              <li><a href="legal/cookies.html">Cookie Policy</a></li>
             </ul>
           </div>
 
           <div class="ef-col ef-col--social">
             <h3 class="ef-col__title">Follow us</h3>
             <ul class="ef-social">
-              <!-- TODO: point at Scalebiz Marketing profiles once created -->
-              <li><a href="#" aria-label="Instagram">
-                  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-                    <path fill="currentColor"
-                      d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5m5 5a5 5 0 1 0 .001 10.001A5 5 0 0 0 12 7m0 2.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5M18 6.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2" />
-                  </svg>
-                  Instagram</a></li>
-              <li><a href="#" aria-label="LinkedIn">
-                  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-                    <path fill="currentColor"
-                      d="M6.94 6.5A1.94 1.94 0 1 1 5 4.56 1.94 1.94 0 0 1 6.94 6.5ZM7 8.75H4V20h3ZM20 20h-3v-5.5c0-1.31-.47-2.2-1.65-2.2-.9 0-1.43.61-1.67 1.2-.09.22-.11.53-.11.83V20h-3s.04-9.77 0-10.75h3v1.52a2.97 2.97 0 0 1 2.68-1.48c1.96 0 3.45 1.28 3.45 4.04Z" />
-                  </svg>
-                  LinkedIn</a></li>
+              <!-- TODO: replace href="#" with the real Scalebiz Marketing profile URLs (do not guess) -->
+              <li><a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5m5 5a5 5 0 1 0 .001 10.001A5 5 0 0 0 12 7m0 2.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5M18 6.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2" /></svg> Instagram</a></li>
+              <li><a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M6.94 6.5A1.94 1.94 0 1 1 5 4.56 1.94 1.94 0 0 1 6.94 6.5ZM7 8.75H4V20h3ZM20 20h-3v-5.5c0-1.31-.47-2.2-1.65-2.2-.9 0-1.43.61-1.67 1.2-.09.22-.11.53-.11.83V20h-3s.04-9.77 0-10.75h3v1.52a2.97 2.97 0 0 1 2.68-1.48c1.96 0 3.45 1.28 3.45 4.04Z" /></svg> LinkedIn</a></li>
+              <li><a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z" /></svg> Facebook</a></li>
             </ul>
           </div>
         </nav>
@@ -656,21 +607,23 @@
       <div class="ef-footer__cta">
         <div class="ef-cta__inner">
           <p class="ef-cta__text">Not ready for the audit yet?</p>
-          <a class="ef-cta__btn" href="contact.html">Get in touch →</a>
+          <a class="ef-cta__btn" href="contact.html?src=footer&from=home">Get in touch →</a>
         </div>
       </div>
 
       <div class="ef-footer__bottom">
         <p>© <span id="ef-year"></span> Scalebiz Marketing. All rights reserved.</p>
         <ul class="ef-inline">
-          <li><a href="/privacy.html">Privacy</a></li>
-          <li><a href="/terms.html">Terms</a></li>
-          <li><a href="/cookies.html">Cookies</a></li>
+          <li><a href="legal/privacy.html">Privacy</a></li>
+          <li><a href="legal/terms.html">Terms</a></li>
+          <li><a href="legal/cookies.html">Cookies</a></li>
         </ul>
       </div>
     </footer>
 
     <script defer src="assets/js/common/navbar.js"></script>
+    <script defer src="assets/js/common/form-backend.js"></script>
+    <script defer src="assets/js/common/audit-split-cta.js"></script>
     <script defer src="assets/js/pages/home.js"></script>
     <script defer src="assets/js/pages/services.js"></script>
     <script defer src="assets/js/common/footer.js"></script>

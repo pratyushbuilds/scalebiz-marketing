@@ -1,0 +1,15 @@
+# Redirects (Cloudflare Pages / Netlify format).
+# The site isn't live yet, so these are precautionary — they only matter
+# if the old URLs were ever indexed or linked externally.
+
+# Legal pages moved into /legal/ (2026-07-13)
+/privacy.html   /legal/privacy.html   301
+/terms.html     /legal/terms.html     301
+/cookies.html   /legal/cookies.html   301
+/privacy        /legal/privacy.html   301
+/terms          /legal/terms.html     301
+/cookies        /legal/cookies.html   301
+
+# Blog rebuilt at /blog/ (was blogs.html)
+/blogs.html     /blog/                301
+/blogs          /blog/                301
