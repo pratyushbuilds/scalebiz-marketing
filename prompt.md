@@ -1,84 +1,151 @@
-# Scalebiz Services Page — Redesign Brief (v2)
+# Scalebiz — Backend, Data Model, Link Wiring & Blog Template
 
-Two changes: reorder the page, and rebuild the "What We Do" section as expandable cards.
+Five jobs:
+A. Wire all footer/CTA links to their correct destinations.
+B. Reorganise the legal pages into a folder.
+C. Build the blog page as an empty, reusable template.
+D. **Add an email field to the split-CTA form on all 4 pages.**
+E. Set up the backend (Supabase) and the form data model.
 
-All prior HARD CONSTRAINTS apply: typography immutable, design tokens frozen, `prefers-reduced-motion` respected, static fallback for every animation, nothing blocks first paint.
-
----
-
-## STEP 0 — Answer before building
-
-skiper23 depends on React + framer-motion. **Is this site React?**
-- **If YES:** framer-motion is fine.
-- **If NO:** do NOT add React for this. Rebuild the expand/collapse with GSAP (already loaded on this page) or plain CSS transitions + a height/FLIP animation. Same behaviour, no new framework.
-
-Report which path you took and the total animation libraries this page now loads.
+Prior HARD CONSTRAINTS still apply: typography immutable, design tokens frozen, no new animation libraries.
 
 ---
 
-## 1. Section reorder
+## A. LINK WIRING
 
-- **Section 2 = "What We Do"** (the services)
-- **Section 3 = "How We Work"** (the four-phase stacking cards — unchanged, just moved down)
+### Homepage
+- CTA button `→ See how we apply this to your brand` → **Services page, "How We Work" section** (fragment link to that section's id, e.g. `/services.html#how-we-work`). Not the top of the page.
 
-**Constraint:** the stacking-cards section is the page's signature moment and now sits below the services. Keep the services section vertically compact (collapsed cards must be tight) so users still reach the phases. Do not let the services block dominate the page.
+### Footer — Company
+- **About** → About page hero (`/about.html`)
+- **Team** → About page, **team section** (`/about.html#team`)
+- **Contact** → Contact page (`/contact.html`)
 
----
+### Footer — Services
+Add **Influencer Marketing** to the existing list. All five service links (Paid Media, SEO, Social & Content, Web & Funnels, Influencer Marketing) → **Services page, "What We Do" section** (`/services.html#what-we-do`).
+- If the service cards are individually addressable, deep-link each to its own card (e.g. `#what-we-do-seo`) and auto-expand that card on arrival. If that's not clean, all five pointing at `#what-we-do` is acceptable.
 
-## 2. "What We Do" — rebuild as expandable cards
+### Footer — Resources
+- **Case Studies** → case study page
+- **Blog** → blog page (see section C)
 
-**Pattern:** click-to-expand cards, in the style of Skiper UI `skiper23` (https://skiper-ui.com/v1/skiper23). Collapsed card shows the service name; clicking expands it with a smooth layout animation to reveal the detail; clicking outside collapses it.
+### Footer — Legal
+- **Privacy Policy**, **Terms of Use**, **Cookie Policy** → their existing pages (see section B for new paths)
 
-- **Licensing:** skiper23's free version requires Skiper UI attribution. Either add it, or reimplement independently. Do not ship uncredited.
-- **Reuse existing tokens only** — card styling, colours, radius, spacing, type. No new visual language.
+### Footer — Follow Us
+- Add **Facebook** alongside Instagram and LinkedIn.
+- Wire each to its real URL. **Leave all three as clearly labelled placeholders — do NOT invent or guess social URLs.**
+- Use the existing icon set; keep the three consistent.
 
-### Card content (5 services)
-
-**Collapsed state:** service name only. Keep it clean and compact — no tags, no body copy visible.
-
-**Expanded state:** the copy below.
-
-1. **Paid Media (Meta & Google)** — *the anchor service*
-   > This is our core. We've managed crores in ad spend and taken accounts from breaking even to steady profit. Every rupee is tracked to a real result, not a vanity number. We audit the funnel before we touch the budget, then scale what actually converts.
-   - **Anchor treatment:** this card is **expanded by default** on load, and carries visibly more substance than the others (keep its supporting tags/detail). It should read as the main offering without breaking the visual system.
-
-2. **SEO**
-   > Traffic that doesn't switch off the day you pause ads. We go after the searches your buyers are already making, and build pages that actually rank for them.
-
-3. **Social Media**
-   > We run the accounts start to finish, from content to posting to replies. Built to back the paid side, so your organic and paid pull in the same direction.
-
-4. **Web & Funnel**
-   > Landing pages and funnels built to convert the traffic you're already paying for. Most growth leaks happen here, not in the ad account.
-
-5. **Influencer Marketing** *(NEW)*
-   > Creators who actually move product, not just rack up views. We pick them on fit and performance, brief them properly, and track what each one returns.
-
-### Supporting tags
-The client asked to remove supporting tags from all services except Paid Media.
-- **Implement as:** collapsed cards show no tags (clean, title-only). Paid Media keeps its fuller detail in the expanded state.
-- **⚠️ Flag for client:** do NOT leave the other four services with bare titles and no detail anywhere. Four empty-looking services undercuts the "one team owns the whole result" argument. The expanded copy above is the substitute for the tags — keep it.
-
-### Per-card CTA
-Add a CTA at the bottom of **each expanded card** (in the space below the text):
-- **Label:** "Talk to us about this →"
-- **Links to:** the site's existing audit/contact CTA destination.
-- Use an existing secondary/tertiary button or text-link style. It must not compete with the page's primary CTA.
-
-### Fallback
-On `prefers-reduced-motion` and narrow mobile: render all five cards expanded (or as a plain accordion with no layout animation), fully readable, in order. All copy and CTAs must be reachable without the animation.
+**All fragment links must actually resolve.** Add the required `id` attributes to the target sections, and confirm each link scrolls to the right place (accounting for any sticky header offset).
 
 ---
 
-## DO NOT TOUCH
-- The hero, the four-phase copy, the physics-pills section, or the final CTA.
-- Any claims or numbers.
-- Typography tokens.
+## B. REORGANISE LEGAL PAGES
+
+Currently `privacy`, `terms`, and `cookie` HTML files sit in the root next to `index.html`.
+
+- Create a `/legal/` folder in the root and move all three files into it.
+- **Update every reference to them** across the entire site (footer links, the duplicate Privacy/Terms/Cookies links in the footer bottom bar, any inline links, sitemap, anything else).
+- ⚠️ This changes their URLs. Since the site isn't live yet this is safe — but if any of these pages are already indexed or linked externally, add redirects from the old paths. Confirm which applies.
+- Verify no 404s anywhere after the move.
+
+---
+
+## C. BLOG PAGE — empty template
+
+The client will publish posts later when they start SEO work. Build the scaffolding, not content.
+
+1. **Blog index page** (`/blog.html` or `/blog/index.html`)
+   - Empty state that doesn't look broken: heading, one line ("We're publishing soon" or similar), and the shared CTA.
+   - A post-card grid component, ready to populate. Leave one commented-out example card showing the expected markup.
+
+2. **A single post template** (e.g. `/blog/post-template.html`)
+   - Reusable layout: title, date, author, body, back-to-blog link.
+   - Styled with existing tokens and typography. Readable body width (~65–75 chars per line).
+   - Include a commented block at the top explaining exactly how to duplicate it for a new post and what to update. The client and their teammate are not full-time devs — make it obvious.
+
+3. Basic SEO scaffolding on both: title, meta description, OG tags. Leave as templated placeholders.
+
+No animations on either. These pages should be fast and plain.
+
+---
+
+## D. ⚠️ ADD EMAIL FIELD TO THE SPLIT-CTA FORM (all 4 pages)
+
+**Bug:** the split-CTA form currently collects Name / Company's current stage / What's stopping your growth? — **and no contact details.** Every submission is currently unreachable. Fix this first; it's the highest-priority item in this brief.
+
+**Change:** add an **Email** field (type=email, required, validated) to the split-CTA form.
+
+**New field order:**
+1. Name (text, required)
+2. **Email (email, required)** ← NEW
+3. Company's current stage
+4. What's stopping your growth? (textarea, required)
+5. Submit (or whatever the button we already have).
+
+- The split CTA is a **shared component** — make this change once, in the component, so it applies to all 4 pages (home, case study, services, about). If it was duplicated per page, refactor it into a shared component now.
+- Keep the form light. Do not add any further fields.
+- Use the existing input styling and validation patterns.
+
+---
+
+## E. BACKEND — Supabase + form data model
+Right now the site uses formspree or may be google sheet somewhere, remove those entirely and use supabase (Rest of the details are below).
+### Setup
+- Use **Supabase** (Postgres). Free tier is sufficient.
+- **⚠️ SECURITY — non-negotiable:** the site is static, so Supabase is called from the browser. Use the **anon public key ONLY**, with **Row Level Security enabled** and a policy allowing **INSERT only** on the submissions table (no SELECT, no UPDATE, no DELETE from the client). **Never put a service-role key in client-side JS.** Confirm RLS is on before shipping.
+- Add basic spam protection (honeypot field at minimum; note whether a captcha is worth adding).
+
+### Table: `submissions`
+
+| column | type | notes |
+|---|---|---|
+| `id` | uuid, PK | default gen_random_uuid() |
+| `created_at` | timestamptz | default now() |
+| `name` | text | **required — both forms** |
+| `email` | text | **required — both forms** (split CTA now collects it; see D) |
+| `company_stage` | text | split-CTA form only; null for contact submissions |
+| `growth_blocker` | text | "what's stopping your growth?" — split-CTA form only |
+| `enquiry_type` | text | contact form's "What's this about?" select; null for split-CTA |
+| `message` | text | contact form only |
+| `form_type` | text | `split_cta` or `contact` |
+| `source_page` | text | page the form was submitted from (`home`, `case_study`, `services`, `about`, `contact`) |
+| `entry_source` | text | **see below — this is the important one** |
+| `referrer` | text | document.referrer, if available |
+| `utm_source` / `utm_medium` / `utm_campaign` | text | capture if present in URL; nullable |
+
+**Add a NOT NULL constraint on `email`.** Every lead must be reachable — that's the whole point of the form.
+
+### ⚠️ `entry_source` — capture intent EXPLICITLY, do not infer it
+
+The client's original idea was to infer intent from which form was used: split-CTA form = "knows their problem", contact page = "doesn't know". **This inference is unreliable and must not be used**, because the contact page is reachable from many places: the footer "Get in touch" button, the footer Contact link, the nav, and direct navigation. Treating every contact-page submission as "didn't know their problem" will corrupt the data.
+
+**Instead:** capture the intent at the moment of the click.
+
+- The **"Let's Figure It Out"** (the right half of every split CTA — change service page Run My Free Audit cta button to lets figure it out as well so to stay consistent) must append a query param when it navigates to the contact page:
+  `/contact.html?src=cta_unsure&from=<page>`
+  where `<page>` is the page they clicked from (`home`, `case_study`, `services`, `about`).
+- The contact page reads those params on load and includes them in the submission as `entry_source` (e.g. `cta_unsure`) and `source_page` (the originating page).
+- Any other route to the contact page (footer, nav, direct) submits with `entry_source = 'direct'` or `'footer'` as appropriate — tag the footer "Get in touch" button too.
+- Submissions from the split-CTA **form itself** get `form_type = 'split_cta'` and `entry_source = 'form_direct'`.
+
+Result: intent is a recorded fact, not a guess. The contact form's `enquiry_type` select handles the rest of the triage.
+
+### Notification
+- On successful insert, send an email notification so submissions aren't missed. Simplest route: a Supabase Edge Function or a webhook to the client's email. Flag the option chosen.
+- **A form that silently stores data nobody looks at is the failure mode here.** Make sure a submission is visible somewhere the client will actually see it.
+
+### Testing
+Before this is considered done: submit a **real test message from every form on every page** (4 split CTAs + the contact form) and confirm each row lands in `submissions` with a valid `email`, and the correct `form_type`, `source_page`, and `entry_source`.
 
 ---
 
 ## REPORT BACK
-1. React or not; which animation path you took; total animation libraries on this page.
-2. Confirmation Paid Media is expanded by default and reads as the anchor.
-3. Confirmation the page still reaches the stacking-cards section without excessive scroll.
-4. Typography tokens preserved.
+1. Email field added to the shared split-CTA component and live on all 4 pages.
+2. Every fragment link tested and resolving to the correct section.
+3. Legal pages moved, all references updated, no 404s (and whether redirects were needed).
+4. Blog index + post template built, with the duplication instructions in comments.
+5. Supabase: table created, **RLS on with insert-only policy confirmed**, anon key only, honeypot in place, `email` NOT NULL.
+6. `entry_source` correctly recorded from all routes — paste the test rows.
+7. Where notifications land.
