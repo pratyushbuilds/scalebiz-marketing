@@ -1,151 +1,91 @@
-# Scalebiz — Backend, Data Model, Link Wiring & Blog Template
+# Scalebiz — Final Polish Brief
 
-Five jobs:
-A. Wire all footer/CTA links to their correct destinations.
-B. Reorganise the legal pages into a folder.
-C. Build the blog page as an empty, reusable template.
-D. **Add an email field to the split-CTA form on all 4 pages.**
-E. Set up the backend (Supabase) and the form data model.
-
-Prior HARD CONSTRAINTS still apply: typography immutable, design tokens frozen, no new animation libraries.
+Prior HARD CONSTRAINTS apply: typography immutable, design tokens frozen, no new libraries.
 
 ---
 
-## A. LINK WIRING
+## ⚠️ 1. SUPABASE KEYS — read this before doing anything
 
-### Homepage
-- CTA button `→ See how we apply this to your brand` → **Services page, "How We Work" section** (fragment link to that section's id, e.g. `/services.html#how-we-work`). Not the top of the page.
+The client asked to gitignore the Supabase **Project URL** and **anon key** because they're "public."
 
-### Footer — Company
-- **About** → About page hero (`/about.html`)
-- **Team** → About page, **team section** (`/about.html#team`)
-- **Contact** → Contact page (`/contact.html`)
+**Do NOT do that. It's the wrong fix, and it will break the deployed site.**
 
-### Footer — Services
-Add **Influencer Marketing** to the existing list. All five service links (Paid Media, SEO, Social & Content, Web & Funnels, Influencer Marketing) → **Services page, "What We Do" section** (`/services.html#what-we-do`).
-- If the service cards are individually addressable, deep-link each to its own card (e.g. `#what-we-do-seo`) and auto-expand that card on arrival. If that's not clean, all five pointing at `#what-we-do` is acceptable.
+The Supabase **anon key is designed to be public.** It ships in client-side JS by design. Gitignoring it provides zero security (anyone can read it in DevTools on the live site) while breaking the build, since the static site needs it to run. What actually secures the data is **Row Level Security**, not key secrecy.
 
-### Footer — Resources
-- **Case Studies** → case study page
-- **Blog** → blog page (see section C)
+**Do this instead:**
 
-### Footer — Legal
-- **Privacy Policy**, **Terms of Use**, **Cookie Policy** → their existing pages (see section B for new paths)
-
-### Footer — Follow Us
-- Add **Facebook** alongside Instagram and LinkedIn.
-- Wire each to its real URL. **Leave all three as clearly labelled placeholders — do NOT invent or guess social URLs.**
-- Use the existing icon set; keep the three consistent.
-
-**All fragment links must actually resolve.** Add the required `id` attributes to the target sections, and confirm each link scrolls to the right place (accounting for any sticky header offset).
+1. **Verify RLS is enabled and insert-only** on the `submissions` table. Confirm from the client (browser) context that SELECT, UPDATE, and DELETE are all denied and only INSERT succeeds. Paste the policy. **This is the actual security control — if it's not right, fix it now.**
+2. **Search the entire repo AND the full git history for a `service_role` key.** That key bypasses RLS entirely and must never be committed or exposed. If one is found anywhere (source, `.env`, commit history), flag it immediately — it must be **rotated in the Supabase dashboard**, not just deleted from the file.
+3. **Add a `.gitignore`** covering `.env`, `.env.local`, `node_modules`, editor/OS files, and any build artefacts. Good hygiene, but do not move the anon key into it.
+4. Report back plainly on whether the current setup is secure, and what (if anything) needs rotating.
 
 ---
 
-## B. REORGANISE LEGAL PAGES
+## 2. IMAGES
 
-Currently `privacy`, `terms`, and `cookie` HTML files sit in the root next to `index.html`.
-
-- Create a `/legal/` folder in the root and move all three files into it.
-- **Update every reference to them** across the entire site (footer links, the duplicate Privacy/Terms/Cookies links in the footer bottom bar, any inline links, sitemap, anything else).
-- ⚠️ This changes their URLs. Since the site isn't live yet this is safe — but if any of these pages are already indexed or linked externally, add redirects from the old paths. Confirm which applies.
-- Verify no 404s anywhere after the move.
+- **Homepage → "Who You Work With" section:** two image placeholders. Add both team photos from `assets/images`.
+- **About page → Team section:** one photo is already set; add the second team member's photo from `assets/images`.
+- Match the existing image treatment exactly (grayscale/hover, scale-in, aspect ratio, sizing). The two portraits must look like a matched pair, not two different crops.
+- Serve them properly: correct dimensions, compressed, with `alt` text (each person's name + role). Do not ship uncompressed full-size photos.
 
 ---
 
-## C. BLOG PAGE — empty template
+## 3. BRAND NAME CONSISTENCY
 
-The client will publish posts later when they start SEO work. Build the scaffolding, not content.
-
-1. **Blog index page** (`/blog.html` or `/blog/index.html`)
-   - Empty state that doesn't look broken: heading, one line ("We're publishing soon" or similar), and the shared CTA.
-   - A post-card grid component, ready to populate. Leave one commented-out example card showing the expected markup.
-
-2. **A single post template** (e.g. `/blog/post-template.html`)
-   - Reusable layout: title, date, author, body, back-to-blog link.
-   - Styled with existing tokens and typography. Readable body width (~65–75 chars per line).
-   - Include a commented block at the top explaining exactly how to duplicate it for a new post and what to update. The client and their teammate are not full-time devs — make it obvious.
-
-3. Basic SEO scaffolding on both: title, meta description, OG tags. Leave as templated placeholders.
-
-No animations on either. These pages should be fast and plain.
+- Search **every page, plus the legal pages, footer, nav, meta tags, OG tags, and page titles** for standalone uses of "**Scalebiz**".
+- Replace with "**Scalebiz Marketing**".
+- Exception: leave it as-is where it's part of a URL, a slug, a file path, an email address, or a social handle.
 
 ---
 
-## D. ⚠️ ADD EMAIL FIELD TO THE SPLIT-CTA FORM (all 4 pages)
+## 4. NAV BUTTON COPY
 
-**Bug:** the split-CTA form currently collects Name / Company's current stage / What's stopping your growth? — **and no contact details.** Every submission is currently unreachable. Fix this first; it's the highest-priority item in this brief.
-
-**Change:** add an **Email** field (type=email, required, validated) to the split-CTA form.
-
-**New field order:**
-1. Name (text, required)
-2. **Email (email, required)** ← NEW
-3. Company's current stage
-4. What's stopping your growth? (textarea, required)
-5. Submit (or whatever the button we already have).
-
-- The split CTA is a **shared component** — make this change once, in the component, so it applies to all 4 pages (home, case study, services, about). If it was duplicated per page, refactor it into a shared component now.
-- Keep the form light. Do not add any further fields.
-- Use the existing input styling and validation patterns.
+- The nav CTA button currently reads "**Get Audit →**". Change the **text only** to "**Let's Connect →**".
+- Destination is unchanged (contact page).
+- Apply across **all 5 pages** and the legal pages — anywhere the nav appears.
+- Do not change the button's styling, size, or position.
 
 ---
 
-## E. BACKEND — Supabase + form data model
-Right now the site uses formspree or may be google sheet somewhere, remove those entirely and use supabase (Rest of the details are below).
-### Setup
-- Use **Supabase** (Postgres). Free tier is sufficient.
-- **⚠️ SECURITY — non-negotiable:** the site is static, so Supabase is called from the browser. Use the **anon public key ONLY**, with **Row Level Security enabled** and a policy allowing **INSERT only** on the submissions table (no SELECT, no UPDATE, no DELETE from the client). **Never put a service-role key in client-side JS.** Confirm RLS is on before shipping.
-- Add basic spam protection (honeypot field at minimum; note whether a captcha is worth adding).
+## 5. FOOTER SOCIAL LINKS
 
-### Table: `submissions`
+Wire these across **all 5 pages AND the 3 legal pages**:
 
-| column | type | notes |
-|---|---|---|
-| `id` | uuid, PK | default gen_random_uuid() |
-| `created_at` | timestamptz | default now() |
-| `name` | text | **required — both forms** |
-| `email` | text | **required — both forms** (split CTA now collects it; see D) |
-| `company_stage` | text | split-CTA form only; null for contact submissions |
-| `growth_blocker` | text | "what's stopping your growth?" — split-CTA form only |
-| `enquiry_type` | text | contact form's "What's this about?" select; null for split-CTA |
-| `message` | text | contact form only |
-| `form_type` | text | `split_cta` or `contact` |
-| `source_page` | text | page the form was submitted from (`home`, `case_study`, `services`, `about`, `contact`) |
-| `entry_source` | text | **see below — this is the important one** |
-| `referrer` | text | document.referrer, if available |
-| `utm_source` / `utm_medium` / `utm_campaign` | text | capture if present in URL; nullable |
+- **Instagram:** https://www.instagram.com/scalebizmarketing/
+- **LinkedIn:** https://www.linkedin.com/company/scalebiz-marketing/
+- **Facebook:** https://www.facebook.com/pratyush.kumar.24/
 
-**Add a NOT NULL constraint on `email`.** Every lead must be reachable — that's the whole point of the form.
+All external links: `target="_blank"` + `rel="noopener noreferrer"`.
 
-### ⚠️ `entry_source` — capture intent EXPLICITLY, do not infer it
+**⚠️ Flag for the client:** the Facebook link is a **personal profile**, sitting alongside two company pages. On an agency footer this reads as inconsistent and slightly unprofessional. Recommend either omitting Facebook until a company page exists, or creating one. Build it as instructed, but surface this.
 
-The client's original idea was to infer intent from which form was used: split-CTA form = "knows their problem", contact page = "doesn't know". **This inference is unreliable and must not be used**, because the contact page is reachable from many places: the footer "Get in touch" button, the footer Contact link, the nav, and direct navigation. Treating every contact-page submission as "didn't know their problem" will corrupt the data.
+---
 
-**Instead:** capture the intent at the moment of the click.
+## 6. CONTACT PAGE — direct channels
 
-- The **"Let's Figure It Out"** (the right half of every split CTA — change service page Run My Free Audit cta button to lets figure it out as well so to stay consistent) must append a query param when it navigates to the contact page:
-  `/contact.html?src=cta_unsure&from=<page>`
-  where `<page>` is the page they clicked from (`home`, `case_study`, `services`, `about`).
-- The contact page reads those params on load and includes them in the submission as `entry_source` (e.g. `cta_unsure`) and `source_page` (the originating page).
-- Any other route to the contact page (footer, nav, direct) submits with `entry_source = 'direct'` or `'footer'` as appropriate — tag the footer "Get in touch" button too.
-- Submissions from the split-CTA **form itself** get `form_type = 'split_cta'` and `entry_source = 'form_direct'`.
+Fill in the placeholders:
 
-Result: intent is a recorded fact, not a guess. The contact form's `enquiry_type` select handles the rest of the triage.
+- **WhatsApp:** +91 63862 76008 — as a `wa.me` click-to-chat link (`https://wa.me/916386276008`). Give this real visual weight; it's the highest-converting channel for this audience.
+- **Email:** leave as a clearly labelled placeholder for now.
+- **LinkedIn:** https://www.linkedin.com/in/pratyush-kumar-218915337
+- **Location:**
+  > Civil Lines, New Delhi – 110054
+  > North Delhi, Delhi, India
 
-### Notification
-- On successful insert, send an email notification so submissions aren't missed. Simplest route: a Supabase Edge Function or a webhook to the client's email. Flag the option chosen.
-- **A form that silently stores data nobody looks at is the failure mode here.** Make sure a submission is visible somewhere the client will actually see it.
+Keep the existing styling. Don't add a map or new components.
 
-### Testing
-Before this is considered done: submit a **real test message from every form on every page** (4 split CTAs + the contact form) and confirm each row lands in `submissions` with a valid `email`, and the correct `form_type`, `source_page`, and `entry_source`.
+---
+
+## 7. FOOTER ON LEGAL PAGES
+
+Confirm the 3 legal pages carry the **same footer** as the rest of the site (all links, socials, and the brand name fix). If the footer is duplicated markup rather than a shared component/include, **refactor it into a shared one now** — it's about to be edited on 8 pages and something will get missed otherwise.
 
 ---
 
 ## REPORT BACK
-1. Email field added to the shared split-CTA component and live on all 4 pages.
-2. Every fragment link tested and resolving to the correct section.
-3. Legal pages moved, all references updated, no 404s (and whether redirects were needed).
-4. Blog index + post template built, with the duplication instructions in comments.
-5. Supabase: table created, **RLS on with insert-only policy confirmed**, anon key only, honeypot in place, `email` NOT NULL.
-6. `entry_source` correctly recorded from all routes — paste the test rows.
-7. Where notifications land.
+1. **RLS status: the exact policy, and confirmation that only INSERT is permitted from the client. Plus: was a `service_role` key found anywhere in the repo or git history?**
+2. Both team photos placed on both pages, matched treatment, compressed, alt text.
+3. Count of "Scalebiz" → "Scalebiz Marketing" replacements, and where.
+4. Nav button updated on all 8 pages (5 + 3 legal).
+5. Socials wired on all 8 pages; is the footer now a shared component?
+6. Contact page channels wired; WhatsApp link tested.

@@ -1,0 +1,29 @@
+# ── Environment / secrets ──────────────────────────────
+# NOTE: the Supabase anon (publishable) key is PUBLIC by design and
+# stays in assets/js/common/form-backend.js. Never move it here.
+# Only real secrets (e.g. service_role key, Resend API key) belong in .env.
+.env
+.env.*
+!.env.example
+
+# ── Dependencies ───────────────────────────────────────
+node_modules/
+
+# ── Supabase CLI local state ───────────────────────────
+supabase/.branches/
+supabase/.temp/
+.supabase/
+
+# ── Build / deploy artefacts ───────────────────────────
+dist/
+build/
+.cache/
+
+# ── Editor / OS cruft ──────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
