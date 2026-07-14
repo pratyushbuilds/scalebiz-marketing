@@ -47,6 +47,14 @@ serve(async (req) => {
     const payload = await req.json();
     const r: Submission = payload.record ?? payload;
 
+    // Submission fields are attacker-controlled — escape before putting
+    // them in the notification email's HTML so a crafted value can't
+    // inject markup/links into the inbox message.
+    const esc = (s: unknown) =>
+      String(s ?? '').replace(/[&<>"']/g, (c) =>
+        ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] as string)
+      );
+
     const rows = (
       [
         ['Form', r.form_type],
@@ -63,13 +71,13 @@ serve(async (req) => {
       ] as [string, unknown][]
     )
       .filter(([, v]) => v != null && v !== '')
-      .map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#5b6475">${k}</td><td style="padding:4px 0"><b>${String(v)}</b></td></tr>`)
+      .map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#5b6475">${esc(k)}</td><td style="padding:4px 0"><b>${esc(v)}</b></td></tr>`)
       .join('');
 
     const subject = `New ${r.form_type === 'contact' ? 'contact' : 'audit'} lead — ${r.name ?? 'unknown'}`;
     const html = `<h2 style="font-family:sans-serif">New form submission</h2>
       <table style="font-family:sans-serif;font-size:14px">${rows}</table>
-      <p style="font-family:sans-serif;color:#5b6475;font-size:12px">Reply directly to ${r.email ?? ''}.</p>`;
+      <p style="font-family:sans-serif;color:#5b6475;font-size:12px">Reply directly to ${esc(r.email)}.</p>`;
 
     const send = await fetch('https://api.resend.com/emails', {
       method: 'POST',

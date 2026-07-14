@@ -18,3 +18,12 @@ http://www.scalebizmarketing.com/*  https://scalebizmarketing.com/:splat 301!
 # Blog rebuilt at /blog/ (was blogs.html)
 /blogs.html     /blog/                301
 /blogs          /blog/                301
+
+# Keep non-site files out of the public web root. The `!` forces the
+# 404 even though the file physically exists in the deploy (Netlify
+# serves real files over un-forced redirects). Backend source, DB
+# schema, and internal briefs must not be downloadable.
+/supabase/*                 /404.html   404!
+/prompt.md                  /404.html   404!
+/folder_structure_logo.md   /404.html   404!
+/.claude/*                  /404.html   404!

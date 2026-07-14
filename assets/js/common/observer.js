@@ -2,9 +2,10 @@
   document.addEventListener('DOMContentLoaded', function() {
     
     // Collect ALL animated elements at once
+    // (pruned 2026-07-14: process-step, phase-card, philosophy-card,
+    // methodology-step, team-card, trust-card no longer exist in markup)
     const animatedElements = document.querySelectorAll(
-      '.process-step, .edge-card, .phase-card, .philosophy-card, ' +
-      '.methodology-step, .team-card, .trust-card, .homepage-growth-step, .homepage-edge-card'
+      '.edge-card, .homepage-growth-step, .homepage-edge-card'
     );
     
     // Single observer for everything (more efficient)

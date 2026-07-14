@@ -7,40 +7,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Google Tag Manager -->
-  <!-- Google Tag Manager — deferred so it can't delay first paint.
-       dataLayer is live immediately; gtm.js loads on window load (or the
-       first tap/scroll/keypress, whichever happens first). -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    (function () {
-      var fired = false;
-      function loadGTM() {
-        if (fired) return; fired = true;
-        var j = document.createElement('script');
-        j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-NNRH63P5';
-        document.head.appendChild(j);
-      }
-      if (document.readyState === 'complete') { setTimeout(loadGTM, 200); }
-      else { window.addEventListener('load', function () { setTimeout(loadGTM, 200); }); }
-      ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) {
-        window.addEventListener(ev, loadGTM, { once: true, passive: true });
-      });
-    })();
-  </script>
-  <!-- End GTM -->
 
   <!-- Fonts -->
   <!-- 🔥 Optimized font loading -->
-  <link rel="preconnect" href="https://www.googletagmanager.com">
 
   <!-- Preload to fonts -->
 
   <!-- CRITICAL INLINE CSS (nav/header/hero only) -->
     <style>
-      .nav-header{position:sticky;top:0;z-index:999;backdrop-filter:blur(8px);background:rgba(250,249,246,.85);border-bottom:1px solid rgba(0,0,0,.05);height:70px}.navbar{max-width:1200px;margin:0 auto;padding:.8rem clamp(16px,5vw,48px);display:flex;align-items:center;justify-content:space-between}.nav-logo{font-weight:700;font-size:1.35rem;color:var(--text-heading);letter-spacing:.01em;text-decoration:none;transition:opacity .2s}.nav-logo:hover{opacity:.8}.nav-logo__accent{color:var(--primary-blue)}.nav-logo__dot{color:var(--accent-red)}.nav-menu{list-style:none;display:flex;align-items:center;gap:2.2rem;margin:0;padding:0}.nav-menu a{font-size:1.07rem;color:var(--text-primary);text-decoration:none;font-weight:500;transition:color .25s}.nav-menu a:hover{color:var(--primary-blue)}.nav-cta{background:linear-gradient(135deg,#0b4dff,#35a4ff);color:#fff!important;padding:.6rem 1.2rem;border-radius:8px;font-weight:600;transition:.3s}.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(11,77,255,.25)}.nav-toggle{display:none;flex-direction:column;justify-content:space-between;width:28px;height:18px;background:0 0;border:none;cursor:pointer}.nav-toggle .bar{height:3px;width:100%;background:var(--text-primary);border-radius:2px;transition:.3s}@media (max-width:900px){.nav-toggle{display:flex}.nav-menu{position:fixed;top:0;right:0;height:100vh;width:72%;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,.08);flex-direction:column;align-items:flex-start;padding:6rem 2rem;gap:1.25rem;transform:translateX(100%);transition:transform .4s}.nav-menu.open{transform:translateX(0)}.nav-link{font-size:1.1rem;width:100%}.cta-link{display:inline-block;width:100%;text-align:center;margin-top:1.5rem}.nav-toggle.active .bar:first-child{transform:rotate(45deg) translateY(7px)}.nav-toggle.active .bar:nth-child(2){opacity:0}.nav-toggle.active .bar:nth-child(3){transform:rotate(-45deg) translateY(-7px)}}.nav-menu{transition:transform .3s,opacity .3s;will-change:transform}
+      .nav-header{position:sticky;top:0;z-index:999;backdrop-filter:blur(8px);background:rgba(250,249,246,.85);border-bottom:1px solid rgba(0,0,0,.05);height:70px}.navbar{max-width:1200px;margin:0 auto;padding:.8rem clamp(16px,5vw,48px);display:flex;align-items:center;justify-content:space-between}.nav-logo{font-weight:700;font-size:1.35rem;color:var(--text-heading);letter-spacing:.01em;text-decoration:none;transition:opacity .2s}.nav-logo:hover{opacity:.8}.nav-logo__accent{color:var(--primary-blue)}.nav-logo__dot{color:var(--accent-red)}.nav-menu{list-style:none;display:flex;align-items:center;gap:2.2rem;margin:0;padding:0}.nav-menu a{font-size:1.07rem;color:var(--text-primary);text-decoration:none;font-weight:500;transition:color .25s}.nav-menu a:hover{color:var(--primary-blue)}.nav-cta{background:linear-gradient(135deg,#0b4dff,#35a4ff);color:#fff!important;padding:.6rem 1.2rem;border-radius:8px;font-weight:600;transition:.3s}.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(11,77,255,.25)}.nav-toggle{display:none;flex-direction:column;justify-content:space-between;width:28px;height:18px;background:0 0;border:none;cursor:pointer}.nav-toggle .bar{height:3px;width:100%;background:var(--text-primary);border-radius:2px;transition:.3s}@media (max-width:900px){.nav-toggle{display:flex;position:relative;z-index:1001}.nav-menu{position:fixed;top:0;right:0;height:100vh;width:72%;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,.08);flex-direction:column;align-items:flex-start;padding:6rem 2rem;gap:1.25rem;transform:translateX(100%);transition:transform .4s}.nav-menu.open{transform:translateX(0)}.nav-link{font-size:1.1rem;width:100%}.cta-link{display:inline-block;width:100%;text-align:center;margin-top:1.5rem}.nav-toggle.active .bar:first-child{transform:rotate(45deg) translateY(7px)}.nav-toggle.active .bar:nth-child(2){opacity:0}.nav-toggle.active .bar:nth-child(3){transform:rotate(-45deg) translateY(-7px)}}.nav-menu{transition:transform .3s,opacity .3s;will-change:transform}
       .ed-ring,.ed-word,.hero--editorial{position:relative}.hero,.hero *{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}.hero--editorial{background:var(--bg-main);color:#161616;padding:clamp(72px,10vw,120px) 0;isolation:isolate;width:100%}.hero--editorial .container{max-width:1100px;margin:0 auto;padding:0 clamp(16px,6vw,80px)}.ed-h1{font-family:"Playfair Display",Georgia,serif;font-weight:400;font-size:clamp(55px, 7.8vw, 80px);line-height:1.2;letter-spacing:.2px;margin:0 0 clamp(18px,2.2vw,24px)}.ed-ring{display:inline-block}.ed-word{z-index:2}.ed-circle{width:450px;height:auto;position:absolute;left:50%;top:50%;width:clamp(300px,45vw,800px);height:clamp(120px,16vw,190px);transform:translate(-50%,-50%) translateY(6px);pointer-events:none;z-index:1}.ed-stroke{fill:none;stroke:var(--accent-red);stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1800;stroke-dashoffset:1800;transition:stroke-dashoffset 2.3s ease-out .1s;filter:drop-shadow(0 0 .5px #E9423526)}.ed-sub{color:#313131;max-width:62ch;margin:50px 0 25px;line-height:29px}.ed-link{display:inline-flex;align-items:center;gap:10px;font:600 16px/1 Inter,system-ui,sans-serif;color:var(--primary-blue);text-decoration:none;border-bottom:2px solid #0b4DFF33;padding-bottom:6px}.ed-link:hover{border-color:#0b4DFF80}.ed-arrow{display:inline-block;transform:translateY(1px)}@media (max-width:480px){.ed-circle{transform:translate(-50%,-55%) translateY(8px)}.ed-link{margin-bottom:5rem}.ed-stroke{stroke-width:5.5}.hero h1{line-height:1.25;margin-bottom:.75em}.hero p{font-size:1rem;line-height:1.6;margin-bottom:1.4em}.hero a{display:inline-block;padding:10px 0;font-weight:500;text-decoration:none;border-bottom:1.5px solid var(--primary-blue);transition:opacity .2s}.hero a:active{opacity:.7}}.hero--services .ed-circle{left:50%;top:55%;transform:translate(-50%,-50%);width:clamp(620px,70vw,900px);height:clamp(140px,17vw,200px)}.hero--services .ed-circle path{transform-box:fill-box;transform-origin:center;transform:scaleX(1.45)}.hero--services .ed-stroke{stroke-width:3.7}@media (max-width:768px){.hero h1,.hero p{margin-inline:auto}.hero{margin-bottom:-4rem}.hero h1{max-width:90%}.hero p{max-width:85%}.hero--services .ed-circle{left:45%;top:75%}}
     </style>
 
@@ -60,7 +35,7 @@
   <meta property="og:description"
     content="We find where your growth actually leaks — even when it's not in the ads. Diagnosis-first paid media, backed by SEO, social, and web." />
   <meta property="og:url" content="https://scalebizmarketing.com/" />
-  <meta property="og:image" content="https://scalebizmarketing.com/assets/images/og-scalebiz.png" />
+  <meta property="og:image" content="https://scalebizmarketing.com/assets/social/og-image.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="Scalebiz Marketing – Performance-Led Growth Partner" />
   <meta property="og:image:width" content="1200" />
@@ -71,7 +46,7 @@
   <meta name="twitter:title" content="Scalebiz Marketing | Performance-Led Growth Partner" />
   <meta name="twitter:description"
     content="We find where your growth actually leaks — even when it's not in the ads. Diagnosis-first paid media, backed by SEO, social, and web." />
-  <meta name="twitter:image" content="https://scalebizmarketing.com/assets/images/og-scalebiz.png" />
+  <meta name="twitter:image" content="https://scalebizmarketing.com/assets/social/og-image.png" />
   <meta name="twitter:image:alt" content="Scalebiz Marketing – Performance-Led Growth Partner" />
 
   <!-- Async to fonts -->
@@ -92,10 +67,6 @@
   <!--Fallback for footer -->
   <noscript><link rel="stylesheet" href="assets/css/common/footer.css"></noscript>
 
-  <!-- Favicons (TODO: replace with Scalebiz brand assets) -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="icon" href="assets/images/branding_image_transparent_back.png" type="image/png" />
-  <link rel="apple-touch-icon" href="assets/images/branding_image_transparent_back.png" />
 
   <!-- Schema Markup for Home Page (Organization) -->
   <script type="application/ld+json">
@@ -128,13 +99,17 @@
     }
   }
   </script>
+  <!-- Favicons & app icons (root-absolute paths — same in every folder) -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+  <meta name="theme-color" content="#FAF9F6" />
 </head>
 
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNRH63P5" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
   <div id="page">
 
     <header class="nav-header" data-site-nav></header>
@@ -196,11 +171,8 @@
               <!-- Leak 1: upstream -->
               <div class="edge-col">
                 <div class="edge-visual">
-                  <div class="homepage-edge-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </div>
+                  <img class="edge-visual__img" src="assets/images/3d_abstract_1.webp" width="640" height="400"
+                    loading="lazy" decoding="async" alt="" />
                 </div>
                 <div class="edge-node" aria-hidden="true">1</div>
                 <div class="edge-text">
@@ -215,12 +187,8 @@
               <!-- Leak 2: the account itself -->
               <div class="edge-col">
                 <div class="edge-visual">
-                  <div class="homepage-edge-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                  </div>
+                  <img class="edge-visual__img" src="assets/images/3d_abstract_2.webp" width="640" height="400"
+                    loading="lazy" decoding="async" alt="" />
                 </div>
                 <div class="edge-node" aria-hidden="true">2</div>
                 <div class="edge-text">
@@ -235,12 +203,8 @@
               <!-- Leak 3: downstream -->
               <div class="edge-col">
                 <div class="edge-visual">
-                  <div class="homepage-edge-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-                    </svg>
-                  </div>
+                  <img class="edge-visual__img" src="assets/images/3d_abstract_3.webp" width="640" height="400"
+                    loading="lazy" decoding="async" alt="" />
                 </div>
                 <div class="edge-node" aria-hidden="true">3</div>
                 <div class="edge-text">
@@ -255,12 +219,8 @@
               <!-- The difference: diagnosis -->
               <div class="edge-col">
                 <div class="edge-visual">
-                  <div class="homepage-edge-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
+                  <img class="edge-visual__img" src="assets/images/3d_abstract_4.webp" width="640" height="400"
+                    loading="lazy" decoding="async" alt="" />
                 </div>
                 <div class="edge-node" aria-hidden="true">4</div>
                 <div class="edge-text">
@@ -396,23 +356,19 @@
           <div class="proof-stat">
             <span class="proof-stat__num proof-stat__num--good"><span class="count" data-target="64"
                 data-prefix="−" data-suffix="%">−64%</span></span>
-            <span class="proof-stat__label">Cost per lead</span>
+            <span class="proof-stat__label">Cost per result</span>
           </div>
           <span class="proof-vs" aria-hidden="true">and</span>
           <div class="proof-stat">
-            <!-- ⚠️ BLOCKER — UNCONFIRMED METRIC: the 234% figure's basis (baseline, period,
-                 and whether "conversions" means leads/registrations or actual closures) must
-                 be confirmed by the client before this ships. Adjust the label below to match
-                 exactly what was measured. -->
             <span class="proof-stat__num proof-stat__num--conv"><span class="count" data-target="234"
                 data-prefix="+" data-suffix="%">+234%</span></span>
-            <span class="proof-stat__label">Conversions</span>
+            <span class="proof-stat__label">Lead Conversions</span>
           </div>
         </div>
 
         <div class="founder-body">
           <p>
-            Cost per lead fell by nearly two-thirds, and conversions climbed 234% over the same
+            Cost per result fell by nearly two-thirds, and lead conversions climbed 234% over the same
             stretch. The fix wasn't in the ad account. <span class="thesis">We repaired the
               offer and the follow-up first, then scaled what worked.</span>
           </p>

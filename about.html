@@ -6,40 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Google Tag Manager -->
-  <!-- Google Tag Manager — deferred so it can't delay first paint.
-       dataLayer is live immediately; gtm.js loads on window load (or the
-       first tap/scroll/keypress, whichever happens first). -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    (function () {
-      var fired = false;
-      function loadGTM() {
-        if (fired) return; fired = true;
-        var j = document.createElement('script');
-        j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-NNRH63P5';
-        document.head.appendChild(j);
-      }
-      if (document.readyState === 'complete') { setTimeout(loadGTM, 200); }
-      else { window.addEventListener('load', function () { setTimeout(loadGTM, 200); }); }
-      ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) {
-        window.addEventListener(ev, loadGTM, { once: true, passive: true });
-      });
-    })();
-  </script>
-  <!-- End GTM -->
 
   <!-- Fonts -->
   <!-- 🔥 Optimized font loading -->
-  <link rel="preconnect" href="https://www.googletagmanager.com">
 
   <!-- Preload to fonts -->
 
   <!-- CRITICAL INLINE CSS (nav/header/hero only) -->
     <style>
-      .nav-header{position:sticky;top:0;z-index:999;backdrop-filter:blur(8px);background:rgba(250,249,246,.85);border-bottom:1px solid rgba(0,0,0,.05);height:70px}.navbar{max-width:1200px;margin:0 auto;padding:.8rem clamp(16px,5vw,48px);display:flex;align-items:center;justify-content:space-between}.nav-logo{font-weight:700;font-size:1.35rem;color:var(--text-heading);letter-spacing:.01em;text-decoration:none;transition:opacity .2s}.nav-logo:hover{opacity:.8}.nav-logo__accent{color:var(--primary-blue)}.nav-logo__dot{color:var(--accent-red)}.nav-menu{list-style:none;display:flex;align-items:center;gap:2.2rem;margin:0;padding:0}.nav-menu a{font-size:1.07rem;color:var(--text-primary);text-decoration:none;font-weight:500;transition:color .25s}.nav-menu a:hover{color:var(--primary-blue)}.nav-cta{background:linear-gradient(135deg,#0b4dff,#35a4ff);color:#fff!important;padding:.6rem 1.2rem;border-radius:8px;font-weight:600;transition:.3s}.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(11,77,255,.25)}.nav-toggle{display:none;flex-direction:column;justify-content:space-between;width:28px;height:18px;background:0 0;border:none;cursor:pointer}.nav-toggle .bar{height:3px;width:100%;background:var(--text-primary);border-radius:2px;transition:.3s}@media (max-width:900px){.nav-toggle{display:flex}.nav-menu{position:fixed;top:0;right:0;height:100vh;width:72%;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,.08);flex-direction:column;align-items:flex-start;padding:6rem 2rem;gap:1.25rem;transform:translateX(100%);transition:transform .4s}.nav-menu.open{transform:translateX(0)}.nav-link{font-size:1.1rem;width:100%}.cta-link{display:inline-block;width:100%;text-align:center;margin-top:1.5rem}.nav-toggle.active .bar:first-child{transform:rotate(45deg) translateY(7px)}.nav-toggle.active .bar:nth-child(2){opacity:0}.nav-toggle.active .bar:nth-child(3){transform:rotate(-45deg) translateY(-7px)}}.nav-menu{transition:transform .3s,opacity .3s;will-change:transform}
+      .nav-header{position:sticky;top:0;z-index:999;backdrop-filter:blur(8px);background:rgba(250,249,246,.85);border-bottom:1px solid rgba(0,0,0,.05);height:70px}.navbar{max-width:1200px;margin:0 auto;padding:.8rem clamp(16px,5vw,48px);display:flex;align-items:center;justify-content:space-between}.nav-logo{font-weight:700;font-size:1.35rem;color:var(--text-heading);letter-spacing:.01em;text-decoration:none;transition:opacity .2s}.nav-logo:hover{opacity:.8}.nav-logo__accent{color:var(--primary-blue)}.nav-logo__dot{color:var(--accent-red)}.nav-menu{list-style:none;display:flex;align-items:center;gap:2.2rem;margin:0;padding:0}.nav-menu a{font-size:1.07rem;color:var(--text-primary);text-decoration:none;font-weight:500;transition:color .25s}.nav-menu a:hover{color:var(--primary-blue)}.nav-cta{background:linear-gradient(135deg,#0b4dff,#35a4ff);color:#fff!important;padding:.6rem 1.2rem;border-radius:8px;font-weight:600;transition:.3s}.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(11,77,255,.25)}.nav-toggle{display:none;flex-direction:column;justify-content:space-between;width:28px;height:18px;background:0 0;border:none;cursor:pointer}.nav-toggle .bar{height:3px;width:100%;background:var(--text-primary);border-radius:2px;transition:.3s}@media (max-width:900px){.nav-toggle{display:flex;position:relative;z-index:1001}.nav-menu{position:fixed;top:0;right:0;height:100vh;width:72%;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,.08);flex-direction:column;align-items:flex-start;padding:6rem 2rem;gap:1.25rem;transform:translateX(100%);transition:transform .4s}.nav-menu.open{transform:translateX(0)}.nav-link{font-size:1.1rem;width:100%}.cta-link{display:inline-block;width:100%;text-align:center;margin-top:1.5rem}.nav-toggle.active .bar:first-child{transform:rotate(45deg) translateY(7px)}.nav-toggle.active .bar:nth-child(2){opacity:0}.nav-toggle.active .bar:nth-child(3){transform:rotate(-45deg) translateY(-7px)}}.nav-menu{transition:transform .3s,opacity .3s;will-change:transform}
       .ed-ring,.ed-word,.hero--editorial{position:relative}.hero,.hero *{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}.hero--editorial{background:var(--bg-main);color:#161616;padding:clamp(72px,10vw,120px) 0;isolation:isolate;width:100%}.hero--editorial .container{max-width:1100px;margin:0 auto;padding:0 clamp(16px,6vw,80px)}.ed-h1{font-family:"Playfair Display",Georgia,serif;font-weight:400;font-size:clamp(55px, 7.8vw, 80px);line-height:1.2;letter-spacing:.2px;margin:0 0 clamp(18px,2.2vw,24px)}.ed-ring{display:inline-block}.ed-word{z-index:2}.ed-circle{width:450px;height:auto;position:absolute;left:50%;top:50%;width:clamp(300px,45vw,800px);height:clamp(120px,16vw,190px);transform:translate(-50%,-50%) translateY(6px);pointer-events:none;z-index:1}.ed-stroke{fill:none;stroke:var(--accent-red);stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1800;stroke-dashoffset:1800;transition:stroke-dashoffset 2.3s ease-out .1s;filter:drop-shadow(0 0 .5px #E9423526)}.ed-sub{color:#313131;max-width:62ch;margin:50px 0 25px;line-height:29px}.ed-link{display:inline-flex;align-items:center;gap:10px;font:600 16px/1 Inter,system-ui,sans-serif;color:var(--primary-blue);text-decoration:none;border-bottom:2px solid #0b4DFF33;padding-bottom:6px}.ed-link:hover{border-color:#0b4DFF80}.ed-arrow{display:inline-block;transform:translateY(1px)}@media (max-width:480px){.ed-circle{transform:translate(-50%,-55%) translateY(8px)}.ed-link{margin-bottom:5rem}.ed-stroke{stroke-width:5.5}.hero h1{line-height:1.25;margin-bottom:.75em}.hero p{font-size:1rem;line-height:1.6;margin-bottom:1.4em}.hero a{display:inline-block;padding:10px 0;font-weight:500;text-decoration:none;border-bottom:1.5px solid var(--primary-blue);transition:opacity .2s}.hero a:active{opacity:.7}}@media (max-width:768px){.hero h1,.hero p{margin-inline:auto}.hero h1{max-width:90%}.hero p{max-width:85%}}
       /* About hero: exactly one screen under the 70px sticky nav — the
          next section starts at the fold, it never bleeds in */
@@ -63,7 +38,7 @@
   <meta property="og:description"
     content="A small performance team, small on purpose. Meet the people who actually run your account, and read how we work: find the leak, fix it, then scale." />
   <meta property="og:url" content="https://scalebizmarketing.com/about.html" />
-  <meta property="og:image" content="https://scalebizmarketing.com/assets/images/og-scalebiz.png" />
+  <meta property="og:image" content="https://scalebizmarketing.com/assets/social/og-image.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="Scalebiz Marketing – Performance-Led Growth Partner" />
   <meta property="og:image:width" content="1200" />
@@ -74,7 +49,7 @@
   <meta name="twitter:title" content="About Us | Scalebiz Marketing – The Team Behind the Method" />
   <meta name="twitter:description"
     content="A small performance team, small on purpose. Meet the people who actually run your account, and read how we work: find the leak, fix it, then scale." />
-  <meta name="twitter:image" content="https://scalebizmarketing.com/assets/images/og-scalebiz.png" />
+  <meta name="twitter:image" content="https://scalebizmarketing.com/assets/social/og-image.png" />
   <meta name="twitter:image:alt" content="Scalebiz Marketing – Performance-Led Growth Partner" />
 
   <!-- Async to fonts -->
@@ -95,10 +70,6 @@
   <!--Fallback for footer -->
   <noscript><link rel="stylesheet" href="assets/css/common/footer.css"></noscript>
 
-  <!-- Favicons (TODO: replace with Scalebiz brand assets) -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="icon" href="assets/images/branding_image_transparent_back.png" type="image/png" />
-  <link rel="apple-touch-icon" href="assets/images/branding_image_transparent_back.png" />
 
   <!-- Schema Markup -->
   <script type="application/ld+json">
@@ -120,13 +91,17 @@
     }
   }
   </script>
+  <!-- Favicons & app icons (root-absolute paths — same in every folder) -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+  <meta name="theme-color" content="#FAF9F6" />
 </head>
 
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNRH63P5" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
   <div id="page">
 
     <header class="nav-header" data-site-nav></header>
@@ -140,7 +115,7 @@
       <div class="container">
         <h1 id="about-hero" class="ed-h1">
           <span class="ed-ring">
-            <span class="ed-word">Two people.</span>
+            <span class="ed-word">Small team.</span>
             <!-- Hand‑drawn open loop (no fill), positioned around the words -->
             <svg class="ed-circle" viewBox="0 0 360 160" aria-hidden="true">
               <path class="ed-stroke" d="M40,95
@@ -273,26 +248,21 @@
         <div class="team-duo">
 
           <!-- Portrait 1: photo, name and role are the ones already
-               published on the homepage. BIO IS A PLACEHOLDER — real
-               copy (what he does on an account + one concrete
-               credential) to be supplied by the client. Do not publish
-               with the TBD copy below. -->
+               published on the homepage. -->
           <div class="team-portrait">
             <div class="team-portrait__media">
-              <img src="assets/images/Pratyush_Kumar.webp" alt="Pratyush Kumar, Co-Founder of Scalebiz Marketing"
+              <img src="assets/images/Pratyush_Kumar.webp" alt="Pratyush Kumar, Growth Strategist at Scalebiz Marketing"
                 width="1080" height="1214" loading="lazy" decoding="async" />
               <div class="team-portrait__caption">
                 <span class="team-portrait__name">Pratyush Kumar</span>
-                <span class="team-portrait__role">Co-Founder</span>
+                <span class="team-portrait__role">Growth Strategist</span>
               </div>
             </div>
-            <p class="team-portrait__bio">[BIO — TBD: 1–2 lines on what Pratyush actually does on an
-              account, plus one concrete credential.]</p>
+            <p class="team-portrait__bio">Pratyush helps businesses acquire customers through data-driven performance marketing. From campaign strategy to landing pages and conversion tracking, he focuses on building systems that generate measurable growth—not vanity metrics.</p>
           </div>
 
           <!-- Portrait 2: photo, name and role match the homepage
-               founder section. BIO IS A PLACEHOLDER — real copy to be
-               supplied by the client (same TBD state as Portrait 1). -->
+               founder section. -->
           <div class="team-portrait">
             <div class="team-portrait__media">
               <img src="assets/images/Fazle_Azeem.webp" alt="Fazle Azeem, Senior Performance Marketer at Scalebiz Marketing"
@@ -302,8 +272,7 @@
                 <span class="team-portrait__role">Senior Performance Marketer</span>
               </div>
             </div>
-            <p class="team-portrait__bio">[BIO — TBD: 1–2 lines on what they actually do on an account,
-              plus one concrete credential.]</p>
+            <p class="team-portrait__bio">Fazle specializes in paid social advertising, turning marketing budgets into predictable customer acquisition. He oversees campaign optimization, audience research, and performance analysis to maximize return on ad spend.</p>
           </div>
 
         </div>

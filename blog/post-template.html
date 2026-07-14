@@ -35,35 +35,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Google Tag Manager -->
-  <!-- Google Tag Manager — deferred so it can't delay first paint.
-       dataLayer is live immediately; gtm.js loads on window load (or the
-       first tap/scroll/keypress, whichever happens first). -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    (function () {
-      var fired = false;
-      function loadGTM() {
-        if (fired) return; fired = true;
-        var j = document.createElement('script');
-        j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-NNRH63P5';
-        document.head.appendChild(j);
-      }
-      if (document.readyState === 'complete') { setTimeout(loadGTM, 200); }
-      else { window.addEventListener('load', function () { setTimeout(loadGTM, 200); }); }
-      ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) {
-        window.addEventListener(ev, loadGTM, { once: true, passive: true });
-      });
-    })();
-  </script>
-  <!-- End GTM -->
-
-
   <!-- CRITICAL INLINE CSS (nav + article — plain, fast reading page) -->
   <style>
-    .nav-header{position:sticky;top:0;z-index:999;backdrop-filter:blur(8px);background:rgba(250,249,246,.85);border-bottom:1px solid rgba(0,0,0,.05);height:70px}.navbar{max-width:1200px;margin:0 auto;padding:.8rem clamp(16px,5vw,48px);display:flex;align-items:center;justify-content:space-between}.nav-logo{font-weight:700;font-size:1.35rem;color:var(--text-heading);letter-spacing:.01em;text-decoration:none;transition:opacity .2s}.nav-logo:hover{opacity:.8}.nav-logo__accent{color:var(--primary-blue)}.nav-logo__dot{color:var(--accent-red)}.nav-menu{list-style:none;display:flex;align-items:center;gap:2.2rem;margin:0;padding:0}.nav-menu a{font-size:1.07rem;color:var(--text-primary);text-decoration:none;font-weight:500;transition:color .25s}.nav-menu a:hover{color:var(--primary-blue)}.nav-cta{background:linear-gradient(135deg,#0b4dff,#35a4ff);color:#fff!important;padding:.6rem 1.2rem;border-radius:8px;font-weight:600;transition:.3s}.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(11,77,255,.25)}.nav-toggle{display:none;flex-direction:column;justify-content:space-between;width:28px;height:18px;background:0 0;border:none;cursor:pointer}.nav-toggle .bar{height:3px;width:100%;background:var(--text-primary);border-radius:2px;transition:.3s}@media (max-width:900px){.nav-toggle{display:flex}.nav-menu{position:fixed;top:0;right:0;height:100vh;width:72%;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,.08);flex-direction:column;align-items:flex-start;padding:6rem 2rem;gap:1.25rem;transform:translateX(100%);transition:transform .4s}.nav-menu.open{transform:translateX(0)}.nav-link{font-size:1.1rem;width:100%}.cta-link{display:inline-block;width:100%;text-align:center;margin-top:1.5rem}.nav-toggle.active .bar:first-child{transform:rotate(45deg) translateY(7px)}.nav-toggle.active .bar:nth-child(2){opacity:0}.nav-toggle.active .bar:nth-child(3){transform:rotate(-45deg) translateY(-7px)}}.nav-menu{transition:transform .3s,opacity .3s;will-change:transform}
+    .nav-header{position:sticky;top:0;z-index:999;backdrop-filter:blur(8px);background:rgba(250,249,246,.85);border-bottom:1px solid rgba(0,0,0,.05);height:70px}.navbar{max-width:1200px;margin:0 auto;padding:.8rem clamp(16px,5vw,48px);display:flex;align-items:center;justify-content:space-between}.nav-logo{font-weight:700;font-size:1.35rem;color:var(--text-heading);letter-spacing:.01em;text-decoration:none;transition:opacity .2s}.nav-logo:hover{opacity:.8}.nav-logo__accent{color:var(--primary-blue)}.nav-logo__dot{color:var(--accent-red)}.nav-menu{list-style:none;display:flex;align-items:center;gap:2.2rem;margin:0;padding:0}.nav-menu a{font-size:1.07rem;color:var(--text-primary);text-decoration:none;font-weight:500;transition:color .25s}.nav-menu a:hover{color:var(--primary-blue)}.nav-cta{background:linear-gradient(135deg,#0b4dff,#35a4ff);color:#fff!important;padding:.6rem 1.2rem;border-radius:8px;font-weight:600;transition:.3s}.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(11,77,255,.25)}.nav-toggle{display:none;flex-direction:column;justify-content:space-between;width:28px;height:18px;background:0 0;border:none;cursor:pointer}.nav-toggle .bar{height:3px;width:100%;background:var(--text-primary);border-radius:2px;transition:.3s}@media (max-width:900px){.nav-toggle{display:flex;position:relative;z-index:1001}.nav-menu{position:fixed;top:0;right:0;height:100vh;width:72%;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,.08);flex-direction:column;align-items:flex-start;padding:6rem 2rem;gap:1.25rem;transform:translateX(100%);transition:transform .4s}.nav-menu.open{transform:translateX(0)}.nav-link{font-size:1.1rem;width:100%}.cta-link{display:inline-block;width:100%;text-align:center;margin-top:1.5rem}.nav-toggle.active .bar:first-child{transform:rotate(45deg) translateY(7px)}.nav-toggle.active .bar:nth-child(2){opacity:0}.nav-toggle.active .bar:nth-child(3){transform:rotate(-45deg) translateY(-7px)}}.nav-menu{transition:transform .3s,opacity .3s;will-change:transform}
 
     .post{background:var(--bg-main);padding:clamp(40px,6vw,72px) 0 clamp(56px,8vw,96px)}
     /* Readable measure: ~68 characters per line */
@@ -96,7 +70,7 @@
   <meta property="og:title" content="Post title | Scalebiz Marketing" />
   <meta property="og:description" content="One-sentence summary of the post." />
   <meta property="og:url" content="https://scalebizmarketing.com/blog/post-template.html" />
-  <meta property="og:image" content="https://scalebizmarketing.com/assets/images/og-scalebiz.png" />
+  <meta property="og:image" content="https://scalebizmarketing.com/assets/social/og-image.png" />
 
   <!-- Async fonts -->
 
@@ -110,13 +84,17 @@
   <link rel="stylesheet" href="../assets/css/common/footer.css" media="print" onload="this.media='all'" />
   <noscript><link rel="stylesheet" href="../assets/css/common/footer.css"></noscript>
 
-  <link rel="icon" type="image/x-icon" href="../favicon.ico" />
-  <link rel="icon" href="../assets/images/branding_image_transparent_back.png" type="image/png" />
+  <!-- Favicons & app icons (root-absolute paths — same in every folder) -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+  <meta name="theme-color" content="#FAF9F6" />
 </head>
 
 <body>
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNRH63P5" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
   <div id="page">
 
     <header class="nav-header" data-site-nav></header>

@@ -117,12 +117,19 @@
   };
   centerSticky();
 
+  // SRI pins the exact cdnjs bytes (supply-chain protection); crossOrigin
+  // is required for the browser to verify a cross-origin script's integrity.
+  const SRI = {
+    'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js': 'sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt',
+    'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js': 'sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d'
+  };
   const loadScript = (src, isLoaded) =>
     isLoaded()
       ? Promise.resolve()
       : new Promise((resolve, reject) => {
           const s = document.createElement('script');
           s.src = src;
+          if (SRI[src]) { s.integrity = SRI[src]; s.crossOrigin = 'anonymous'; }
           s.async = true;
           s.onload = resolve;
           s.onerror = reject;

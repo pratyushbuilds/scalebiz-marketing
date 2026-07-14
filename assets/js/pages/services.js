@@ -6,10 +6,18 @@
 
 const svReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// SRI pins the exact cdnjs bytes (supply-chain protection); crossOrigin
+// is required for the browser to verify a cross-origin script's integrity.
+const SV_SRI = {
+  'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js': 'sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt',
+  'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js': 'sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d',
+  'https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js': 'sha384-OqQP3UcU7efkEYDRjGmQou2uEvzGFGRtwdYXTjnupeB9cWogSgQ4BOhyklFBYbBR'
+};
 const svLoadScript = (src) =>
   new Promise((resolve, reject) => {
     const s = document.createElement('script');
     s.src = src;
+    if (SV_SRI[src]) { s.integrity = SV_SRI[src]; s.crossOrigin = 'anonymous'; }
     s.async = true;
     s.onload = resolve;
     s.onerror = reject;
@@ -288,10 +296,10 @@ document.addEventListener('click', (e) => {
 // ----------------------------------------------------------------
 (() => {
   if (svReduced) return; // static pill cluster stays as-is
-  // Desktop-only (final-polish brief 2026-07-14): Matter.js physics is
-  // the single heaviest script on the site — on phones the static pill
-  // cluster ships instead and the library is never fetched.
-  if (!window.matchMedia('(min-width: 1025px)').matches) return;
+  // Runs on desktop AND mobile (client decision 2026-07-14, reaffirming
+  // the 2026-07-13 mobile-animations request — overrides the perf
+  // brief's desktop-only clause). Matter.js stays lazy: fetched only
+  // when the pill box approaches the viewport.
 
   const pit = document.querySelector('.sv-pit');
   const pillEls = pit ? Array.from(pit.querySelectorAll('.sv-pill')) : [];
