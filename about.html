@@ -6,34 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Google Tag Manager -->
-  <!-- Google Tag Manager — deferred so it can't delay first paint.
-       dataLayer is live immediately; gtm.js loads on window load (or the
-       first tap/scroll/keypress, whichever happens first). -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    (function () {
-      var fired = false;
-      function loadGTM() {
-        if (fired) return; fired = true;
-        var j = document.createElement('script');
-        j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-NNRH63P5';
-        document.head.appendChild(j);
-      }
-      if (document.readyState === 'complete') { setTimeout(loadGTM, 200); }
-      else { window.addEventListener('load', function () { setTimeout(loadGTM, 200); }); }
-      ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) {
-        window.addEventListener(ev, loadGTM, { once: true, passive: true });
-      });
-    })();
-  </script>
-  <!-- End GTM -->
 
   <!-- Fonts -->
   <!-- 🔥 Optimized font loading -->
-  <link rel="preconnect" href="https://www.googletagmanager.com">
 
   <!-- Preload to fonts -->
 
@@ -63,7 +38,7 @@
   <meta property="og:description"
     content="A small performance team, small on purpose. Meet the people who actually run your account, and read how we work: find the leak, fix it, then scale." />
   <meta property="og:url" content="https://scalebizmarketing.com/about.html" />
-  <meta property="og:image" content="https://scalebizmarketing.com/assets/images/og-scalebiz.png" />
+  <meta property="og:image" content="https://scalebizmarketing.com/assets/social/og-image.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="Scalebiz Marketing – Performance-Led Growth Partner" />
   <meta property="og:image:width" content="1200" />
@@ -74,7 +49,7 @@
   <meta name="twitter:title" content="About Us | Scalebiz Marketing – The Team Behind the Method" />
   <meta name="twitter:description"
     content="A small performance team, small on purpose. Meet the people who actually run your account, and read how we work: find the leak, fix it, then scale." />
-  <meta name="twitter:image" content="https://scalebizmarketing.com/assets/images/og-scalebiz.png" />
+  <meta name="twitter:image" content="https://scalebizmarketing.com/assets/social/og-image.png" />
   <meta name="twitter:image:alt" content="Scalebiz Marketing – Performance-Led Growth Partner" />
 
   <!-- Async to fonts -->
@@ -116,19 +91,17 @@
     }
   }
   </script>
-  <!-- TODO(client): favicon — old Edge Storefronts icons removed 2026-07-14.
-       When the Scalebiz favicon is ready, add here:
-       <link rel="icon" type="image/x-icon" href="favicon.ico" />
-       <link rel="icon" href="assets/images/<scalebiz-icon>.png" type="image/png" />
-       <link rel="apple-touch-icon" href="assets/images/<scalebiz-icon>.png" />
-       (pages under /blog/ and /legal/ need ../ prefixes) -->
+  <!-- Favicons & app icons (root-absolute paths — same in every folder) -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+  <meta name="theme-color" content="#FAF9F6" />
 </head>
 
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNRH63P5" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
   <div id="page">
 
     <header class="nav-header" data-site-nav></header>
@@ -142,7 +115,7 @@
       <div class="container">
         <h1 id="about-hero" class="ed-h1">
           <span class="ed-ring">
-            <span class="ed-word">Two people.</span>
+            <span class="ed-word">Small team.</span>
             <!-- Hand‑drawn open loop (no fill), positioned around the words -->
             <svg class="ed-circle" viewBox="0 0 360 160" aria-hidden="true">
               <path class="ed-stroke" d="M40,95
@@ -275,26 +248,21 @@
         <div class="team-duo">
 
           <!-- Portrait 1: photo, name and role are the ones already
-               published on the homepage. BIO IS A PLACEHOLDER — real
-               copy (what he does on an account + one concrete
-               credential) to be supplied by the client. Do not publish
-               with the TBD copy below. -->
+               published on the homepage. -->
           <div class="team-portrait">
             <div class="team-portrait__media">
-              <img src="assets/images/Pratyush_Kumar.webp" alt="Pratyush Kumar, Co-Founder of Scalebiz Marketing"
+              <img src="assets/images/Pratyush_Kumar.webp" alt="Pratyush Kumar, Growth Strategist at Scalebiz Marketing"
                 width="1080" height="1214" loading="lazy" decoding="async" />
               <div class="team-portrait__caption">
                 <span class="team-portrait__name">Pratyush Kumar</span>
-                <span class="team-portrait__role">Co-Founder</span>
+                <span class="team-portrait__role">Growth Strategist</span>
               </div>
             </div>
-            <p class="team-portrait__bio">[BIO — TBD: 1–2 lines on what Pratyush actually does on an
-              account, plus one concrete credential.]</p>
+            <p class="team-portrait__bio">Pratyush helps businesses acquire customers through data-driven performance marketing. From campaign strategy to landing pages and conversion tracking, he focuses on building systems that generate measurable growth—not vanity metrics.</p>
           </div>
 
           <!-- Portrait 2: photo, name and role match the homepage
-               founder section. BIO IS A PLACEHOLDER — real copy to be
-               supplied by the client (same TBD state as Portrait 1). -->
+               founder section. -->
           <div class="team-portrait">
             <div class="team-portrait__media">
               <img src="assets/images/Fazle_Azeem.webp" alt="Fazle Azeem, Senior Performance Marketer at Scalebiz Marketing"
@@ -304,8 +272,7 @@
                 <span class="team-portrait__role">Senior Performance Marketer</span>
               </div>
             </div>
-            <p class="team-portrait__bio">[BIO — TBD: 1–2 lines on what they actually do on an account,
-              plus one concrete credential.]</p>
+            <p class="team-portrait__bio">Fazle specializes in paid social advertising, turning marketing budgets into predictable customer acquisition. He oversees campaign optimization, audience research, and performance analysis to maximize return on ad spend.</p>
           </div>
 
         </div>

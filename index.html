@@ -7,34 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Google Tag Manager -->
-  <!-- Google Tag Manager — deferred so it can't delay first paint.
-       dataLayer is live immediately; gtm.js loads on window load (or the
-       first tap/scroll/keypress, whichever happens first). -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    (function () {
-      var fired = false;
-      function loadGTM() {
-        if (fired) return; fired = true;
-        var j = document.createElement('script');
-        j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-NNRH63P5';
-        document.head.appendChild(j);
-      }
-      if (document.readyState === 'complete') { setTimeout(loadGTM, 200); }
-      else { window.addEventListener('load', function () { setTimeout(loadGTM, 200); }); }
-      ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) {
-        window.addEventListener(ev, loadGTM, { once: true, passive: true });
-      });
-    })();
-  </script>
-  <!-- End GTM -->
 
   <!-- Fonts -->
   <!-- 🔥 Optimized font loading -->
-  <link rel="preconnect" href="https://www.googletagmanager.com">
 
   <!-- Preload to fonts -->
 
@@ -60,7 +35,7 @@
   <meta property="og:description"
     content="We find where your growth actually leaks — even when it's not in the ads. Diagnosis-first paid media, backed by SEO, social, and web." />
   <meta property="og:url" content="https://scalebizmarketing.com/" />
-  <meta property="og:image" content="https://scalebizmarketing.com/assets/images/og-scalebiz.png" />
+  <meta property="og:image" content="https://scalebizmarketing.com/assets/social/og-image.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="Scalebiz Marketing – Performance-Led Growth Partner" />
   <meta property="og:image:width" content="1200" />
@@ -71,7 +46,7 @@
   <meta name="twitter:title" content="Scalebiz Marketing | Performance-Led Growth Partner" />
   <meta name="twitter:description"
     content="We find where your growth actually leaks — even when it's not in the ads. Diagnosis-first paid media, backed by SEO, social, and web." />
-  <meta name="twitter:image" content="https://scalebizmarketing.com/assets/images/og-scalebiz.png" />
+  <meta name="twitter:image" content="https://scalebizmarketing.com/assets/social/og-image.png" />
   <meta name="twitter:image:alt" content="Scalebiz Marketing – Performance-Led Growth Partner" />
 
   <!-- Async to fonts -->
@@ -124,19 +99,17 @@
     }
   }
   </script>
-  <!-- TODO(client): favicon — old Edge Storefronts icons removed 2026-07-14.
-       When the Scalebiz favicon is ready, add here:
-       <link rel="icon" type="image/x-icon" href="favicon.ico" />
-       <link rel="icon" href="assets/images/<scalebiz-icon>.png" type="image/png" />
-       <link rel="apple-touch-icon" href="assets/images/<scalebiz-icon>.png" />
-       (pages under /blog/ and /legal/ need ../ prefixes) -->
+  <!-- Favicons & app icons (root-absolute paths — same in every folder) -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+  <meta name="theme-color" content="#FAF9F6" />
 </head>
 
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNRH63P5" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
   <div id="page">
 
     <header class="nav-header" data-site-nav></header>
@@ -198,11 +171,8 @@
               <!-- Leak 1: upstream -->
               <div class="edge-col">
                 <div class="edge-visual">
-                  <div class="homepage-edge-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </div>
+                  <img class="edge-visual__img" src="assets/images/3d_abstract_1.webp" width="640" height="400"
+                    loading="lazy" decoding="async" alt="" />
                 </div>
                 <div class="edge-node" aria-hidden="true">1</div>
                 <div class="edge-text">
@@ -217,12 +187,8 @@
               <!-- Leak 2: the account itself -->
               <div class="edge-col">
                 <div class="edge-visual">
-                  <div class="homepage-edge-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                  </div>
+                  <img class="edge-visual__img" src="assets/images/3d_abstract_2.webp" width="640" height="400"
+                    loading="lazy" decoding="async" alt="" />
                 </div>
                 <div class="edge-node" aria-hidden="true">2</div>
                 <div class="edge-text">
@@ -237,12 +203,8 @@
               <!-- Leak 3: downstream -->
               <div class="edge-col">
                 <div class="edge-visual">
-                  <div class="homepage-edge-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-                    </svg>
-                  </div>
+                  <img class="edge-visual__img" src="assets/images/3d_abstract_3.webp" width="640" height="400"
+                    loading="lazy" decoding="async" alt="" />
                 </div>
                 <div class="edge-node" aria-hidden="true">3</div>
                 <div class="edge-text">
@@ -257,12 +219,8 @@
               <!-- The difference: diagnosis -->
               <div class="edge-col">
                 <div class="edge-visual">
-                  <div class="homepage-edge-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
+                  <img class="edge-visual__img" src="assets/images/3d_abstract_4.webp" width="640" height="400"
+                    loading="lazy" decoding="async" alt="" />
                 </div>
                 <div class="edge-node" aria-hidden="true">4</div>
                 <div class="edge-text">
@@ -398,23 +356,19 @@
           <div class="proof-stat">
             <span class="proof-stat__num proof-stat__num--good"><span class="count" data-target="64"
                 data-prefix="−" data-suffix="%">−64%</span></span>
-            <span class="proof-stat__label">Cost per lead</span>
+            <span class="proof-stat__label">Cost per result</span>
           </div>
           <span class="proof-vs" aria-hidden="true">and</span>
           <div class="proof-stat">
-            <!-- ⚠️ BLOCKER — UNCONFIRMED METRIC: the 234% figure's basis (baseline, period,
-                 and whether "conversions" means leads/registrations or actual closures) must
-                 be confirmed by the client before this ships. Adjust the label below to match
-                 exactly what was measured. -->
             <span class="proof-stat__num proof-stat__num--conv"><span class="count" data-target="234"
                 data-prefix="+" data-suffix="%">+234%</span></span>
-            <span class="proof-stat__label">Conversions</span>
+            <span class="proof-stat__label">Lead Conversions</span>
           </div>
         </div>
 
         <div class="founder-body">
           <p>
-            Cost per lead fell by nearly two-thirds, and conversions climbed 234% over the same
+            Cost per result fell by nearly two-thirds, and lead conversions climbed 234% over the same
             stretch. The fix wasn't in the ad account. <span class="thesis">We repaired the
               offer and the follow-up first, then scaled what worked.</span>
           </p>

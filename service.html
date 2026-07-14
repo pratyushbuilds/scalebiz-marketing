@@ -7,33 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Google Tag Manager -->
-  <!-- Google Tag Manager — deferred so it can't delay first paint.
-       dataLayer is live immediately; gtm.js loads on window load (or the
-       first tap/scroll/keypress, whichever happens first). -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    (function () {
-      var fired = false;
-      function loadGTM() {
-        if (fired) return; fired = true;
-        var j = document.createElement('script');
-        j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-NNRH63P5';
-        document.head.appendChild(j);
-      }
-      if (document.readyState === 'complete') { setTimeout(loadGTM, 200); }
-      else { window.addEventListener('load', function () { setTimeout(loadGTM, 200); }); }
-      ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) {
-        window.addEventListener(ev, loadGTM, { once: true, passive: true });
-      });
-    })();
-  </script>
-  <!-- End GTM -->
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://www.googletagmanager.com">
 
   <!-- Preload to fonts -->
 
@@ -59,7 +34,7 @@
   <meta property="og:description"
     content="One team running your paid ads, social media, and SEO. We audit first, fix what's leaking, then scale what works." />
   <meta property="og:url" content="https://scalebizmarketing.com/service.html" />
-  <meta property="og:image" content="https://scalebizmarketing.com/assets/images/og-scalebiz.png" />
+  <meta property="og:image" content="https://scalebizmarketing.com/assets/social/og-image.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="Scalebiz Marketing – Performance-Led Growth Partner" />
   <meta property="og:image:width" content="1200" />
@@ -70,7 +45,7 @@
   <meta name="twitter:title" content="Services | Scalebiz Marketing - Paid Ads, Social & SEO Under One Team" />
   <meta name="twitter:description"
     content="One team running your paid ads, social media, and SEO. We audit first, fix what's leaking, then scale what works." />
-  <meta name="twitter:image" content="https://scalebizmarketing.com/assets/images/og-scalebiz.png" />
+  <meta name="twitter:image" content="https://scalebizmarketing.com/assets/social/og-image.png" />
   <meta name="twitter:image:alt" content="Scalebiz Marketing – Performance-Led Growth Partner" />
 
   <!-- Async to fonts -->
@@ -157,19 +132,17 @@
     "url": "https://scalebizmarketing.com/service.html"
   }
   </script>
-  <!-- TODO(client): favicon — old Edge Storefronts icons removed 2026-07-14.
-       When the Scalebiz favicon is ready, add here:
-       <link rel="icon" type="image/x-icon" href="favicon.ico" />
-       <link rel="icon" href="assets/images/<scalebiz-icon>.png" type="image/png" />
-       <link rel="apple-touch-icon" href="assets/images/<scalebiz-icon>.png" />
-       (pages under /blog/ and /legal/ need ../ prefixes) -->
+  <!-- Favicons & app icons (root-absolute paths — same in every folder) -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+  <meta name="theme-color" content="#FAF9F6" />
 </head>
 
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNRH63P5" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
   <div id="page">
 
     <header class="nav-header" data-site-nav></header>
@@ -241,7 +214,7 @@
                   <li>Clean conversion tracking and attribution</li>
                   <li>Weekly reporting you can actually act on</li>
                 </ul>
-                <a class="ed-link sv-acc-cta" href="contact.html?src=service_card&from=services">Talk to us about this <span class="ed-arrow"
+                <a class="ed-link sv-acc-cta" href="contact.html?src=service_card&from=services">Connect for this service <span class="ed-arrow"
                     aria-hidden="true">→</span></a>
               </div>
             </div>
@@ -249,8 +222,7 @@
         </article>
 
         <article class="sv-acc-card is-open">
-          <button class="sv-acc-head" type="button" id="acc-seo-head" aria-expanded="true"
-            aria-controls="acc-seo">
+          <button class="sv-acc-head" type="button" id="acc-seo-head" aria-expanded="true" aria-controls="acc-seo">
             <span class="sv-acc-title">SEO</span>
             <span class="sv-acc-icon" aria-hidden="true"></span>
           </button>
@@ -258,19 +230,25 @@
             <div class="sv-acc-inner">
               <div class="sv-acc-content">
                 <p>
-                  Traffic that doesn't switch off the day you pause ads. We go after the searches your
-                  buyers are already making, and build pages that actually rank for them.
+                  Rankings are the result, not the strategy. We research how your customers
+                  actually search, build pages around buying intent, and improve the technical
+                  foundation so organic traffic compounds month after month.
                 </p>
-                <a class="ed-link sv-acc-cta" href="contact.html?src=service_card&from=services">Talk to us about this <span class="ed-arrow"
-                    aria-hidden="true">→</span></a>
+                <ul class="phase-deliverables">
+                  <li>Keyword and competitor research</li>
+                  <li>Technical SEO audits and fixes</li>
+                  <li>Content strategy built around commercial intent</li>
+                  <li>Monthly ranking and traffic reporting</li>
+                  </ul>
+                  <a class="ed-link sv-acc-cta" href="contact.html?src=service_card&from=services">Connect for this service <span
+                      class="ed-arrow" aria-hidden="true">→</span></a>
               </div>
             </div>
           </div>
         </article>
 
         <article class="sv-acc-card is-open">
-          <button class="sv-acc-head" type="button" id="acc-social-head" aria-expanded="true"
-            aria-controls="acc-social">
+          <button class="sv-acc-head" type="button" id="acc-social-head" aria-expanded="true" aria-controls="acc-social">
             <span class="sv-acc-title">Social Media</span>
             <span class="sv-acc-icon" aria-hidden="true"></span>
           </button>
@@ -278,19 +256,25 @@
             <div class="sv-acc-inner">
               <div class="sv-acc-content">
                 <p>
-                  We run the accounts start to finish, from content to posting to replies. Built to back
-                  the paid side, so your organic and paid pull in the same direction.
+                  Organic content should support business growth, not just fill a calendar.
+                  We build a consistent presence that strengthens trust, supports paid campaigns,
+                  and keeps your brand active where customers spend their time.
                 </p>
-                <a class="ed-link sv-acc-cta" href="contact.html?src=service_card&from=services">Talk to us about this <span class="ed-arrow"
-                    aria-hidden="true">→</span></a>
+                <ul class="phase-deliverables">
+                  <li>Monthly content planning and publishing</li>
+                  <li>Creative direction for posts and short-form video</li>
+                  <li>Community management and engagement</li>
+                  <li>Performance insights and content optimisation</li>
+                </ul>
+                <a class="ed-link sv-acc-cta" href="contact.html?src=service_card&from=services">Connect for this service <span
+                    class="ed-arrow" aria-hidden="true">→</span></a>
               </div>
             </div>
           </div>
         </article>
-
+        
         <article class="sv-acc-card is-open">
-          <button class="sv-acc-head" type="button" id="acc-web-head" aria-expanded="true"
-            aria-controls="acc-web">
+          <button class="sv-acc-head" type="button" id="acc-web-head" aria-expanded="true" aria-controls="acc-web">
             <span class="sv-acc-title">Web &amp; Funnel</span>
             <span class="sv-acc-icon" aria-hidden="true"></span>
           </button>
@@ -298,16 +282,24 @@
             <div class="sv-acc-inner">
               <div class="sv-acc-content">
                 <p>
-                  Landing pages and funnels built to convert the traffic you're already paying for. Most
-                  growth leaks happen here, not in the ad account.
+                  Great campaigns fail on weak landing pages. We build fast, conversion-focused
+                  websites and funnels designed to remove friction, capture more leads, and
+                  turn visitors into customers.
                 </p>
-                <a class="ed-link sv-acc-cta" href="contact.html?src=service_card&from=services">Talk to us about this <span class="ed-arrow"
-                    aria-hidden="true">→</span></a>
+        
+                <ul class="phase-deliverables">
+                  <li>Landing pages built for conversion</li>
+                  <li>Sales funnels and lead capture flows</li>
+                  <li>Analytics, event tracking and optimisation</li>
+                  <li>Speed and mobile performance improvements</li>
+                </ul>
+                <a class="ed-link sv-acc-cta" href="contact.html?src=service_card&from=services">Connect for this service <span
+                    class="ed-arrow" aria-hidden="true">→</span></a>
               </div>
             </div>
           </div>
         </article>
-
+        
         <article class="sv-acc-card is-open">
           <button class="sv-acc-head" type="button" id="acc-influencer-head" aria-expanded="true"
             aria-controls="acc-influencer">
@@ -318,11 +310,19 @@
             <div class="sv-acc-inner">
               <div class="sv-acc-content">
                 <p>
-                  Creators who actually move product, not just rack up views. We pick them on fit and
-                  performance, brief them properly, and track what each one returns.
+                  We focus on creators who influence buying decisions, not vanity metrics.
+                  Every collaboration is selected for audience fit, managed end-to-end, and
+                  measured against real business outcomes.
                 </p>
-                <a class="ed-link sv-acc-cta" href="contact.html?src=service_card&from=services">Talk to us about this <span class="ed-arrow"
-                    aria-hidden="true">→</span></a>
+        
+                <ul class="phase-deliverables">
+                  <li>Creator discovery and outreach</li>
+                  <li>Campaign planning and negotiation</li>
+                  <li>Content briefs and approval management</li>
+                  <li>Performance tracking and ROI reporting</li>
+                </ul>
+                <a class="ed-link sv-acc-cta" href="contact.html?src=service_card&from=services">Connect for this service <span
+                    class="ed-arrow" aria-hidden="true">→</span></a>
               </div>
             </div>
           </div>
@@ -418,8 +418,8 @@
       data-form-title="Tell us where growth is stuck"
       data-subject="Services page growth form — Scalebiz Marketing"
       data-submit-label="Send It — We'll Take a Look"
-      data-escape-title="Want the diagnosis first?"
-      data-escape-line="You've seen what we run and how we work — the free audit shows what's leaking in <em>your</em> funnel before you commit to anything."
+      data-escape-title="Not sure?"
+      data-escape-line="Not knowing what's blocking your growth is exactly the problem we solve."
       data-escape-label="Let's Figure It Out">
       <noscript>
         <div class="audit-inner">
