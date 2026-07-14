@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 # Blog post template is scaffolding, not a real page
-Disallow: /blog/post-template.html
+# (prefix match covers both /blog/post-template and the .html file)
+Disallow: /blog/post-template
 
 Sitemap: https://scalebizmarketing.com/sitemap.xml
