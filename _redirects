@@ -7,13 +7,28 @@
 https://www.scalebizmarketing.com/* https://scalebizmarketing.com/:splat 301!
 http://www.scalebizmarketing.com/*  https://scalebizmarketing.com/:splat 301!
 
-# Legal pages moved into /legal/ (2026-07-13)
-/privacy.html   /legal/privacy.html   301
-/terms.html     /legal/terms.html     301
-/cookies.html   /legal/cookies.html   301
-/privacy        /legal/privacy.html   301
-/terms          /legal/terms.html     301
-/cookies        /legal/cookies.html   301
+# Clean URLs: strip the .html extension so the address bar / indexed URL
+# is the page name only (e.g. /service, not /service.html). The `!` forces
+# the redirect — without it Netlify serves the physical .html file instead
+# of redirecting. The extensionless target is still served from the same
+# file (Netlify maps /service → service.html), so there is no loop.
+/index.html          /               301!
+/about.html          /about          301!
+/service.html        /service        301!
+/case-study.html     /case-study     301!
+/contact.html        /contact        301!
+/blog/index.html     /blog/          301!
+/legal/privacy.html  /legal/privacy  301!
+/legal/terms.html    /legal/terms    301!
+/legal/cookies.html  /legal/cookies  301!
+
+# Legal pages moved into /legal/ (2026-07-13) — now point at clean URLs
+/privacy.html   /legal/privacy   301
+/terms.html     /legal/terms     301
+/cookies.html   /legal/cookies   301
+/privacy        /legal/privacy   301
+/terms          /legal/terms     301
+/cookies        /legal/cookies   301
 
 # Blog rebuilt at /blog/ (was blogs.html)
 /blogs.html     /blog/                301
