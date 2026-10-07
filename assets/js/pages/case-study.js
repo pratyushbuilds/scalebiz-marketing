@@ -13,12 +13,15 @@
 
   const VIEW_W = 720;
   const points = [
-    { month: 'January',  cpm: 85,  cpl: 105, x: 50 },
-    { month: 'February', cpm: 125, cpl: 75,  x: 166 },
-    { month: 'March',    cpm: 110, cpl: 50,  x: 282 },
-    { month: 'April',    cpm: 120, cpl: 47,  x: 398 },
-    { month: 'May',      cpm: 155, cpl: 48,  x: 514 },
-    { month: 'June',     cpm: 125, cpl: 37,  x: 630 }
+    { month: 'January',   cpm: 85,  cpl: 105, x: 50 },
+    { month: 'February',  cpm: 125, cpl: 75,  x: 122.5 },
+    { month: 'March',     cpm: 110, cpl: 50,  x: 195 },
+    { month: 'April',     cpm: 120, cpl: 47,  x: 267.5 },
+    { month: 'May',       cpm: 155, cpl: 48,  x: 340 },
+    { month: 'June',      cpm: 125, cpl: 37,  x: 412.5 },
+    { month: 'July',      cpm: 85,  cpl: 43,  x: 485 },
+    { month: 'August',    cpm: 89,  cpl: 46,  x: 557.5 },
+    { month: 'September', cpm: 86,  cpl: 43,  x: 630 }
   ];
 
   const show = (i) => {
